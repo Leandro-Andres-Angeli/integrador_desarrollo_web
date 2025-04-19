@@ -1,0 +1,21 @@
+<div>data {{openModal |json}} </div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title"><i class="bi bi-question-square"></i> Nueva pregunta</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+        <div class="mb-3" >
+            <label for="">Ingrese pregunta</label>
+        <input   class="form-control" type="text" name="" id="">
+    </div>
+    <div class="mb-3">
+        <select class="form-select" aria-label="Default select example">
+            <option  value="0" selected>respuesta abierta</option>
+            <option value="1">respuesta cerrada</option>
+            
+          </select>
+    </div>
+	</div>
+</ng-template>
