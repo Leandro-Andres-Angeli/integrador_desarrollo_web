@@ -28,6 +28,7 @@ export class AddQuestionModalComponent {
   @Output() resetOpenModal = new EventEmitter<boolean>();
   openedModal?: NgbModalRef;
   openedModalSubs?: Subscription;
+  surveyState? : string ;
     addQuestionForm = new FormGroup({
    question : new FormControl(""),
     "answer-type" : new FormControl("0"),
@@ -38,12 +39,16 @@ export class AddQuestionModalComponent {
   constructor(private modalService: NgbModal) {}
    ngOnInit(){
     this.addQuestionForm.valueChanges.subscribe((res)=> {
-      console.log("value change"),
-      console.log(res)
-      if(res['answer-type']==="0"){
-        
-      }
+      this.surveyState = JSON.stringify(res)
     })
+    this.addQuestionForm.get("answer-type")?.valueChanges.subscribe((res)=> {
+        console.log("value change"),
+        console.log(res)
+        
+        if(res ==="0"){
+           this.addQuestionForm.patchValue({"selection-type":""})
+        }
+      })
    }
   ngOnChanges() {
     console.log(this.openModal);
