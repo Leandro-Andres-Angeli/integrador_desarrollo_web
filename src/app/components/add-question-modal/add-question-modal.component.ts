@@ -8,6 +8,7 @@ import {
   output,
   ViewChild,
 } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   NgbModal,
   NgbModalOptions,
@@ -17,7 +18,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-question-modal',
-  imports: [JsonPipe],
+  imports: [JsonPipe , ReactiveFormsModule],
   templateUrl: './add-question-modal.component.html',
   styleUrl: './add-question-modal.component.scss',
 })
@@ -27,9 +28,23 @@ export class AddQuestionModalComponent {
   @Output() resetOpenModal = new EventEmitter<boolean>();
   openedModal?: NgbModalRef;
   openedModalSubs?: Subscription;
+    addQuestionForm = new FormGroup({
+   question : new FormControl(""),
+    "answer-type" : new FormControl("0"),
+    "selection-type" : new FormControl("")
+  })
   @ViewChild('content') modalContent!: ElementRef;
-  constructor(private modalService: NgbModal) {}
 
+  constructor(private modalService: NgbModal) {}
+   ngOnInit(){
+    this.addQuestionForm.valueChanges.subscribe((res)=> {
+      console.log("value change"),
+      console.log(res)
+      if(res['answer-type']==="0"){
+        
+      }
+    })
+   }
   ngOnChanges() {
     console.log(this.openModal);
     if (this.openModal) {

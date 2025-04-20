@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { EncuestaService } from '../../services/encuesta.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-encuesta',
   templateUrl: './encuesta.component.html',
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule , JsonPipe]
 })
 export class EncuestaComponent implements OnInit {
   encuestas: any[] = [];
