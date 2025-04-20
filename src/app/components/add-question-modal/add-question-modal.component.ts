@@ -8,7 +8,7 @@ import {
   output,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   NgbModal,
   NgbModalOptions,
@@ -28,12 +28,16 @@ export class AddQuestionModalComponent {
   @Output() resetOpenModal = new EventEmitter<boolean>();
   openedModal?: NgbModalRef;
   openedModalSubs?: Subscription;
+  formChangesSub?  : Subscription; 
   surveyState? : string ;
-    addQuestionForm = new FormGroup({
-   question : new FormControl(""),
-    "answer-type" : new FormControl("0"),
-    "selection-type" : new FormControl("")
+    addQuestionForm = new FormGroup< {question : FormControl<string | null> , "answer-type" : FormControl<string | null>,"selection-type"?:FormControl<string | null> , options?:FormArray}>({
+       question : new FormControl("" , [Validators.required]),
+       "answer-type" : new FormControl("0"),
+     
+     "selection-type" : new FormControl(""),
+ 
   })
+ 
   @ViewChild('content') modalContent!: ElementRef;
 
   constructor(private modalService: NgbModal) {}
@@ -41,12 +45,17 @@ export class AddQuestionModalComponent {
     this.addQuestionForm.valueChanges.subscribe((res)=> {
       this.surveyState = JSON.stringify(res)
     })
-    this.addQuestionForm.get("answer-type")?.valueChanges.subscribe((res)=> {
+   this.formChangesSub =  this.addQuestionForm.get("answer-type")?.valueChanges.subscribe((res)=> {
         console.log("value change"),
         console.log(res)
         
         if(res ==="0"){
-           this.addQuestionForm.patchValue({"selection-type":""})
+           this.addQuestionForm.removeControl("selection-type")
+           this.addQuestionForm.removeControl("options")
+        }
+        else {
+          this.addQuestionForm.addControl("options",new FormArray([new FormControl("option one")]) )
+          this.addQuestionForm.addControl("selection-type" , new FormControl())
         }
       })
    }
@@ -61,7 +70,18 @@ export class AddQuestionModalComponent {
   
     }
   }
+  handleAddOption(el : HTMLInputElement){
+     const formArray =  this.addQuestionForm.get("options") as FormArray
+    
+     formArray.push(new FormControl(el.value))
+     el.value = ''
+  }
+  handleRemoveFormArray(idx : number){
+    const formArray =  this.addQuestionForm.get("options") as FormArray
+    formArray.removeAt(idx)
+  }
   ngOnDestroy() {
     this.openedModalSubs?.unsubscribe();
+    this.formChangesSub?.unsubscribe()
   }
 }

@@ -63,20 +63,43 @@
     </div>
     } @if( !!addQuestionForm.get("selection-type")?.value){
     <div class="mb-3 d-flex justify-content-between gap-1 align-items-end">
-     
-          <label for="" class="flex-grow-1"
-            >Agregar opcion
-            <input class="form-control" type="text" />
-          </label>
-      
-            <button class="btn btn-outline-primary" type="button">
-              <i class="bi bi-plus-square-dotted"></i>
-            </button>
-        
-        
-      </div>
+      <label for="" class="flex-grow-1"
+        >Agregar opcion
+        <input class="form-control" #optionsInput type="text" />
+      </label>
+
+      <button
+    
+        class="btn btn-outline-primary"
+        (click)="handleAddOption(optionsInput)"
+        type="button"
+      >
+        <i class="bi bi-plus-square-dotted"></i>
+      </button>
+    </div>
+    <div class="mb-3" formArrayName="options">
+      <fieldset>
+        <legend class="text-capitalize">opciones respuesta</legend>
+        @for (option of addQuestionForm.get("options")?.value ; track $index) {
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-10">
+              <input class="form-control" type="text" [placeholder]="option" />
+            </div>
+            @if($index !== 0){
+            <div class="col-auto">
+              <button class="btn btn-outline-danger" (click)="handleRemoveFormArray($index)">
+                <i class="bi bi-trash2"></i>
+              </button>
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </fieldset>
+    </div>
 
     }
   </form>
-  {{surveyState}}
+  {{ surveyState }}
 </ng-template>
