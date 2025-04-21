@@ -12,7 +12,7 @@
   </div>
   <form [formGroup]="addQuestionForm" class="modal-body">
     <div class="mb-3">
-      <label for="">Ingrese pregunta</label>
+      <label class="form-label" for="">Ingrese pregunta</label>
       <input
         formControlName="question"
         name="question"
@@ -36,7 +36,9 @@
 
     @if(addQuestionForm.get("answer-type")?.value === "1"){
     <div class="mb-3">
-      <label for="">Seleccion simple o seleccion multiple ? </label>
+      <label class="form-label" for=""
+        >Seleccion simple o seleccion multiple ?
+      </label>
       <br />
       <div class="form-check form-check form-check-inline">
         <label class="form-check-label" for="simple">Simple</label>
@@ -62,33 +64,57 @@
       </div>
     </div>
     } @if( !!addQuestionForm.get("selection-type")?.value){
-    <div class="mb-3 d-flex justify-content-between gap-1 align-items-end">
-      <label for="" class="flex-grow-1"
-        >Agregar opcion
-        <input class="form-control" #optionsInput type="text" />
-      </label>
+    <div class="mb-3 w-100">
+      <div class="row">
+        <div class="col-10">
+          <label for="" class="form-label w-100"
+            >Agregar opcion
 
-      <button
-    
-        class="btn btn-outline-primary"
-        (click)="handleAddOption(optionsInput)"
-        type="button"
-      >
-        <i class="bi bi-plus-square-dotted"></i>
-      </button>
+            <input
+              name="options"
+              class="form-control"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="options"
+              type="text"
+            />
+          </label>
+        </div>
+        <div class="col-auto mt-4">
+
+          <button
+            [disabled]="!options.trim().length"
+            class="btn btn-outline-primary"
+            (click)="handleAddOption()"
+            type="button"
+            aria-roledescription="button"
+          >
+            <i class="bi bi-plus-square-dotted"></i>
+          </button>
+        </div>
+      </div>
     </div>
+    @if(!!addQuestionForm.get("options") &&
+    !!addQuestionForm.get("options")?.value?.length ){
     <div class="mb-3" formArrayName="options">
       <fieldset>
-        <legend class="text-capitalize">opciones respuesta</legend>
+        <legend class="text-capitalize form-label">opciones respuesta</legend>
         @for (option of addQuestionForm.get("options")?.value ; track $index) {
         <div class="mb-3">
           <div class="row">
             <div class="col-10">
-              <input class="form-control" type="text" [placeholder]="option" />
+              <input
+                readonly
+                class="form-control"
+                type="text"
+                [placeholder]="option"
+              />
             </div>
             @if($index !== 0){
             <div class="col-auto">
-              <button class="btn btn-outline-danger" (click)="handleRemoveFormArray($index)">
+              <button
+                class="btn btn-outline-danger"
+                (click)="handleRemoveFormArray($index)"
+              >
                 <i class="bi bi-trash2"></i>
               </button>
             </div>
@@ -98,8 +124,13 @@
         }
       </fieldset>
     </div>
-
-    }
+    } }
+    <div class="button-group mt-4">
+      <button class="btn btn-primary text-capitalize" type="submit"><i class="bi bi-plus-square-dotted"></i> agregar pregunta</button>
+      <button class="btn btn-danger text-capitalize ms-1" type="reset"><i class="bi bi-backspace"></i> reset</button>
+      <button class="btn btn-danger text-capitalize ms-1" type="button" (click)="modal.dismiss()"><i class="bi bi-backspace"></i>cancelar</button>
+    </div>
+    
   </form>
-  {{ surveyState }}
+ 
 </ng-template>
