@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ElementRef, Input, TemplateRef } from '@angular/core';
+
 @Component({
   selector: 'app-navbar',
-  imports: [NgbDropdownModule , RouterLink],
+  imports: [],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  @Input()
+ surveyForm!  : HTMLFormElement
+ handleFormSubmit(){
+  console.log(this.surveyForm)
+ }
 }

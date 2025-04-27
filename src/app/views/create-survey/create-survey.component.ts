@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { CreateSurveryFormComponent } from '../../components/create-survery-form/create-survery-form.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-create-survey',
-  imports: [CreateSurveryFormComponent],
+  imports: [NavbarComponent],
   templateUrl: './create-survey.component.html',
   styleUrl: './create-survey.component.scss'
 })
 export class CreateSurveyComponent {
-
+ handleSubmit(e : Event){
+  e.preventDefault()
+  console.log("prevented")
+ }
 }

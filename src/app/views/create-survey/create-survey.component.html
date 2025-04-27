@@ -1,1 +1,8 @@
-<app-create-survery-form></app-create-survery-form>
+<app-navbar [surveyForm]="form" ></app-navbar>
+<main>
+  <form  (submit)="handleSubmit($event)" id="survey-form" action="" #form >
+    <input type="text" name="titulo" placeholder="Escribir Titulo" />
+  </form>
+
+  <a routerLink="/"> Eliminar</a>
+</main>
