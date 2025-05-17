@@ -1,0 +1,61 @@
+/* Estructura principal */
+.navbar {
+  background-color: #1e1e1e; /* fondo neutro claro */
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+.encuesta-formulario {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.encuesta-formulario-contenido {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  gap: 16px;
+}
+
+.input-titulo {
+  flex: 1;
+  height: 40px;
+  padding: 10px;
+  border-radius: 8px;
+  border: #1e1e1e solid 1px;
+  background-color: #FFFCFC;
+  color: #555555;
+}
+
+.btn-listo {
+  height: 40px;
+}
+
+.acciones-encuesta {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.boton-eliminar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 40px 60px 0 auto;
+}
