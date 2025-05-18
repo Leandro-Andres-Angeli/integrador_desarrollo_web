@@ -37,7 +37,7 @@ export class EstadisticasComponent implements OnInit {
   datos: any;
   preguntas: any;
   respuestas: any = {};
-
+  nombre: string = '';
   options: any;
   constructor(
     private estadisticasService: EstadisticasService,
@@ -53,6 +53,7 @@ export class EstadisticasComponent implements OnInit {
         next: (res) => {
           this.datos = res;
           this.preguntas = res.preguntas;
+          this.nombre = res.nombre;
           this.preguntas.sort(
             (a: { numero: number }, b: { numero: number }) =>
               a.numero - b.numero
