@@ -1,12 +1,12 @@
 @import "primeflex/primeflex.css";
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:wght@400;500;700&display=swap");
 
 /* Reset básico */
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   color: #010101;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -18,21 +18,21 @@ body {
 
 /* Estilos bottones */
 .p-button.accent {
-  background-color: #A663CC !important;
+  background-color: #a663cc !important;
   color: #000000 !important;
   font-weight: bold !important;
   border: none !important;
 }
 
 .p-button.accent:hover {
-  background-color: #B9FAF8 !important;
+  background-color: #b9faf8 !important;
   color: #000000 !important;
   font-weight: bold !important;
   border: none !important;
 }
 
 .p-button.secondary {
-  background-color: #B9FAF8 !important;
+  background-color: #b9faf8 !important;
   color: #000 !important;
   border: none !important;
 }
@@ -50,7 +50,7 @@ body {
 }
 
 .p-button.primary:hover {
-  background-color: #A663CC !important;
+  background-color: #a663cc !important;
   color: #ffffff !important;
   border: none !important;
 }
@@ -62,7 +62,7 @@ body {
 }
 
 .p-button.neutral-blanco-borde-negro {
-  background-color: #FFFCFC !important;
+  background-color: #fffcfc !important;
   color: #010101 !important;
   border: 1px solid #010101 !important;
 }
@@ -75,4 +75,9 @@ body {
   background-color: #c5c4c4 !important;
   color: #010101 !important;
   border: none !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+  display: flex;
 }
