@@ -11,18 +11,44 @@
 <section class="welcome">
   <div class="welcome-text">
     <h1>¡Te damos la bienvenida!</h1>
-    <h2>Creá una encuesta y compartila con quien quieras<br>
-       <strong>sin iniciar sesión.</strong>
+    <h2>
+      Creá una encuesta y compartila con quien quieras<br />
+      <strong>sin iniciar sesión.</strong>
     </h2>
-    <button routerLink="crearEncuesta" label="Crear encuesta" class="p-button-primario">
+    <button
+      routerLink="crearEncuesta"
+      label="Crear encuesta"
+      class="p-button-primario"
+    >
       Crear encuesta
     </button>
+
+    <!-- para testear los resultados -->
+    <div class="mt-2">
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-user"></i>
+        </p-inputgroup-addon>
+        <input pInputText [(ngModel)]="codigo" placeholder="Codigo" />
+        <input pInputText [(ngModel)]="id" placeholder="id" /><p-button
+          [routerLink]="['/estadisticas', id]"
+          [queryParams]="{ codigo: codigo }"
+          label=""
+          class="p-button-primario"
+        >
+          Ver resultados
+        </p-button>
+      </p-inputgroup>
+    </div>
+    <!-- para testear los resultados -->
   </div>
 
   <div class="welcome-image">
-    <img src="assets/images/home/clipboard-welcome.svg" 
-         alt="check list"
-         class="imagen-home" />
+    <img
+      src="assets/images/home/clipboard-welcome.svg"
+      alt="check list"
+      class="imagen-home"
+    />
   </div>
 </section>
 
