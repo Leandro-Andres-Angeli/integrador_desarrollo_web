@@ -15,6 +15,7 @@ import { ChartModule } from 'primeng/chart';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 @Component({
   selector: 'app-estadisticas',
+  styleUrls: ['./estadisticas.component.css'],
   templateUrl: './estadisticas.component.html',
   imports: [
     ButtonModule,
