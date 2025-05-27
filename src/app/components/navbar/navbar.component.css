@@ -1,0 +1,27 @@
+/* Estructura principal */
+.navbar {
+  /* position: fixed; */
+  top: 0;
+  /* width: 100vw;
+  z-index: 100; */
+  background-color: #1e1e1e; /* fondo neutro claro */
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
