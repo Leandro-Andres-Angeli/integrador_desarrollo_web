@@ -7,16 +7,16 @@ import { Error404Component } from './components/Errores/error404/error404.compon
 export const routes: Routes = [
   {
     path: '',
-      component: HomeComponent,
+    component: HomeComponent,
   },
   {
     path: 'crearEncuesta',
-      component: CrearEncuestaComponent,
+    component: CrearEncuestaComponent,
   },
   {
     path: 'error404',
-      component: Error404Component,        
-},
+    component: Error404Component,
+  },
   {
     path: 'estadisticas/:id',
     loadComponent: () =>
