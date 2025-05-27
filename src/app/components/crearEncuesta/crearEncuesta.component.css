@@ -1,61 +1,177 @@
-/* Estructura principal */
-.navbar {
-  background-color: #1e1e1e; /* fondo neutro claro */
+.encuesta-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #FFFCFC;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.navbar-content {
+.titulo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+#input-nombre {
+  width: 100%;
+  max-width: 400px;
+}
+
+.input-pregunta {
+  font-size: 1rem;
+  width: 70%;
+  height: 44px;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #1e1e1e;
+  background-color: #FFFCFC;
+  color: #333;
+}
+
+.titulo-texto {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.pregunta-item {
+  background-color: #fff;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.botones-añadir-eliminar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1300px;
-  margin: 0 auto;
+  margin-top: 3rem;
 }
 
-/* Logo */
-.navbar-logo {
-  height: 60px;
-}
-
-/* Botones alineados */
-.navbar-buttons {
-  display: flex;
-  align-items: center;
-}
-.encuesta-formulario {
-  display: flex;
-  justify-content: center;
-  margin-top: 60px;
-}
-
-.encuesta-formulario-contenido {
-  display: flex;
-  align-items: center;
-  width: 70%;
-  gap: 16px;
-}
-
-.input-titulo {
+.boton-centro {
+  margin-bottom: 2rem;
   flex: 1;
-  height: 40px;
-  padding: 10px;
-  border-radius: 8px;
-  border: #1e1e1e solid 1px;
-  background-color: #FFFCFC;
-  color: #555555;
+}
+.boton-eliminar {
+  margin-top: 2rem;
 }
 
-.btn-listo {
-  height: 40px;
-}
-
-.acciones-encuesta {
+.boton-centro {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.obligatorio-switch {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
 }
 
 .boton-eliminar {
   display: flex;
   justify-content: flex-end;
-  margin: 40px 60px 0 auto;
+  flex: 1;
+}
+
+/* Estilo para dropdown */
+.p-dropdown {
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  width: 27%;
+  height: 44px;
+  align-items: center;
+  padding: 0 0.5rem;
+  font-size: 0.95rem;
+  color: #555555;
+}
+
+.dropdown-estilizado {
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  height: 44px;
+  padding: 0 0.5rem;
+  font-size: 0.95rem;
+  color: #555555 !important;
+}
+
+.input-opcion {
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  height: 44px;
+  padding: 0 1.5rem;
+  font-size: 0.95rem;
+  color: #555555 !important;
+}
+
+/* Estilo para botones generales */
+.p-button {
+  border-radius: 8px !important;
+}
+
+/* Personalización del p-toggleSwitch de PrimeNG */
+:host ::ng-deep .p-toggleswitch {
+  width: 44px !important;
+  height: 24px !important;
+  min-width: 44px !important;
+  min-height: 24px !important;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .p-toggleswitch .p-toggleswitch-slider {
+  background: #c5c4c4 !important; /* desactivado */
+  border-radius: 20px !important;
+  transition: background 0.2s;
+}
+
+:host ::ng-deep .p-toggleswitch.p-highlight .p-toggleswitch-slider {
+  background:#A663CC !important; /* activado */
+}
+
+:host ::ng-deep .p-toggleswitch .p-toggleswitch-slider:before {
+  background: #fff !important;
+  /* box-shadow: 0 2px 6px rgba(166, 99, 204, 0.10); */
+}
+
+:host ::ng-deep .p-toggleswitch.p-highlight .p-toggleswitch-slider:before {
+  background: #fff !important;
+  /* box-shadow: 0 2px 6px rgba(166, 99, 204, 0.20); */
+}
+
+/* Opcional: agranda el switch para mejor visibilidad */
+:host ::ng-deep .p-toggleswitch {
+  width: 42px !important;
+  height: 24px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .titulo-container,
+  .pregunta-vista,
+  .botones-añadir-eliminar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .acciones {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

@@ -1,0 +1,15 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
+
+    <div class="navbar-buttons" *ngIf="!modoVistaPrevia">
+      <p-button label="Vista previa" styleClass="secundario" (click)="vistaPreviaClick.emit()"></p-button>
+      <p-button label="Finalizar" styleClass="acento ml-4 px-6" (click)="finalizarClick.emit()"></p-button>
+    </div>
+
+    <div class="navbar-buttons" *ngIf="modoVistaPrevia">
+      <p-button label="Regresar" styleClass="secundario" (click)="salirClick.emit()"></p-button>
+      <p-button label="Finalizar" styleClass="acento ml-4 px-6" (click)="finalizarClick.emit()"></p-button>
+    </div>
+  </div>
+</header>
