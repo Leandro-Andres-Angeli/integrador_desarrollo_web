@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
 import { EncuestasService } from '../../services/encuestas.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChangeDetectorRef } from '@angular/core';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { SelectModule } from 'primeng/select';
+import { TiposRespuestaEnum, tiposPreguntaPresentacion } from '../../enums/tipos-pregunta.enum';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -24,8 +25,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     RouterModule,
     FloatLabelModule,
     ReactiveFormsModule,
-    FormsModule,
-    DropdownModule,
+    SelectModule,
     CheckboxModule,     
     RadioButtonModule,
     ToggleSwitchModule 
@@ -39,11 +39,10 @@ export class CrearEncuestaComponent {
   tituloEditando = true;
   modoVistaPrevia = false;
 
-  tiposRespuesta = [
-    { label: 'Respuesta abierta', value: 'abierta' },
-    { label: 'Respuesta simple', value: 'opcion_simple' },
-    { label: 'Respuesta múltiple', value: 'opcion_multiple' },
-  ];
+  tiposRespuesta = tiposPreguntaPresentacion.map((t) => ({
+    label: t.presentacion, 
+    value: t.tipo         
+  }));
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -51,14 +50,14 @@ export class CrearEncuestaComponent {
     private encuestasService: EncuestasService
   ) {
     this.encuestaForm = this.fb.group({
-      titulo: ['', Validators.required],
+      nombre: ['', Validators.required],
       preguntas: this.fb.array([])
     });
   }
 
   // Getters
   get tituloControl(): FormControl {
-    return this.encuestaForm.get('titulo') as FormControl;
+    return this.encuestaForm.get('nombre') as FormControl;
   }
 
   get preguntas(): FormArray {
@@ -125,12 +124,10 @@ export class CrearEncuestaComponent {
   activarVistaPrevia() {
     this.modoVistaPrevia = true;
     console.log('Modo vista previa activado');
-    // this.cdr.detectChanges();
   }
 
   salirVistaPrevia() {
     this.modoVistaPrevia = false;
-    // this.cdr.detectChanges();
   }
 
   finalizarEncuesta() {
@@ -142,23 +139,24 @@ export class CrearEncuestaComponent {
     const preguntasData = this.preguntasFormGroups.map((p, i) => ({
       numero: i + 1,
       texto: p.get('texto')?.value,
-      tipoRespuesta: p.get('tipo')?.value,
-      seleccionMultiple: p.get('tipo')?.value === 'opcion_multiple',
-      opciones: this.getOpciones(p).value.filter((op: string) => !!op?.trim())
+      tipo: p.get('tipo')?.value,
+      opciones: (
+        p.get('tipo')?.value === TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
+        p.get('tipo')?.value === TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
+      )
+        ? this.getOpciones(p).controls.map((ctrl, idx) => ({
+            texto: ctrl.value,
+            numero: idx + 1
+          }))
+        : [] 
     }));
 
-    this.encuestasService.crearEncuesta({ nombre: titulo }).subscribe({
-      next: (encuestaCreada: any) => {
-        const encuestaId = encuestaCreada.id;
-        preguntasData.forEach(pregunta => {
-          this.encuestasService.crearPregunta({ ...pregunta, encuestaId }).subscribe();
-        });
-        this.encuestasService.notificarRefresco(); // <-- refresca la tabla
-        alert('¡Encuesta guardada correctamente!');
-      },
-      error: (err: any) => {
-        alert('Error al guardar la encuesta. Intenta más tarde.');
-      }
+    this.encuestasService.crearEncuesta({
+      nombre: this.tituloControl.value,
+      preguntas: preguntasData
+    }).subscribe({
+      next: () => alert('¡Encuesta guardada correctamente!'),
+      error: () => alert('Error al guardar la encuesta. Intenta más tarde.')
     });
   }
 
@@ -170,5 +168,10 @@ export class CrearEncuestaComponent {
     this.tituloEditando = true;
 
     console.log('Encuesta eliminada');
+  }
+
+  getPresentacionTipo(tipo: string): string {
+    const encontrado = tiposPreguntaPresentacion.find(t => t.tipo === tipo);
+    return encontrado ? encontrado.presentacion : tipo;
   }
 }
