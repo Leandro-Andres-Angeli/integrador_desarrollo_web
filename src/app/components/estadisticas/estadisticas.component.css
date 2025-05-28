@@ -4,4 +4,18 @@
   gap: 1rem;
   margin: 0 2rem 2rem;
   justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.container {
+  margin: 0 2rem 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+button {
+  width: fit-content;
 }

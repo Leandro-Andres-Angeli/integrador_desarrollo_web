@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -12,7 +19,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChangeDetectorRef } from '@angular/core';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { SelectModule } from 'primeng/select';
-import { TiposRespuestaEnum, tiposPreguntaPresentacion } from '../../enums/tipos-pregunta.enum';
+import {
+  TiposRespuestaEnum,
+  tiposPreguntaPresentacion,
+} from '../../enums/tipos-pregunta.enum';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -26,13 +36,13 @@ import { TiposRespuestaEnum, tiposPreguntaPresentacion } from '../../enums/tipos
     FloatLabelModule,
     ReactiveFormsModule,
     SelectModule,
-    CheckboxModule,     
+    CheckboxModule,
     RadioButtonModule,
-    ToggleSwitchModule 
+    ToggleSwitchModule,
   ],
   providers: [EncuestasService],
   templateUrl: './crearEncuesta.component.html',
-  styleUrl: './crearEncuesta.component.css'
+  styleUrl: './crearEncuesta.component.css',
 })
 export class CrearEncuestaComponent {
   encuestaForm: FormGroup;
@@ -40,8 +50,8 @@ export class CrearEncuestaComponent {
   modoVistaPrevia = false;
 
   tiposRespuesta = tiposPreguntaPresentacion.map((t) => ({
-    label: t.presentacion, 
-    value: t.tipo         
+    label: t.presentacion,
+    value: t.tipo,
   }));
 
   constructor(
@@ -51,7 +61,7 @@ export class CrearEncuestaComponent {
   ) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
-      preguntas: this.fb.array([])
+      preguntas: this.fb.array([]),
     });
   }
 
@@ -85,7 +95,7 @@ export class CrearEncuestaComponent {
       tipo: ['abierta', Validators.required],
       obligatoria: [false],
       editando: [true],
-      opciones: this.fb.array([])
+      opciones: this.fb.array([]),
     });
     this.preguntas.push(pregunta);
   }
@@ -93,7 +103,6 @@ export class CrearEncuestaComponent {
   getOpciones(pregunta: FormGroup): FormArray {
     return pregunta.get('opciones') as FormArray;
   }
-
 
   anadirOpcion(pregunta: FormGroup) {
     const opciones = pregunta.get('opciones') as FormArray;
@@ -140,26 +149,31 @@ export class CrearEncuestaComponent {
       numero: i + 1,
       texto: p.get('texto')?.value,
       tipo: p.get('tipo')?.value,
-      opciones: (
-        p.get('tipo')?.value === TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
-        p.get('tipo')?.value === TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
-      )
-        ? this.getOpciones(p).controls.map((ctrl, idx) => ({
-            texto: ctrl.value,
-            numero: idx + 1
-          }))
-        : [] 
+      opciones:
+        p.get('tipo')?.value ===
+          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
+        p.get('tipo')?.value ===
+          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
+          ? this.getOpciones(p).controls.map((ctrl, idx) => ({
+              texto: ctrl.value,
+              numero: idx + 1,
+            }))
+          : [],
     }));
 
-    this.encuestasService.crearEncuesta({
-      nombre: this.tituloControl.value,
-      preguntas: preguntasData
-    }).subscribe({
-      next: () => alert('¡Encuesta guardada correctamente!'),
-      error: () => alert('Error al guardar la encuesta. Intenta más tarde.')
-    });
+    this.encuestasService
+      .crearEncuesta({
+        nombre: this.tituloControl.value,
+        preguntas: preguntasData,
+      })
+      .subscribe({
+        next: (res) => {
+          console.log('res', res);
+          alert('¡Encuesta guardada correctamente!');
+        },
+        error: () => alert('Error al guardar la encuesta. Intenta más tarde.'),
+      });
   }
-
 
   eliminarEncuesta() {
     // Simplemente reiniciamos el formulario:
@@ -171,7 +185,7 @@ export class CrearEncuestaComponent {
   }
 
   getPresentacionTipo(tipo: string): string {
-    const encontrado = tiposPreguntaPresentacion.find(t => t.tipo === tipo);
+    const encontrado = tiposPreguntaPresentacion.find((t) => t.tipo === tipo);
     return encontrado ? encontrado.presentacion : tipo;
   }
 }
