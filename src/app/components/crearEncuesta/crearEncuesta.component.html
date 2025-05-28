@@ -7,39 +7,68 @@
 ></app-navbar>
 
 <!-- MODO EDICIÓN -->
-<div *ngIf="!modoVistaPrevia" [formGroup]="encuestaForm" class="encuesta-container">
-
+<div
+  *ngIf="!modoVistaPrevia"
+  [formGroup]="encuestaForm"
+  class="encuesta-container"
+>
   <!-- TÍTULO -->
   <div class="titulo-container">
     <ng-container *ngIf="tituloEditando; else verTitulo">
       <p-floatlabel>
-        <input id="input-nombre" pInputText formControlName="nombre" autocomplete="off" />
+        <input
+          id="input-nombre"
+          pInputText
+          formControlName="nombre"
+          autocomplete="off"
+        />
         <label for="input-nombre">Escribir título</label>
       </p-floatlabel>
-      <p-button label="Listo" icon="pi pi-check" styleClass="neutral" (click)="guardarTitulo()" [disabled]="tituloControl.invalid"></p-button>
+      <p-button
+        label="Listo"
+        icon="pi pi-check"
+        styleClass="neutral"
+        (click)="guardarTitulo()"
+        [disabled]="tituloControl.invalid"
+      ></p-button>
     </ng-container>
 
     <ng-template #verTitulo>
       <h2 (click)="editarTitulo()" class="titulo-texto">
         {{ tituloControl.value || "Haz clic para agregar un título" }}
       </h2>
-      <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="editarTitulo()"></button>
+      <button
+        pButton
+        icon="pi pi-pencil"
+        class="p-button-rounded p-button-text"
+        (click)="editarTitulo()"
+      ></button>
     </ng-template>
   </div>
 
   <!-- PREGUNTAS -->
-  <div *ngFor="let pregunta of preguntasFormGroups; let i = index" [formGroup]="pregunta" class="pregunta-item">
-
+  <div
+    *ngFor="let pregunta of preguntasFormGroups; let i = index"
+    [formGroup]="pregunta"
+    class="pregunta-item"
+  >
     <ng-container *ngIf="pregunta.get('editando')?.value; else preguntaVista">
-      <input type="text" pInputText formControlName="texto" placeholder="Escribe tu pregunta..." class="input-pregunta" />
+      <input
+        type="text"
+        pInputText
+        formControlName="texto"
+        placeholder="Escribe tu pregunta..."
+        class="input-pregunta"
+      />
       <p-select
         [options]="tiposRespuesta"
         formControlName="tipo"
         class="dropdown-estilizado p-select"
-        inputId="tipo-pregunta-{{i}}"
+        inputId="tipo-pregunta-{{ i }}"
         aria-label="Tipo de respuesta"
+        [autocapitalize]="true"
       ></p-select>
-      <br>
+      <br />
       <!-- <div class="flex items-center gap-2 obligatorio-switch">
         <p-toggleSwitch
           id="obligatoria-switch"
@@ -48,16 +77,22 @@
         ></p-toggleSwitch>
         <label for="obligatoria-switch" class="mr-2">Obligatorio</label>
       </div> -->
-      
+
       <!-- Opciones -->
       <div
-        *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' || pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'"
+        *ngIf="
+          pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' ||
+          pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'
+        "
         formArrayName="opciones"
         class="mt-4"
         aria-label="Opciones de respuesta"
       >
         <div
-          *ngFor="let opcionCtrl of getOpciones(pregunta).controls; let j = index"
+          *ngFor="
+            let opcionCtrl of getOpciones(pregunta).controls;
+            let j = index
+          "
           class="flex items-center gap-2 mb-2"
         >
           <input
@@ -89,8 +124,18 @@
       </div>
 
       <div class="acciones">
-        <p-button icon="pi pi-times" label="Cancelar" styleClass="neutral-blanco-borde-negro mr-2 text-12" (click)="cancelarEdicion(pregunta)"></p-button>
-        <p-button icon="pi pi-check" label="Listo" styleClass="primario text-12" (click)="guardarPregunta(pregunta)"></p-button>
+        <p-button
+          icon="pi pi-times"
+          label="Cancelar"
+          styleClass="neutral-blanco-borde-negro mr-2 text-12"
+          (click)="cancelarEdicion(pregunta)"
+        ></p-button>
+        <p-button
+          icon="pi pi-check"
+          label="Listo"
+          styleClass="primario text-12"
+          (click)="guardarPregunta(pregunta)"
+        ></p-button>
       </div>
     </ng-container>
 
@@ -98,24 +143,46 @@
     <ng-template #preguntaVista>
       <div class="pregunta-vista">
         <span>
-          {{ pregunta.get("texto")?.value }} ({{ getPresentacionTipo(pregunta.get("tipo")?.value) }})
+          {{ pregunta.get("texto")?.value }} ({{
+            getPresentacionTipo(pregunta.get("tipo")?.value)
+          }})
         </span>
         <div class="acciones">
-          <p-button label="Editar" icon="pi pi-pencil" styleClass="primario text-12" (click)="editarPregunta(pregunta)"></p-button>
-          <p-button label="Borrar" icon="pi pi-trash" styleClass="primario text-12" (click)="eliminarPregunta(i)"></p-button>
+          <p-button
+            label="Editar"
+            icon="pi pi-pencil"
+            styleClass="primario text-12"
+            (click)="editarPregunta(pregunta)"
+          ></p-button>
+          <p-button
+            label="Borrar"
+            icon="pi pi-trash"
+            styleClass="primario text-12"
+            (click)="eliminarPregunta(i)"
+          ></p-button>
         </div>
       </div>
     </ng-template>
-
   </div>
 
   <!-- BOTONES -->
   <div class="botones-añadir-eliminar">
     <div class="boton-centro">
-      <button pButton type="button" (click)="anadirPregunta()" label="+ Añadir pregunta" class="p-button primario"></button>
+      <button
+        pButton
+        type="button"
+        (click)="anadirPregunta()"
+        label="+ Añadir pregunta"
+        class="p-button primario"
+      ></button>
     </div>
     <div class="boton-eliminar">
-      <p-button label="Eliminar" icon="pi pi-trash" styleClass="neutral-blanco-borde-negro font-semibold px-4 py-2 md" (click)="eliminarEncuesta()"></p-button>
+      <p-button
+        label="Eliminar"
+        icon="pi pi-trash"
+        styleClass="neutral-blanco-borde-negro font-semibold px-4 py-2 md"
+        (click)="eliminarEncuesta()"
+      ></p-button>
     </div>
   </div>
 </div>
@@ -124,23 +191,46 @@
 <div *ngIf="modoVistaPrevia" class="encuesta-container">
   <h2 class="titulo-texto">{{ tituloControl.value }}</h2>
 
-  <div *ngFor="let pregunta of preguntasFormGroups; let i = index" class="pregunta-item">
-    <p><strong>{{ i + 1 }}. {{ pregunta.get("texto")?.value }}</strong></p>
+  <div
+    *ngFor="let pregunta of preguntasFormGroups; let i = index"
+    class="pregunta-item"
+  >
+    <p>
+      <strong>{{ i + 1 }}. {{ pregunta.get("texto")?.value }}</strong>
+    </p>
 
     <!-- Abierta -->
-    <input *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'" type="text" pInputText disabled placeholder="Respuesta..." />
+    <input
+      *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'"
+      type="text"
+      pInputText
+      disabled
+      placeholder="Respuesta..."
+    />
 
     <!-- Opción simple -->
-    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
-      <div *ngFor="let opcion of getOpciones(pregunta).controls; let j = index" class="flex items-center my-1">
+    <div
+      *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE'"
+    >
+      <div
+        *ngFor="let opcion of getOpciones(pregunta).controls; let j = index"
+        class="flex items-center my-1"
+      >
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">{{ opcion.value }}</label>
       </div>
     </div>
 
     <!-- Opción múltiple -->
-    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'">
-      <div *ngFor="let opcion of getOpciones(pregunta).controls; let j = index" class="flex items-center gap-2 my-1">
+    <div
+      *ngIf="
+        pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'
+      "
+    >
+      <div
+        *ngFor="let opcion of getOpciones(pregunta).controls; let j = index"
+        class="flex items-center gap-2 my-1"
+      >
         <span class="pi pi-stop p-component p-disabled"></span>
         <label class="ml-2">{{ opcion.value }}</label>
       </div>
@@ -148,4 +238,3 @@
   </div>
   <p-button styleClass="acento ">Enviar</p-button>
 </div>
-

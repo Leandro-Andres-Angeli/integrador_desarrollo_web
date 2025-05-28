@@ -1,5 +1,12 @@
-<button pButton severity="success" [routerLink]="''">Home</button>
+@if(error){
+<div class="container">
+  <p-message severity="warn">{{ error }}</p-message>
+  <button pButton severity="success" [routerLink]="''">Home</button>
+</div>
+} @else {
+
 <div class="estadisticas">
+  <button pButton severity="success" [routerLink]="''">Home</button>
   <h1 *ngIf="nombre">{{ nombre }}</h1>
 
   <p-card *ngFor="let pregunta of preguntas">
@@ -41,3 +48,4 @@
     </p-fieldset>
   </p-card>
 </div>
+}
