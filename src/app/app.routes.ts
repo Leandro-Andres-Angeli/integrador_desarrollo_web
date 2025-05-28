@@ -4,6 +4,7 @@ import { CrearEncuestaComponent } from './components/crearEncuesta/creaEncuesta.
 import { HomeComponent } from './views/home/home.component';
 import { Error404Component } from './components/Errores/error404/error404.component';
 import { AgradecimientoComponent } from './components/agradecimiento/agradecimiento.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 
 export const routes: Routes = [
   {
