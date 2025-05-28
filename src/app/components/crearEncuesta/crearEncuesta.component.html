@@ -13,7 +13,7 @@
   <div class="titulo-container">
     <ng-container *ngIf="tituloEditando; else verTitulo">
       <p-floatlabel>
-        <input id="input-nombre" pInputText formControlName="titulo" autocomplete="off" />
+        <input id="input-nombre" pInputText formControlName="nombre" autocomplete="off" />
         <label for="input-nombre">Escribir título</label>
       </p-floatlabel>
       <p-button label="Listo" icon="pi pi-check" styleClass="neutral" (click)="guardarTitulo()" [disabled]="tituloControl.invalid"></p-button>
@@ -23,7 +23,7 @@
       <h2 (click)="editarTitulo()" class="titulo-texto">
         {{ tituloControl.value || "Haz clic para agregar un título" }}
       </h2>
-      <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="editarTitulo()" title="Editar titulo"></button>
+      <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="editarTitulo()"></button>
     </ng-template>
   </div>
 
@@ -31,22 +31,43 @@
   <div *ngFor="let pregunta of preguntasFormGroups; let i = index" [formGroup]="pregunta" class="pregunta-item">
 
     <ng-container *ngIf="pregunta.get('editando')?.value; else preguntaVista">
-      <input type="text" pInputText formControlName="texto" placeholder="Escribe tu pregunta..." class="input-pregunta pr-8" />
-      <p-dropdown [options]="tiposRespuesta" formControlName="tipo" class="dropdown-estilizado p-dropdown"></p-dropdown>
+      <input type="text" pInputText formControlName="texto" placeholder="Escribe tu pregunta..." class="input-pregunta" />
+      <p-select
+        [options]="tiposRespuesta"
+        formControlName="tipo"
+        class="dropdown-estilizado p-select"
+        inputId="tipo-pregunta-{{i}}"
+        aria-label="Tipo de respuesta"
+      ></p-select>
       <br>
-      <div class="flex items-center gap-2 obligatorio-switch">
+      <!-- <div class="flex items-center gap-2 obligatorio-switch">
         <p-toggleSwitch
           id="obligatoria-switch"
           formControlName="obligatoria"
           styleClass="ml-2"
         ></p-toggleSwitch>
         <label for="obligatoria-switch" class="mr-2">Obligatorio</label>
-      </div>
+      </div> -->
       
       <!-- Opciones -->
-      <div *ngIf="pregunta.get('tipo')?.value === 'opcion_simple' || pregunta.get('tipo')?.value === 'opcion_multiple'" formArrayName="opciones" class="mt-4">
-        <div *ngFor="let opcionCtrl of getOpciones(pregunta).controls; let j = index" class="flex items-center gap-2 mb-2">
-          <input type="text" [formControlName]="j" pInputText placeholder="Opción {{ j + 1 }}" class="input-opcion" />
+      <div
+        *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' || pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'"
+        formArrayName="opciones"
+        class="mt-4"
+        aria-label="Opciones de respuesta"
+      >
+        <div
+          *ngFor="let opcionCtrl of getOpciones(pregunta).controls; let j = index"
+          class="flex items-center gap-2 mb-2"
+        >
+          <input
+            type="text"
+            [formControlName]="j"
+            pInputText
+            [attr.aria-label]="'Opción ' + (j + 1)"
+            placeholder="Opción {{ j + 1 }}"
+            class="input-opcion"
+          />
           <button
             *ngIf="getOpciones(pregunta).length > 1"
             pButton
@@ -54,8 +75,8 @@
             icon="pi pi-trash"
             class="p-button-rounded p-button-text p-button-danger"
             (click)="eliminarOpcion(pregunta, j)"
-            title="Eliminar opción">
-          </button>
+            [attr.aria-label]="'Eliminar opción ' + (j + 1)"
+          ></button>
         </div>
         <button
           pButton
@@ -63,8 +84,8 @@
           (click)="anadirOpcion(pregunta)"
           label="+ Añadir opción"
           class="p-button primario mt-2"
-          title="Añadir opción">
-        </button>
+          aria-label="Añadir opción"
+        ></button>
       </div>
 
       <div class="acciones">
@@ -77,7 +98,7 @@
     <ng-template #preguntaVista>
       <div class="pregunta-vista">
         <span>
-          {{ pregunta.get("texto")?.value }} ({{ pregunta.get("tipo")?.value }})
+          {{ pregunta.get("texto")?.value }} ({{ getPresentacionTipo(pregunta.get("tipo")?.value) }})
         </span>
         <div class="acciones">
           <p-button label="Editar" icon="pi pi-pencil" styleClass="primario text-12" (click)="editarPregunta(pregunta)"></p-button>
@@ -91,7 +112,7 @@
   <!-- BOTONES -->
   <div class="botones-añadir-eliminar">
     <div class="boton-centro">
-      <button pButton type="button" (click)="anadirPregunta()" label="+ Añadir pregunta" class="p-button primario" title="Añadir pregunta"></button>
+      <button pButton type="button" (click)="anadirPregunta()" label="+ Añadir pregunta" class="p-button primario"></button>
     </div>
     <div class="boton-eliminar">
       <p-button label="Eliminar" icon="pi pi-trash" styleClass="neutral-blanco-borde-negro font-semibold px-4 py-2 md" (click)="eliminarEncuesta()"></p-button>
@@ -107,10 +128,10 @@
     <p><strong>{{ i + 1 }}. {{ pregunta.get("texto")?.value }}</strong></p>
 
     <!-- Abierta -->
-    <input *ngIf="pregunta.get('tipo')?.value === 'abierta'" type="text" pInputText disabled placeholder="Respuesta..." />
+    <input *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'" type="text" pInputText disabled placeholder="Respuesta..." />
 
     <!-- Opción simple -->
-    <div *ngIf="pregunta.get('tipo')?.value === 'opcion_simple'">
+    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
       <div *ngFor="let opcion of getOpciones(pregunta).controls; let j = index" class="flex items-center my-1">
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">{{ opcion.value }}</label>
@@ -118,13 +139,13 @@
     </div>
 
     <!-- Opción múltiple -->
-    <div *ngIf="pregunta.get('tipo')?.value === 'opcion_multiple'">
+    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'">
       <div *ngFor="let opcion of getOpciones(pregunta).controls; let j = index" class="flex items-center gap-2 my-1">
         <span class="pi pi-stop p-component p-disabled"></span>
         <label class="ml-2">{{ opcion.value }}</label>
       </div>
     </div>
   </div>
-  <p-button styleClass="acento boton-centro">Enviar</p-button>
+  <p-button styleClass="acento ">Enviar</p-button>
 </div>
 
