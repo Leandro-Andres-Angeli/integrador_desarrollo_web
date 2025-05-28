@@ -18,6 +18,7 @@ export const routes: Routes = [
     path: 'error404',
     component: Error404Component,
   },
+
   {
     path: 'estadisticas/:id',
     loadComponent: () =>

@@ -3,7 +3,7 @@ import { EstadisticasService } from '../../services/estadisticas.service';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -12,7 +12,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AccordionModule } from 'primeng/accordion';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ChartModule } from 'primeng/chart';
+import { MessageModule } from 'primeng/message';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { catchError } from 'rxjs';
 @Component({
   selector: 'app-estadisticas',
   styleUrls: ['./estadisticas.component.css'],
@@ -31,6 +33,8 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     FieldsetModule,
     ChartModule,
     ScrollPanelModule,
+    MessageModule,
+    JsonPipe,
   ],
   standalone: true,
 })
@@ -39,7 +43,9 @@ export class EstadisticasComponent implements OnInit {
   preguntas: any;
   respuestas: any = {};
   nombre: string = '';
+  error: string | null = null;
   options: any;
+
   constructor(
     private estadisticasService: EstadisticasService,
     private route: ActivatedRoute
@@ -50,6 +56,12 @@ export class EstadisticasComponent implements OnInit {
     const codigoResultado = this.route.snapshot.queryParamMap.get('codigo');
     this.estadisticasService
       .obtenerEstadisticas(id, codigoResultado!)
+      .pipe(
+        catchError((err) => {
+          this.error = 'Error al cargar estadísticas';
+          throw err;
+        })
+      )
       .subscribe({
         next: (res) => {
           this.datos = res;
