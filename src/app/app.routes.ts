@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CrearEncuestaComponent } from './components/crearEncuesta/creaEncuesta.component';
+import { CrearEncuestaComponent } from './components/crearEncuesta/crearEncuesta.component';
 import { HomeComponent } from './views/home/home.component';
 import { Error404Component } from './components/Errores/error404/error404.component';
 import { AgradecimientoComponent } from './components/agradecimiento/agradecimiento.component';
