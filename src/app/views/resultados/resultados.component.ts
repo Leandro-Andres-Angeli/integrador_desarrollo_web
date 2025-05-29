@@ -19,6 +19,7 @@ import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TablaResultadosComponent } from './tabla-resultados/tabla-resultados.component';
+import { AngularD3CloudComponent } from 'angular-d3-cloud';
 @Component({
   selector: 'app-resultados',
   styleUrls: ['./resultados.component.css'],
@@ -43,6 +44,7 @@ import { TablaResultadosComponent } from './tabla-resultados/tabla-resultados.co
     CommonModule,
     TableModule,
     TablaResultadosComponent,
+    AngularD3CloudComponent,
   ],
   standalone: true,
 })
@@ -53,6 +55,8 @@ export class ResultadosComponent implements OnInit {
   error: string | null = null;
   options: any;
 
+  fontSizeMapper = (word: any) => word.value * 25;
+  rotate = () => ~~(Math.random() * 2) * 90;
   constructor(
     private resultadosService: ResultadosService,
     private route: ActivatedRoute
