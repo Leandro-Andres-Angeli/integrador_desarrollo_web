@@ -13,8 +13,7 @@ export class TablaResultadosComponent {
   respuestas = input<any[]>([]);
 
   get tablaRespuestas(): any[] {
-    const test = this.respuestas().map((respuesta) => {
-      console.log(respuesta);
+    return this.respuestas().map((respuesta) => {
       const fila: any = { id: respuesta.id };
 
       respuesta.respuestas.forEach((r: any) => {
@@ -23,7 +22,5 @@ export class TablaResultadosComponent {
 
       return fila;
     });
-    console.log(test, 'test');
-    return test;
   }
 }

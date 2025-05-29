@@ -49,6 +49,8 @@ import { AngularD3CloudComponent } from 'angular-d3-cloud';
   standalone: true,
 })
 export class ResultadosComponent implements OnInit {
+  id!: number | null;
+  codigoResultado!: string | null;
   preguntas: any;
   respuestas: any = {};
   nombre: string = '';
@@ -63,10 +65,10 @@ export class ResultadosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    const codigoResultado = this.route.snapshot.queryParamMap.get('codigo');
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.codigoResultado = this.route.snapshot.queryParamMap.get('codigo');
     this.resultadosService
-      .obtenerResultados(id, codigoResultado!)
+      .obtenerResultados(this.id, this.codigoResultado!)
       .pipe(
         catchError((err) => {
           this.error = 'Error al cargar resultados';
@@ -125,5 +127,13 @@ export class ResultadosComponent implements OnInit {
       ],
     };
     return data;
+  }
+
+  descargarCSV() {
+    this.resultadosService.descargarCSV(
+      this.id!,
+      this.codigoResultado!,
+      this.nombre
+    );
   }
 }
