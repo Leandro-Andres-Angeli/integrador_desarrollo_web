@@ -144,7 +144,8 @@ button.p-confirmdialog-reject-button.reject-btn:hover {
   border-color: black;
 }
 
-.p-dialog-content:has(span > .confirm-delete-message) {
+.p-dialog-content:has(span > .confirm-delete-message),
+.p-dialog-content:has(span > .confirm-save-encuesta) {
   background-color: #f1fefe;
   margin: 1rem 2rem;
   padding: 1.5rem 1rem;

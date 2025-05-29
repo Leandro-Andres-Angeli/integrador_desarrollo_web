@@ -147,9 +147,9 @@ export class CrearEncuestaComponent {
   }
 
   finalizarEncuesta() {
-    if (!window.confirm('¿Estás seguro de finalizar y guardar la encuesta?')) {
-      return;
-    }
+    // if (!window.confirm('¿Estás seguro de finalizar y guardar la encuesta?')) {
+    //   return;
+    // }
 
     const titulo = this.tituloControl.value;
     const preguntasData = this.preguntasFormGroups.map((p, i) => ({
@@ -217,6 +217,37 @@ export class CrearEncuestaComponent {
       acceptIcon: PrimeIcons.TRASH,
       accept: () => {
         this.eliminarEncuesta();
+      },
+      reject: () => {
+        return;
+      },
+    });
+  }
+  confirmSaveEncuesta() {
+    this.confirmationService.confirm({
+      message: `<div class="confirm-save-encuesta"> 
+      Al finalizar la encuesta te devolveremos dos links para que puedas compartirla y consultarla.
+      <br/>
+      RECUERDA GUARDAR LOS LINKS para no perder tu acceso a la encuesta.
+      </div>`,
+
+      header: 'Finalizar encuesta',
+      closable: false,
+      closeOnEscape: true,
+
+      rejectButtonProps: {
+        label: 'Cancelar',
+
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Finalizar',
+      },
+      acceptButtonStyleClass: 'confirm-btn',
+      rejectButtonStyleClass: 'reject-btn',
+      acceptIcon: PrimeIcons.CHECK,
+      accept: () => {
+        this.finalizarEncuesta();
       },
       reject: () => {
         return;
