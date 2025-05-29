@@ -151,3 +151,9 @@ button.p-confirmdialog-reject-button.reject-btn:hover {
   padding: 1.5rem 1rem;
   border-radius: 10px;
 }
+.text-helper {
+  font-size: 14px;
+  display: flex;
+  padding: 5px 0;
+  gap: 10px;
+}

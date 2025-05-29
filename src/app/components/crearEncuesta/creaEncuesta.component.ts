@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -42,8 +42,7 @@ import { IconField } from 'primeng/iconfield';
     CheckboxModule,
     RadioButtonModule,
     ToggleSwitchModule,
-
-    ConfirmDialog,
+    JsonPipe,
   ],
   providers: [EncuestasService],
   templateUrl: './crearEncuesta.component.html',
