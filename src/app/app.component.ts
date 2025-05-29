@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css', 
+  styleUrl: './app.component.css',
   providers: [ ConfirmationService, MessageService],
 })
 export class AppComponent {
