@@ -166,7 +166,7 @@ export class CrearEncuestaComponent {
             }))
           : [],
     }));
-
+    console.log('preguntas data', preguntasData);
     this.encuestasService
       .crearEncuesta({
         nombre: this.tituloControl.value,
@@ -177,7 +177,10 @@ export class CrearEncuestaComponent {
           console.log('res', res);
           alert('¡Encuesta guardada correctamente!');
         },
-        error: () => alert('Error al guardar la encuesta. Intenta más tarde.'),
+        error: (err) => {
+          console.log('err', err);
+          alert('Error al guardar la encuesta. Intenta más tarde.');
+        },
       });
   }
 
