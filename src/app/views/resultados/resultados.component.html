@@ -28,15 +28,37 @@
                   <div class="p-card-content">
                     <!-- Pregunta abierta -->
                     <div *ngIf="pregunta.tipo === 'ABIERTA'">
-                      <p-scrollPanel
-                        [style]="{ width: '100%', height: '150px' }"
-                      >
-                        <p
-                          *ngFor="let respuesta of pregunta.respuestasAbiertas"
-                        >
-                          {{ respuesta.texto }}
-                        </p>
-                      </p-scrollPanel>
+                      <p-tabs value="0">
+                        <p-tablist>
+                          <p-tab value="0">Nube de palabras</p-tab>
+                          <p-tab value="1">Respuestas</p-tab>
+                        </p-tablist>
+                        <p-tabpanels>
+                          <p-tabpanel value="0">
+                            <angular-d3-cloud
+                              [data]="pregunta.frecuenciaPalabras"
+                              [width]="600"
+                              [height]="400"
+                              [fontSizeMapper]="fontSizeMapper"
+                              [rotate]="rotate"
+                            >
+                            </angular-d3-cloud>
+                          </p-tabpanel>
+                          <p-tabpanel value="1">
+                            <p-scrollPanel
+                              [style]="{ width: '100%', height: '150px' }"
+                            >
+                              <p
+                                *ngFor="
+                                  let respuesta of pregunta.respuestasAbiertas
+                                "
+                              >
+                                {{ respuesta.texto }}
+                              </p>
+                            </p-scrollPanel>
+                          </p-tabpanel>
+                        </p-tabpanels>
+                      </p-tabs>
                     </div>
 
                     <!-- Selección simple -->
