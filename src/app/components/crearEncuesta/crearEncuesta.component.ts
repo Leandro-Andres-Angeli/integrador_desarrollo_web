@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
@@ -23,6 +23,12 @@ import {
   TiposRespuestaEnum,
   tiposPreguntaPresentacion,
 } from '../../enums/tipos-pregunta.enum';
+import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { IconField } from 'primeng/iconfield';
+import { map } from 'rxjs';
+import { PreguntaDTO } from '../../interfaces/pregunta.dto';
+import { OpcionDTO } from '../../interfaces/opcion.dto';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -39,6 +45,7 @@ import {
     CheckboxModule,
     RadioButtonModule,
     ToggleSwitchModule,
+    JsonPipe,
   ],
   providers: [EncuestasService],
   templateUrl: './crearEncuesta.component.html',
@@ -57,11 +64,14 @@ export class CrearEncuestaComponent {
   constructor(
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
-    private encuestasService: EncuestasService
+    private encuestasService: EncuestasService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private router: Router
   ) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
-      preguntas: this.fb.array([]),
+      preguntas: this.fb.array<Array<PreguntaDTO>>([]),
     });
   }
 
@@ -92,10 +102,10 @@ export class CrearEncuestaComponent {
   anadirPregunta(): void {
     const pregunta = this.fb.group({
       texto: ['', Validators.required],
-      tipo: ['abierta', Validators.required],
+      tipo: [TiposRespuestaEnum.ABIERTA, Validators.required],
       obligatoria: [false],
       editando: [true],
-      opciones: this.fb.array([]),
+      opciones: this.fb.array<string>([], Validators.minLength(2)),
     });
     this.preguntas.push(pregunta);
   }
@@ -140,9 +150,9 @@ export class CrearEncuestaComponent {
   }
 
   finalizarEncuesta() {
-    if (!window.confirm('¿Estás seguro de finalizar y guardar la encuesta?')) {
-      return;
-    }
+    // if (!window.confirm('¿Estás seguro de finalizar y guardar la encuesta?')) {
+    //   return;
+    // }
 
     const titulo = this.tituloControl.value;
     const preguntasData = this.preguntasFormGroups.map((p, i) => ({
@@ -166,12 +176,23 @@ export class CrearEncuestaComponent {
         nombre: this.tituloControl.value,
         preguntas: preguntasData,
       })
+      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
+      .pipe(
+        map((e) => {
+          throw Error('test error');
+        })
+      )
+      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .subscribe({
         next: (res) => {
           console.log('res', res);
           alert('¡Encuesta guardada correctamente!');
         },
-        error: () => alert('Error al guardar la encuesta. Intenta más tarde.'),
+        error: (err) => {
+          console.log('err', err);
+          // alert('Error al guardar la encuesta. Intenta más tarde.');
+          this.router.navigate(['guardarError']);
+        },
       });
   }
 
@@ -187,5 +208,64 @@ export class CrearEncuestaComponent {
   getPresentacionTipo(tipo: string): string {
     const encontrado = tiposPreguntaPresentacion.find((t) => t.tipo === tipo);
     return encontrado ? encontrado.presentacion : tipo;
+  }
+  confirmClearEncuesta(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `<div class="confirm-delete-message"> ¿Estás seguro que querés eliminar esta encuesta? <br/>  Al eliminar la encuesta , perderas todo lo que hayas hecho hasta ahora </div>`,
+
+      header: 'Eliminar encuesta',
+      closable: false,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+      },
+      acceptButtonStyleClass: 'confirm-btn',
+      rejectButtonStyleClass: 'reject-btn',
+      acceptIcon: PrimeIcons.TRASH,
+      accept: () => {
+        this.eliminarEncuesta();
+      },
+      reject: () => {
+        return;
+      },
+    });
+  }
+  confirmSaveEncuesta() {
+    this.confirmationService.confirm({
+      message: `<div class="confirm-save-encuesta"> 
+      Al finalizar la encuesta te devolveremos dos links para que puedas compartirla y consultarla.
+      <br/>
+      RECUERDA GUARDAR LOS LINKS para no perder tu acceso a la encuesta.
+      </div>`,
+
+      header: 'Finalizar encuesta',
+      closable: false,
+      closeOnEscape: true,
+
+      rejectButtonProps: {
+        label: 'Cancelar',
+
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Finalizar',
+      },
+      acceptButtonStyleClass: 'confirm-btn',
+      rejectButtonStyleClass: 'reject-btn',
+      acceptIcon: PrimeIcons.CHECK,
+      accept: () => {
+        this.finalizarEncuesta();
+      },
+      reject: () => {
+        return;
+      },
+    });
   }
 }

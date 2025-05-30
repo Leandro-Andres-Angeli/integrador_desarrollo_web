@@ -3,10 +3,11 @@
   [modoVistaPrevia]="modoVistaPrevia"
   (vistaPreviaClick)="activarVistaPrevia()"
   (salirClick)="salirVistaPrevia()"
-  (finalizarClick)="finalizarEncuesta()"
+  (finalizarClick)="confirmSaveEncuesta()"
 ></app-navbar>
 
 <!-- MODO EDICIÓN -->
+
 <div
   *ngIf="!modoVistaPrevia"
   [formGroup]="encuestaForm"
@@ -21,7 +22,18 @@
           pInputText
           formControlName="nombre"
           autocomplete="off"
+          name="nombre"
+          aria-describedby="nombre-text-helper"
+          style="background: #fff; color: #09090b;"
         />
+        @if ( encuestaForm.controls["nombre"].dirty &&
+        encuestaForm.controls["nombre"].invalid ) {
+        <div id="nombre-text-helper" class="text-helper">
+          <i class="pi pi-exclamation-circle"></i>
+          Campo requerido
+        </div>
+        }
+
         <label for="input-nombre">Escribir título</label>
       </p-floatlabel>
       <p-button
@@ -79,6 +91,7 @@
       </div> -->
 
       <!-- Opciones -->
+
       <div
         *ngIf="
           pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' ||
@@ -181,7 +194,7 @@
         label="Eliminar"
         icon="pi pi-trash"
         styleClass="neutral-blanco-borde-negro font-semibold px-4 py-2 md"
-        (click)="eliminarEncuesta()"
+        (click)="confirmClearEncuesta($event)"
       ></p-button>
     </div>
   </div>
@@ -206,6 +219,7 @@
       pInputText
       disabled
       placeholder="Respuesta..."
+      style="background: #fff;"
     />
 
     <!-- Opción simple -->

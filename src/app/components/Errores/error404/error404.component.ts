@@ -6,8 +6,6 @@ import { ButtonModule } from 'primeng/button';
   selector: 'app-error404',
   imports: [ButtonModule, RouterModule],
   templateUrl: './error404.component.html',
-  styleUrl: './error404.component.css'
+  styleUrl: './error404.component.css',
 })
-export class Error404Component {
-
-}
+export class Error404Component {}

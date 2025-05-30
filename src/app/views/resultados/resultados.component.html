@@ -1,0 +1,124 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <a routerLink="/">
+      <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
+    </a>
+
+    <div class="navbar-buttons">
+      <p-button label="Salir" routerLink="/home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
+      <p-button label="+ Crear nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    </div>
+  </div>
+</header>
+
+@if(error){
+<div class="container">
+  <p-message severity="warn">{{ error }}</p-message>
+</div>
+} @else {
+<div class="resultados">
+  <h1 *ngIf="nombre">{{ nombre }}</h1>
+  <div class="card">
+    <p-tabs value="0">
+      <p-tablist>
+        <p-tab value="0">Tablas</p-tab>
+        <p-tab value="1">Gráficos</p-tab>
+        <button pButton severity="success" (click)="descargarCSV()">
+          Descargar CSV
+        </button>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <app-tabla-resultados
+            [preguntas]="preguntas"
+            [respuestas]="respuestas"
+          ></app-tabla-resultados>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <p-card *ngFor="let pregunta of preguntas">
+            <p-fieldset legend="Pregunta {{ pregunta.numero + 1 }}">
+              <p-accordion [activeIndex]="0">
+                <p-accordionTab header="{{ pregunta.texto }}">
+                  <div class="p-card-content">
+                    <!-- Pregunta abierta -->
+                    <div *ngIf="pregunta.tipo === 'ABIERTA'">
+                      <p-tabs value="0">
+                        <p-tablist>
+                          <p-tab value="0">Nube de palabras</p-tab>
+                          <p-tab value="1">Respuestas</p-tab>
+                        </p-tablist>
+                        <p-tabpanels>
+                          <p-tabpanel value="0">
+                            <angular-d3-cloud
+                              [data]="pregunta.frecuenciaPalabras"
+                              [width]="600"
+                              [height]="400"
+                              [fontSizeMapper]="fontSizeMapper"
+                              [rotate]="rotate"
+                            >
+                            </angular-d3-cloud>
+                          </p-tabpanel>
+                          <p-tabpanel value="1">
+                            <p-scrollPanel
+                              [style]="{ width: '100%', height: '150px' }"
+                            >
+                              <p
+                                *ngFor="
+                                  let respuesta of pregunta.respuestasAbiertas
+                                "
+                              >
+                                {{ respuesta.texto }}
+                              </p>
+                            </p-scrollPanel>
+                          </p-tabpanel>
+                        </p-tabpanels>
+                      </p-tabs>
+                    </div>
+
+                    <!-- Selección simple -->
+                    <div
+                      *ngIf="
+                        pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'
+                      "
+                    >
+                      <div class="flex justify-content-center">
+                        <p-chart
+                          type="doughnut"
+                          [data]="getData(pregunta)"
+                          [options]="options"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Selección múltiple -->
+                    <div
+                      *ngIf="
+                        pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'
+                      "
+                    >
+                      <p-chart
+                        type="bar"
+                        [data]="getData(pregunta)"
+                        [options]="options"
+                      />
+                    </div>
+                  </div>
+                </p-accordionTab>
+              </p-accordion>
+            </p-fieldset>
+          </p-card>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</div>
+
+}
+
+ <!--FOOTER-->
+  <footer class="footer-enlaces">
+  <p class="copyright">
+    © Qüesti | Todos los derechos reservados <br />
+    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR">para el 🌎
+  </p>
+</footer>

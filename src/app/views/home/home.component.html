@@ -19,19 +19,19 @@
       routerLink="crearEncuesta"
       label="Crear encuesta"
       class="p-button-primario"
-    >
+      style="margin-bottom: 100px; margin-top: 10px">
       Crear encuesta
     </button>
 
     <!-- para testear los resultados -->
     <div class="mt-2">
-      <p-inputgroup>
+      <p-inputgroup >
         <p-inputgroup-addon>
           <i class="pi pi-user"></i>
         </p-inputgroup-addon>
-        <input pInputText [(ngModel)]="codigo" placeholder="Codigo" />
-        <input pInputText [(ngModel)]="id" placeholder="id" /><p-button
-          [routerLink]="['/estadisticas', id]"
+        <input pInputText [(ngModel)]="codigo" placeholder="Codigo" style="background: #fff;"/>
+        <input pInputText [(ngModel)]="id" placeholder="id" style="background: #fff;"/><p-button
+          [routerLink]="['/resultados', id]"
           [queryParams]="{ codigo: codigo }"
           label=""
           class="p-button-primario"
