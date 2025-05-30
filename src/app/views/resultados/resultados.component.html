@@ -1,12 +1,24 @@
 <header class="navbar p-4 shadow-sm">
   <div class="navbar-content">
     <a routerLink="/">
-      <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
+      <img
+        src="assets/images/logos/logos=logo-Violeta.svg"
+        alt="Logo violeta"
+        class="navbar-logo"
+      />
     </a>
 
     <div class="navbar-buttons">
-      <p-button label="Salir" routerLink="/home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
-      <p-button label="+ Crear nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+      <p-button
+        label="Salir"
+        routerLink="/home"
+        styleClass="neutral-blanco-borde-negro mr-4"
+      ></p-button>
+      <p-button
+        label="+ Crear nueva encuesta"
+        routerLink="/crearEncuesta"
+        styleClass="acento"
+      ></p-button>
     </div>
   </div>
 </header>
@@ -20,11 +32,16 @@
   <h1 *ngIf="nombre">{{ nombre }}</h1>
   <div class="card">
     <p-tabs value="0">
-      <p-tablist>
+      <p-tablist class="tabs-bar">
         <p-tab value="0">Tablas</p-tab>
         <p-tab value="1">Gráficos</p-tab>
-        <button pButton severity="success" (click)="descargarCSV()">
-          Descargar CSV
+        <button class="p-button-primario" (click)="descargarCSV()">
+          <img
+            src="../../../assets/icons/csv.svg"
+            alt="Descargar"
+            width="40"
+            height="40"
+          />
         </button>
       </p-tablist>
       <p-tabpanels>
@@ -115,10 +132,11 @@
 
 }
 
- <!--FOOTER-->
-  <footer class="footer-enlaces">
+<!--FOOTER-->
+<footer class="footer-enlaces">
   <p class="copyright">
     © Qüesti | Todos los derechos reservados <br />
-    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR">para el 🌎
+    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR" />para
+    el 🌎
   </p>
 </footer>
