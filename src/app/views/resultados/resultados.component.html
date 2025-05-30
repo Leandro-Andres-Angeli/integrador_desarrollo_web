@@ -1,11 +1,22 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <a routerLink="/">
+      <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
+    </a>
+
+    <div class="navbar-buttons">
+      <p-button label="Salir" routerLink="/home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
+      <p-button label="+ Crear nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    </div>
+  </div>
+</header>
+
 @if(error){
 <div class="container">
   <p-message severity="warn">{{ error }}</p-message>
-  <button pButton severity="success" [routerLink]="''">Home</button>
 </div>
 } @else {
 <div class="resultados">
-  <button pButton severity="success" [routerLink]="''">Home</button>
   <h1 *ngIf="nombre">{{ nombre }}</h1>
   <div class="card">
     <p-tabs value="0">
@@ -103,3 +114,11 @@
 </div>
 
 }
+
+ <!--FOOTER-->
+  <footer class="footer-enlaces">
+  <p class="copyright">
+    © Qüesti | Todos los derechos reservados <br />
+    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR">para el 🌎
+  </p>
+</footer>
