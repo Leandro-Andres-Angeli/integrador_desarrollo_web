@@ -7,6 +7,7 @@
 ></app-navbar>
 
 <!-- MODO EDICIÓN -->
+
 <div
   *ngIf="!modoVistaPrevia"
   [formGroup]="encuestaForm"
@@ -89,6 +90,7 @@
       </div> -->
 
       <!-- Opciones -->
+
       <div
         *ngIf="
           pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' ||

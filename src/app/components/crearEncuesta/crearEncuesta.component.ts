@@ -28,6 +28,7 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 import { IconField } from 'primeng/iconfield';
 import { map } from 'rxjs';
 import { PreguntaDTO } from '../../interfaces/pregunta.dto';
+import { OpcionDTO } from '../../interfaces/opcion.dto';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -101,10 +102,10 @@ export class CrearEncuestaComponent {
   anadirPregunta(): void {
     const pregunta = this.fb.group({
       texto: ['', Validators.required],
-      tipo: ['abierta', Validators.required],
+      tipo: [TiposRespuestaEnum.ABIERTA, Validators.required],
       obligatoria: [false],
       editando: [true],
-      opciones: this.fb.array([]),
+      opciones: this.fb.array<string>([], Validators.minLength(2)),
     });
     this.preguntas.push(pregunta);
   }
