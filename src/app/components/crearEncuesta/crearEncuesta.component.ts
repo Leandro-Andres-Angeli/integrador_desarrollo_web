@@ -175,11 +175,13 @@ export class CrearEncuestaComponent {
         nombre: this.tituloControl.value,
         preguntas: preguntasData,
       })
+      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .pipe(
         map((e) => {
           throw Error('test error');
         })
       )
+      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .subscribe({
         next: (res) => {
           console.log('res', res);

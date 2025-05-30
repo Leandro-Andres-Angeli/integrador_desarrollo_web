@@ -4,7 +4,7 @@ import { HomeComponent } from './views/home/home.component';
 import { Error404Component } from './components/Errores/error404/error404.component';
 import { AgradecimientoComponent } from './components/agradecimiento/agradecimiento.component';
 import { ResultadosComponent } from './views/resultados/resultados.component';
-import { ErrorGuardarEncuestaComponent } from './components/Errores/error-guardar-encuesta/error-guardar-encuesta.component';
+import { ErrorGuardarEncuestaComponent } from './views/error-guardar-encuesta/error-guardar-encuesta.component';
 
 export const routes: Routes = [
   {
