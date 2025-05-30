@@ -7,6 +7,7 @@
 ></app-navbar>
 
 <!-- MODO EDICIÓN -->
+
 <div
   *ngIf="!modoVistaPrevia"
   [formGroup]="encuestaForm"
@@ -23,6 +24,7 @@
           autocomplete="off"
           name="nombre"
           aria-describedby="nombre-text-helper"
+          style="background: #fff; color: #09090b;"
         />
         @if ( encuestaForm.controls["nombre"].dirty &&
         encuestaForm.controls["nombre"].invalid ) {
@@ -89,6 +91,7 @@
       </div> -->
 
       <!-- Opciones -->
+
       <div
         *ngIf="
           pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' ||
@@ -216,6 +219,7 @@
       pInputText
       disabled
       placeholder="Respuesta..."
+      style="background: #fff;"
     />
 
     <!-- Opción simple -->

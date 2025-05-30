@@ -177,3 +177,37 @@
     align-items: stretch;
   }
 }
+
+
+/* DROPDOWN*/
+
+/* Estilo para el botón del dropdown */
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-dropdown-label {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Estilo para el panel desplegable */
+:host ::ng-deep .p-dropdown-panel,
+:host ::ng-deep .p-select-overlay {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Estilo para las opciones del dropdown */
+:host ::ng-deep .p-dropdown-items .p-dropdown-item,
+:host ::ng-deep .p-select-list .p-select-option {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Opciones seleccionadas y hover */
+:host ::ng-deep .p-dropdown-items .p-dropdown-item.p-highlight,
+:host ::ng-deep .p-select-list .p-select-option.p-highlight,
+:host ::ng-deep .p-dropdown-items .p-dropdown-item.p-focus,
+:host ::ng-deep .p-select-list .p-select-option.p-focus {
+  background-color: #B9FAF8 !important;
+  color: #000 !important;
+}
+

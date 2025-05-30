@@ -39,27 +39,31 @@ body {
 }
 
 /* Estilos bottones */
-.p-button.acento {
+.p-button.acento,
+.a.acento {
   background-color: var(--color-acento) !important;
   color: var(--color-negro) !important;
   font-weight: 700 !important;
   border: none !important;
 }
 
-.p-button.acento:hover {
+.p-button.acento:hover,
+.a.acento:hover {
   background-color: #b9faf8 !important;
   color: var(--color-negro) !important;
   font-weight: bold !important;
   border: none !important;
 }
 
-.p-button.secundario {
+.p-button.secundario,
+a.secundario {
   background-color: #b9faf8 !important;
   color: var(--color-negro) !important;
   border: none !important;
 }
 
-.p-button.secundario:hover {
+.p-button.secundario:hover,
+a.secundario:hover {
   background-color: #d5a2f3 !important;
   color: var(--color-negro) !important;
   border: none !important;
@@ -170,4 +174,8 @@ body {
   display: flex;
   padding: 5px 0;
   gap: 10px;
+}
+a:link,
+a:visited {
+  text-decoration: none;
 }

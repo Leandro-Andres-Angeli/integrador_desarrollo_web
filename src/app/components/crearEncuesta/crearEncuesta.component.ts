@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,6 +26,9 @@ import {
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { IconField } from 'primeng/iconfield';
+import { map } from 'rxjs';
+import { PreguntaDTO } from '../../interfaces/pregunta.dto';
+import { OpcionDTO } from '../../interfaces/opcion.dto';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -63,11 +66,12 @@ export class CrearEncuestaComponent {
     private fb: FormBuilder,
     private encuestasService: EncuestasService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
-      preguntas: this.fb.array([]),
+      preguntas: this.fb.array<Array<PreguntaDTO>>([]),
     });
   }
 
@@ -98,10 +102,10 @@ export class CrearEncuestaComponent {
   anadirPregunta(): void {
     const pregunta = this.fb.group({
       texto: ['', Validators.required],
-      tipo: ['abierta', Validators.required],
+      tipo: [TiposRespuestaEnum.ABIERTA, Validators.required],
       obligatoria: [false],
       editando: [true],
-      opciones: this.fb.array([]),
+      opciones: this.fb.array<string>([], Validators.minLength(2)),
     });
     this.preguntas.push(pregunta);
   }
@@ -166,12 +170,19 @@ export class CrearEncuestaComponent {
             }))
           : [],
     }));
-    console.log('preguntas data', preguntasData);
+
     this.encuestasService
       .crearEncuesta({
         nombre: this.tituloControl.value,
         preguntas: preguntasData,
       })
+      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
+      .pipe(
+        map((e) => {
+          throw Error('test error');
+        })
+      )
+      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .subscribe({
         next: (res) => {
           console.log('res', res);
@@ -179,7 +190,8 @@ export class CrearEncuestaComponent {
         },
         error: (err) => {
           console.log('err', err);
-          alert('Error al guardar la encuesta. Intenta más tarde.');
+          // alert('Error al guardar la encuesta. Intenta más tarde.');
+          this.router.navigate(['guardarError']);
         },
       });
   }
