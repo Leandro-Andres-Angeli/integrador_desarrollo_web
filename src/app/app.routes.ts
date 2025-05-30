@@ -5,6 +5,7 @@ import { Error404Component } from './components/Errores/error404/error404.compon
 import { AgradecimientoComponent } from './components/agradecimiento/agradecimiento.component';
 import { ResultadosComponent } from './views/resultados/resultados.component';
 import { ErrorGuardarEncuestaComponent } from './views/error-guardar-encuesta/error-guardar-encuesta.component';
+import { EnlacesComponent } from './views/enlaces/enlaces.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'agradecimiento',
     component: AgradecimientoComponent,
+  },
+  {
+    path: 'enlaces',
+    component: EnlacesComponent,
   },
   {
     path: '**',

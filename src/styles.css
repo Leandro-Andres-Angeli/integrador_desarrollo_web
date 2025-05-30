@@ -179,3 +179,8 @@ a:link,
 a:visited {
   text-decoration: none;
 }
+
+.p-checkbox-box {
+  background-color: #fff !important;
+  border-color: #010101 !important;
+}
