@@ -1,3 +1,31 @@
+/* Estructura principal */
+.navbar {
+  /* position: fixed; */
+  top: 0;
+  /* width: 100vw;
+  z-index: 100; */
+  background-color: #1e1e1e; /* fondo neutro oscuro */
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+
 .resultados {
   display: flex;
   flex-direction: column;
@@ -18,4 +46,27 @@
 
 button {
   width: fit-content;
+}
+
+.footer-enlaces {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  background-image: url("/assets/images/footer/Footer-Efect.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 30px;
+  z-index: 1;
+}
+
+p.copyright {
+  text-align: center;
+  color: #555555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
 }
