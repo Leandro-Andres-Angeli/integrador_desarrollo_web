@@ -32,6 +32,9 @@
       <p-button
         label="Finalizar"
         styleClass="acento ml-4 px-6"
+        [severity]="(!validForm && 'secondary') || 'primary'"
+        [className]="!validForm ? 'pointer-events-none' : ''"
+        [icon]="validForm ? 'pi pi-check' : 'pi pi-times'"
         (click)="finalizarClick.emit()"
       ></p-button>
       <!-- <p class="text-white">valid {{ validForm | json }}</p> -->

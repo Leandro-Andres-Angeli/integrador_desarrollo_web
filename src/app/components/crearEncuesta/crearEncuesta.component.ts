@@ -72,9 +72,9 @@ export class CrearEncuestaComponent {
   ) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
-      preguntas: this.fb.array<Array<Record<string, any>>>(
+      preguntas: this.fb.array(
         [],
-        Validators.minLength(1)
+        [Validators.required, Validators.minLength(1)]
       ),
     });
   }
