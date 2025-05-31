@@ -6,6 +6,9 @@
   z-index: 100; */
   background-color: #1e1e1e; /* fondo neutro claro */
 }
+.p-button.disabled {
+  background-color: rgb(228, 238, 94) !important;
+}
 
 .navbar-content {
   display: flex;

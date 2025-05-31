@@ -29,11 +29,14 @@
         (click)="finalizarClick.emit()"
       ></p-button> -->
       <!-- </div> -->
+      <!-- [styleClass]=' !validForm ? :  acento ml-4 px-6'  -->
+      <!-- !validForm ? 'disabled' : '' -->
       <p-button
         label="Finalizar"
-        styleClass="acento ml-4 px-6"
-        [severity]="(!validForm && 'secondary') || 'primary'"
-        [className]="!validForm ? 'pointer-events-none' : ''"
+        [disabled]="!validForm"
+        [severity]="!validForm ? 'secondary' : 'primary'"
+        [styleClass]="!validForm ? 'disabled ml-4' : 'acento ml-4'"
+        [className]="!validForm ? 'pointer-events-none disabled' : ''"
         [icon]="validForm ? 'pi pi-check' : 'pi pi-times'"
         (click)="finalizarClick.emit()"
       ></p-button>
