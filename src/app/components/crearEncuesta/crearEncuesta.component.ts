@@ -18,7 +18,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChangeDetectorRef } from '@angular/core';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { SelectModule } from 'primeng/select';
+import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import {
   TiposRespuestaEnum,
   tiposPreguntaPresentacion,
@@ -29,6 +29,7 @@ import { IconField } from 'primeng/iconfield';
 import { map } from 'rxjs';
 import { PreguntaDTO } from '../../interfaces/pregunta.dto';
 import { OpcionDTO } from '../../interfaces/opcion.dto';
+import { validateOpciones } from '../../validators/validateOpciones';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -108,12 +109,25 @@ export class CrearEncuestaComponent {
       tipo: [TiposRespuestaEnum.ABIERTA, Validators.required],
       obligatoria: [false],
       editando: [true],
-      opciones: this.fb.array(
-        [this.fb.control('', Validators.required)],
-        [Validators.required, Validators.minLength(2)]
-      ),
     });
+    // pregunta
+    //   .get('opciones')
+    //   ?.setValidators(validateOpciones(pregunta.get('tipo')));
     this.preguntas.push(pregunta);
+  }
+  handleTipoRespuestaChange(pregunta: FormGroup) {
+    if (pregunta.controls['tipo'].value === TiposRespuestaEnum.ABIERTA) {
+      pregunta.removeControl('opciones');
+    } else {
+      console.log('here');
+      pregunta.addControl(
+        'opciones',
+        this.fb.array(
+          [['', Validators.required]],
+          [Validators.required, Validators.minLength(2)]
+        )
+      );
+    }
   }
 
   getOpciones(pregunta: FormGroup): FormArray {
@@ -122,7 +136,7 @@ export class CrearEncuestaComponent {
 
   anadirOpcion(pregunta: FormGroup) {
     const opciones = pregunta.get('opciones') as FormArray;
-    opciones.push(this.fb.control(''));
+    opciones.push(this.fb.control('', Validators.required));
   }
 
   eliminarOpcion(pregunta: FormGroup, index: number): void {

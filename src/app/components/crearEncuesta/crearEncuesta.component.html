@@ -80,8 +80,10 @@
         Campo requerido
       </div>
       }
+
       <p-select
         [options]="tiposRespuesta"
+        (onChange)="handleTipoRespuestaChange(pregunta)"
         formControlName="tipo"
         class="dropdown-estilizado p-select"
         inputId="tipo-pregunta-{{ i }}"
@@ -122,22 +124,17 @@
           "
           class="flex items-center gap-2 mb-2"
         >
-          <!-- @if( opcionCtrl.invalid){
-          <div id="nombre-text-helper" class="text-helper">
-            <i class="pi pi-exclamation-circle"></i>
-            Campo requerido
-          </div>
-          } -->
           <div>
             <input
               type="text"
               [formControlName]="j"
               pInputText
               [attr.aria-label]="'Opción ' + (j + 1)"
-              placeholder="Opción {{ j + 1 }}"
+              placeholder="Opción  {{ j + 1 }}"
               class="input-opcion"
             />
-            @if(pregunta.controls["opciones"].invalid){
+
+            @if(getOpciones(pregunta).controls[j].invalid){
             <div id="nombre-text-helper" class="text-helper">
               <i class="pi pi-exclamation-circle"></i>
               Campo opcion no debe estar vacio
@@ -178,6 +175,9 @@
           (click)="guardarPregunta(pregunta)"
         ></p-button>
       </div>
+      {{ pregunta.value | json }}
+      <br />
+      {{ pregunta.valid | json }}
     </ng-container>
 
     <!-- Vista reducida -->
