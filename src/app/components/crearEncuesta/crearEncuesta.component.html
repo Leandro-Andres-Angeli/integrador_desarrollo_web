@@ -4,6 +4,7 @@
   (vistaPreviaClick)="activarVistaPrevia()"
   (salirClick)="salirVistaPrevia()"
   (finalizarClick)="confirmSaveEncuesta()"
+  [validForm]="encuestaForm.valid"
 ></app-navbar>
 
 <!-- MODO EDICIÓN -->
@@ -24,7 +25,7 @@
           autocomplete="off"
           name="nombre"
           aria-describedby="nombre-text-helper"
-          style="background: #fff; color: #09090b;"
+          style="background: #fff; color: #09090b"
         />
         @if ( encuestaForm.controls["nombre"].dirty &&
         encuestaForm.controls["nombre"].invalid ) {
@@ -59,6 +60,7 @@
   </div>
 
   <!-- PREGUNTAS -->
+
   <div
     *ngFor="let pregunta of preguntasFormGroups; let i = index"
     [formGroup]="pregunta"
@@ -72,6 +74,12 @@
         placeholder="Escribe tu pregunta..."
         class="input-pregunta"
       />
+      @if( pregunta.controls["texto"].invalid){
+      <div id="nombre-text-helper" class="text-helper">
+        <i class="pi pi-exclamation-circle"></i>
+        Campo requerido
+      </div>
+      }
       <p-select
         [options]="tiposRespuesta"
         formControlName="tipo"
@@ -101,6 +109,12 @@
         class="mt-4"
         aria-label="Opciones de respuesta"
       >
+        @if(pregunta.controls["opciones"].invalid){
+        <div id="nombre-text-helper" class="text-helper">
+          <i class="pi pi-exclamation-circle"></i>
+          Añadir al menos dos posibles respuestas a la pregunta
+        </div>
+        }
         <div
           *ngFor="
             let opcionCtrl of getOpciones(pregunta).controls;
@@ -108,14 +122,28 @@
           "
           class="flex items-center gap-2 mb-2"
         >
-          <input
-            type="text"
-            [formControlName]="j"
-            pInputText
-            [attr.aria-label]="'Opción ' + (j + 1)"
-            placeholder="Opción {{ j + 1 }}"
-            class="input-opcion"
-          />
+          <!-- @if( opcionCtrl.invalid){
+          <div id="nombre-text-helper" class="text-helper">
+            <i class="pi pi-exclamation-circle"></i>
+            Campo requerido
+          </div>
+          } -->
+          <div>
+            <input
+              type="text"
+              [formControlName]="j"
+              pInputText
+              [attr.aria-label]="'Opción ' + (j + 1)"
+              placeholder="Opción {{ j + 1 }}"
+              class="input-opcion"
+            />
+            @if(pregunta.controls["opciones"].invalid){
+            <div id="nombre-text-helper" class="text-helper">
+              <i class="pi pi-exclamation-circle"></i>
+              Campo opcion no debe estar vacio
+            </div>
+            }
+          </div>
           <button
             *ngIf="getOpciones(pregunta).length > 1"
             pButton
@@ -219,7 +247,7 @@
       pInputText
       disabled
       placeholder="Respuesta..."
-      style="background: #fff;"
+      style="background: #fff"
     />
 
     <!-- Opción simple -->

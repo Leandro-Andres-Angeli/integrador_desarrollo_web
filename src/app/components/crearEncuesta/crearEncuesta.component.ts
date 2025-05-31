@@ -71,7 +71,10 @@ export class CrearEncuestaComponent {
   ) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
-      preguntas: this.fb.array<Array<PreguntaDTO>>([]),
+      preguntas: this.fb.array<Array<Record<string, any>>>(
+        [],
+        Validators.minLength(1)
+      ),
     });
   }
 
@@ -105,7 +108,10 @@ export class CrearEncuestaComponent {
       tipo: [TiposRespuestaEnum.ABIERTA, Validators.required],
       obligatoria: [false],
       editando: [true],
-      opciones: this.fb.array<string>([], Validators.minLength(2)),
+      opciones: this.fb.array(
+        [this.fb.control('', Validators.required)],
+        [Validators.required, Validators.minLength(2)]
+      ),
     });
     this.preguntas.push(pregunta);
   }
@@ -177,11 +183,11 @@ export class CrearEncuestaComponent {
         preguntas: preguntasData,
       })
       //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
-      .pipe(
-        map((e) => {
-          throw Error('test error');
-        })
-      )
+      // .pipe(
+      //   map((e) => {
+      //     throw Error('test error');
+      //   })
+      // )
       //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .subscribe({
         next: (res) => {
