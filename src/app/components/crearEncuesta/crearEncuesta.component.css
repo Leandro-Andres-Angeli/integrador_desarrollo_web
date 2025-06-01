@@ -178,7 +178,6 @@
   }
 }
 
-
 /* DROPDOWN*/
 
 /* Estilo para el botón del dropdown */
@@ -207,7 +206,9 @@
 :host ::ng-deep .p-select-list .p-select-option.p-highlight,
 :host ::ng-deep .p-dropdown-items .p-dropdown-item.p-focus,
 :host ::ng-deep .p-select-list .p-select-option.p-focus {
-  background-color: #B9FAF8 !important;
+  background-color: #b9faf8 !important;
   color: #000 !important;
 }
-
+.test {
+  font-size: 10rem;
+}

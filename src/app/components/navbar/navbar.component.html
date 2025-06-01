@@ -7,30 +7,40 @@
         class="navbar-logo"
       />
     </a>
-    <div class="navbar-buttons" *ngIf="!modoVistaPrevia">
-      <p-button
-        label="Vista previa"
-        styleClass="secundario"
-        (click)="vistaPreviaClick.emit()"
-      ></p-button>
-      <p-button
+    <div class="navbar-buttons">
+      <ng-container *ngIf="!modoVistaPrevia">
+        <p-button
+          label="Vista previa"
+          styleClass="secundario"
+          (click)="vistaPreviaClick.emit()"
+        ></p-button>
+      </ng-container>
+      <ng-container *ngIf="modoVistaPrevia">
+        <p-button
+          label="Regresar"
+          styleClass="secundario"
+          (click)="salirClick.emit()"
+        ></p-button>
+      </ng-container>
+      <!-- <div class="navbar-buttons" *ngIf="modoVistaPrevia"> -->
+      <!-- <p-button
         label="Finalizar"
         styleClass="acento ml-4 px-6"
         (click)="finalizarClick.emit()"
-      ></p-button>
-    </div>
-
-    <div class="navbar-buttons" *ngIf="modoVistaPrevia">
-      <p-button
-        label="Regresar"
-        styleClass="secundario"
-        (click)="salirClick.emit()"
-      ></p-button>
+      ></p-button> -->
+      <!-- </div> -->
+      <!-- [styleClass]=' !validForm ? :  acento ml-4 px-6'  -->
+      <!-- !validForm ? 'disabled' : '' -->
       <p-button
         label="Finalizar"
-        styleClass="acento ml-4 px-6"
+        [disabled]="!validForm"
+        [severity]="!validForm ? 'secondary' : 'primary'"
+        [styleClass]="!validForm ? 'disabled ml-4' : 'acento ml-4'"
+        [className]="!validForm ? 'pointer-events-none disabled' : ''"
+        [icon]="validForm ? 'pi pi-check' : 'pi pi-times'"
         (click)="finalizarClick.emit()"
       ></p-button>
+      <!-- <p class="text-white">valid {{ validForm | json }}</p> -->
     </div>
   </div>
 </header>
