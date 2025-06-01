@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { QRCodeComponent } from 'angularx-qrcode'; // Importación del componente QR
 import { CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
-import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-enlaces',
@@ -16,22 +15,30 @@ import { ViewChild, ElementRef } from '@angular/core';
   templateUrl: './enlaces.component.html',
   styleUrls: ['./enlaces.component.css']
 })
-export class EnlacesComponent {
-  // URLs originales
-  urlParticipacion = 'https://www.encuestame.com/censo-ciclo-lectivo-2025-user';
-  urlConsulta = 'https://www.encuestame.com/censo-ciclo-lectivo-2025-resp';
+export class EnlacesComponent implements OnInit {
+  urlParticipacion: string = '';
+  urlConsulta: string = '';
 
-  // Estados del checkbox
   acortarParticipacion = false;
   acortarConsulta = false;
 
-  // Simulación de URLs acortadas
   urlCortaParticipacion = 'https://encue.st/p/2025';
   urlCortaConsulta = 'https://encue.st/r/2025';
 
   //Manejo para mostrar el QR
   mostrarQR: boolean = false;
   qrUrl: string = '';    
+
+  // Referencia al contenedor del QR para descargarlo
+  @ViewChild('qrContainer', { static: false }) qrContainer!: ElementRef;
+
+  tipoQR: 'participacion' | 'consulta' = 'participacion';
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // Aquí puedes inicializar algo si necesitas al iniciar el componente
+  }
 
   // Función para copiar al portapapeles
   copiarTexto(texto: string) {
@@ -42,7 +49,6 @@ export class EnlacesComponent {
     });
   }
 
-  // Devuelve la URL que se debe mostrar según el estado del checkbox
   obtenerUrlParticipacion(): string {
     return this.acortarParticipacion ? this.urlCortaParticipacion : this.urlParticipacion;
   }
@@ -68,11 +74,6 @@ export class EnlacesComponent {
   cerrarQR() {
     this.mostrarQR = false;
   }
-
-// Referencia al contenedor del QR para descargarlo
-  @ViewChild('qrContainer', { static: false }) qrContainer!: ElementRef;
-
-  tipoQR: 'participacion' | 'consulta' = 'participacion';
 
   descargarQR() {
     const element = this.qrContainer.nativeElement;
