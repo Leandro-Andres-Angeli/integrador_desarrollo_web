@@ -136,6 +136,16 @@
         ></button>
       </div>
 
+      <!-- Verdadero o falso -->
+      <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="mt-4">
+        <div class="flex gap-4" [formGroup]="pregunta">
+          <p-radioButton name="respuesta_{{i}}" value="verdadero" label="Verdadero" [disabled]="true"></p-radioButton>
+          <label for="">Verdadero</label>
+          <p-radioButton name="respuesta_{{i}}" value="falso" label="Falso" [disabled]="true"></p-radioButton>
+          <label for="">Falso</label>
+        </div>
+      </div>
+
       <div class="acciones">
         <p-button
           icon="pi pi-times"
@@ -249,6 +259,26 @@
         <label class="ml-2">{{ opcion.value }}</label>
       </div>
     </div>
+
+    <!-- Verdadero o falso -->
+     <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" [formGroup]="pregunta">
+      <div class="flex gap-4">
+        <p-radioButton
+          name="respuesta_{{i}}"
+          value="verdadero"
+          formControlName="respuesta"
+          label="Verdadero">
+       </p-radioButton>
+       <label for="">Verdadero</label>
+       <p-radioButton
+          name="respuesta_{{i}}"
+          value="falso"
+          formControlName="respuesta"
+          label="Falso">
+       </p-radioButton>
+       <label for="">Falso</label>
+      </div>
+    </div>  
   </div>
   <p-button styleClass="acento ">Enviar</p-button>
 </div>
