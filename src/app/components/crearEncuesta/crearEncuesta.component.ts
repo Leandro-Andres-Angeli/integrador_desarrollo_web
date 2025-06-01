@@ -31,6 +31,7 @@ import { PreguntaDTO } from '../../interfaces/pregunta.dto';
 import { OpcionDTO } from '../../interfaces/opcion.dto';
 import { validateOpciones } from '../../validators/validateOpciones';
 
+
 @Component({
   selector: 'app-crearEncuesta',
   standalone: true,
@@ -208,13 +209,16 @@ export class CrearEncuestaComponent {
       //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .subscribe({
         next: (res) => {
-          console.log('res', res);
-          alert('¡Encuesta guardada correctamente!');
+          console.log('Respuesta backend:', res);
+          this.router.navigate([
+            '/enlaces',
+            res.id,
+            res.codigoRespuesta,
+            res.codigoResultados
+          ]);
         },
-        error: (err) => {
-          console.log('err', err);
-          // alert('Error al guardar la encuesta. Intenta más tarde.');
-          this.router.navigate(['guardarError']);
+        error: () => {
+          alert('Error al guardar la encuesta. Intenta más tarde.');
         },
       });
   }

@@ -34,7 +34,7 @@ export const routes: Routes = [
     component: AgradecimientoComponent,
   },
   {
-    path: 'enlaces',
+    path: 'enlaces/:id/:codigoRespuesta/:codigoResultados',
     component: EnlacesComponent,
   },
   {

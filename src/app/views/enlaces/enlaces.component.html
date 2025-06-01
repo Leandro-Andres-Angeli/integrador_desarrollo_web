@@ -9,10 +9,11 @@
 </header>
 
 <section class="content">
-  <h1 class="titulo-principal">Links de tu encuesta</h1>
+  <div class="encuesta-container">
+    <h1 class="titulo-principal">Links de tu encuesta</h1>
 
-  <!-- BLOQUE: Link de participación -->
-  <div class="bloque-link">
+    <!-- BLOQUE: Link de participación -->
+    <div class="bloque-link">
     <h2>Link de participación</h2>
     <p>Usá este link para compartir tu encuesta y que otras personas puedan rellenarla.</p>
 
@@ -36,9 +37,9 @@
   </div>
 
   <!-- BLOQUE: Link de consulta -->
-  <div class="bloque-link">
-    <h2>Link de consulta</h2>
-    <p>Usá este link para consultar los resultados de tu encuesta.</p>
+<div class="bloque-link">
+  <h2>Link de consulta</h2>
+  <p>Usá este link para consultar los resultados de tu encuesta.</p>
 
     <div class="link-card">
       <input type="text" readonly [value]="obtenerUrlConsulta()" />
