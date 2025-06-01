@@ -12,7 +12,7 @@ export class RespuestasService {
 
   constructor(private http: HttpClient) {}
 
-  enviarRespuestas(idEncuesta: number, dto: CreateRespuestaDTO): Observable<{ mensaje: string }> {
-    return this.http.post<{ mensaje: string }>(`${this.apiUrl}/${idEncuesta}`, dto);
+  enviarRespuestas(idEncuesta: number, dto: CreateRespuestaDTO, codigo: string): Observable<{ mensaje: string }> {
+    return this.http.post<{ mensaje: string }>(`${this.apiUrl}/${idEncuesta}?codigo='${codigo}`, dto);
   }
 }
