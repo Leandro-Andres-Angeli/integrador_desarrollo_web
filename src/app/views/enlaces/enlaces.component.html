@@ -1,9 +1,17 @@
 <header class="navbar p-4 shadow-sm">
   <div class="navbar-content">
-    <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
+    <img
+      src="assets/images/logos/logos=logo-Violeta.svg"
+      alt="Logo violeta"
+      class="navbar-logo"
+    />
 
     <div class="navbar-buttons">
-      <p-button routerLink="/crearEncuesta" label="+ Crear nueva encuesta" styleClass="acento" ></p-button>
+      <p-button
+        routerLink="/crearEncuesta"
+        label="+ Crear nueva encuesta"
+        styleClass="acento"
+      ></p-button>
     </div>
   </div>
 </header>
@@ -14,49 +22,89 @@
 
     <!-- BLOQUE: Link de participación -->
     <div class="bloque-link">
-    <h2>Link de participación</h2>
-    <p>Usá este link para compartir tu encuesta y que otras personas puedan rellenarla.</p>
+      <h2>Link de participación</h2>
+      <p>
+        Usá este link para compartir tu encuesta y que otras personas puedan
+        rellenarla.
+      </p>
 
-    <div class="link-card">
-      <input type="text" readonly [value]="obtenerUrlParticipacion()" />
-      <div class="acciones">
-        <p-button icon="pi pi-copy" label="Copiar" styleClass="copiar primario" (onClick)="copiarTexto(obtenerUrlParticipacion())"></p-button>
-        <p-button icon="pi pi-qrcode" styleClass="neutral-blanco-borde-negro" text (onClick)="mostrarQRParticipacion()"></p-button>
+      <div class="link-card">
+        <input type="text" readonly [value]="obtenerUrlParticipacion()" />
+        <div class="acciones">
+          <p-button
+            icon="pi pi-copy"
+            label="Copiar"
+            styleClass="copiar primario"
+            (onClick)="copiarTexto(obtenerUrlParticipacion())"
+          ></p-button>
+          <p-button
+            icon="pi pi-qrcode"
+            styleClass="neutral-blanco-borde-negro"
+            text
+            (onClick)="mostrarQRParticipacion()"
+          ></p-button>
+        </div>
+      </div>
+
+      <div class="opciones-link">
+        <p-checkbox
+          binary="true"
+          inputId="check1"
+          [(ngModel)]="acortarParticipacion"
+          styleClass="p-checkbox-box"
+        ></p-checkbox>
+        <label for="check1">Acortar URL</label>
+      </div>
+
+      <div class="alerta">
+        <i class="pi pi-exclamation-triangle"></i>
+        <span
+          >No olvides <strong>copiar</strong> y <strong>guardar</strong> este
+          link para poder compartirlo todas las veces que necesites.</span
+        >
       </div>
     </div>
 
-    <div class="opciones-link">
-      <p-checkbox binary="true" inputId="check1" [(ngModel)]="acortarParticipacion" styleClass="p-checkbox-box"></p-checkbox>
-      <label for="check1">Acortar URL</label>
-    </div>
+    <!-- BLOQUE: Link de consulta -->
+    <div class="bloque-link">
+      <h2>Link de consulta</h2>
+      <p>Usá este link para consultar los resultados de tu encuesta.</p>
 
-    <div class="alerta">
-      <i class="pi pi-exclamation-triangle"></i>
-      <span>No olvides <strong>copiar</strong> y <strong>guardar</strong> este link para poder compartirlo todas las veces que necesites.</span>
-    </div>
-  </div>
-
-  <!-- BLOQUE: Link de consulta -->
-<div class="bloque-link">
-  <h2>Link de consulta</h2>
-  <p>Usá este link para consultar los resultados de tu encuesta.</p>
-
-    <div class="link-card">
-      <input type="text" readonly [value]="obtenerUrlConsulta()" />
-      <div class="acciones">
-        <p-button icon="pi pi-copy" label="Copiar" styleClass="copiar primario" (onClick)="copiarTexto(obtenerUrlConsulta())"></p-button>
-        <p-button icon="pi pi-qrcode" styleClass="neutral-blanco-borde-negro" text (onClick)="mostrarQRConsulta()"></p-button>
+      <div class="link-card">
+        <input type="text" readonly [value]="obtenerUrlConsulta()" />
+        <div class="acciones">
+          <p-button
+            icon="pi pi-copy"
+            label="Copiar"
+            styleClass="copiar primario"
+            (onClick)="copiarTexto(obtenerUrlConsulta())"
+          ></p-button>
+          <p-button
+            icon="pi pi-qrcode"
+            styleClass="neutral-blanco-borde-negro"
+            text
+            (onClick)="mostrarQRConsulta()"
+          ></p-button>
+        </div>
       </div>
-    </div>
 
-    <div class="opciones-link">
-      <p-checkbox binary="true" inputId="check2" [(ngModel)]="acortarConsulta"></p-checkbox>
-      <label for="check2">Acortar URL</label>
-    </div>
+      <div class="opciones-link">
+        <p-checkbox
+          binary="true"
+          inputId="check2"
+          [(ngModel)]="acortarConsulta"
+        ></p-checkbox>
+        <label for="check2">Acortar URL</label>
+      </div>
 
-    <div class="alerta">
-      <i class="pi pi-exclamation-triangle"></i>
-      <span>No olvides <strong>copiar</strong> y <strong>guardar</strong> este link para poder acceder a los resultados todas las veces que necesites.</span>
+      <div class="alerta">
+        <i class="pi pi-exclamation-triangle"></i>
+        <span
+          >No olvides <strong>copiar</strong> y <strong>guardar</strong> este
+          link para poder acceder a los resultados todas las veces que
+          necesites.</span
+        >
+      </div>
     </div>
   </div>
 </section>
@@ -64,27 +112,46 @@
 <!-- Modal QR -->
 <div *ngIf="mostrarQR" class="modal-qr" role="dialog" aria-modal="true">
   <div class="modal-qr-content">
-    <p-button icon="pi pi-times" styleClass="p-button-rounded acento p-button-text cerrar-modal" (onClick)="cerrarQR()" aria-label="Cerrar QR"></p-button>
+    <p-button
+      icon="pi pi-times"
+      styleClass="p-button-rounded acento p-button-text cerrar-modal"
+      (onClick)="cerrarQR()"
+      aria-label="Cerrar QR"
+    ></p-button>
     <h3>Escaneá código QR</h3>
 
     <div #qrContainer class="qr-wrapper">
-      <qrcode [qrdata]="qrUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-      <img src="assets/images/logos/logo-VioletaQR.svg" alt="Logo QR" class="qr-logo" />
+      <qrcode
+        [qrdata]="qrUrl"
+        [width]="256"
+        [errorCorrectionLevel]="'M'"
+      ></qrcode>
+      <img
+        src="assets/images/logos/logo-VioletaQR.svg"
+        alt="Logo QR"
+        class="qr-logo"
+      />
     </div>
 
     <div class="qr-url">
       haz captura con tu celular o <br />
-      <p-button icon="pi pi-download" label="Descargá" styleClass="primario p-button-sm m-2" (onClick)="descargarQR()"></p-button><br />
+      <p-button
+        icon="pi pi-download"
+        label="Descargá"
+        styleClass="primario p-button-sm m-2"
+        (onClick)="descargarQR()"
+      ></p-button
+      ><br />
       para usarlo más tarde.
     </div>
   </div>
 </div>
 
-
- <!--FOOTER-->
-  <footer class="footer-enlaces">
+<!--FOOTER-->
+<footer class="footer-enlaces">
   <p class="copyright">
     © Qüesti | Todos los derechos reservados <br />
-    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR">para el 🌎
+    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR" />para
+    el 🌎
   </p>
 </footer>
