@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Data, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -7,13 +7,22 @@ import { FormsModule } from '@angular/forms';
 import { QRCodeComponent } from 'angularx-qrcode'; // Importación del componente QR
 import { CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-enlaces',
   standalone: true,
-  imports: [RouterModule, ButtonModule, FloatLabelModule, CheckboxModule, FormsModule, QRCodeComponent, CommonModule ],
+  imports: [
+    RouterModule,
+    ButtonModule,
+    FloatLabelModule,
+    CheckboxModule,
+    FormsModule,
+    QRCodeComponent,
+    CommonModule,
+  ],
   templateUrl: './enlaces.component.html',
-  styleUrls: ['./enlaces.component.css']
+  styleUrls: ['./enlaces.component.css'],
 })
 export class EnlacesComponent implements OnInit {
   urlParticipacion: string = '';
@@ -27,30 +36,53 @@ export class EnlacesComponent implements OnInit {
 
   //Manejo para mostrar el QR
   mostrarQR: boolean = false;
-  qrUrl: string = '';    
+  qrUrl: string = '';
 
   // Referencia al contenedor del QR para descargarlo
   @ViewChild('qrContainer', { static: false }) qrContainer!: ElementRef;
 
   tipoQR: 'participacion' | 'consulta' = 'participacion';
 
-  constructor() {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    const snap = this.activatedRoute.snapshot;
+
+    const { codigoRespuesta, codigoResultados } = snap.params;
+    this.urlParticipacion = codigoRespuesta;
+    this.urlConsulta = codigoResultados;
+    // console.log('extras ', extras);
+    // this.activatedRoute.data
+    //   .pipe(map((res) => console.log('rees', res)))
+    //   .subscribe();
+    // this.activatedRoute.data
+    //   .pipe(
+    //     map((res: Record<string, any>) => {
+    //       console.log('ressss', res);
+    //       this.urlParticipacion = res['codigoRespuesta'];
+    //       this.urlConsulta = res['codigoResultados'];
+    //     })
+    //   )
+    //   .subscribe();
     // Aquí puedes inicializar algo si necesitas al iniciar el componente
   }
 
   // Función para copiar al portapapeles
   copiarTexto(texto: string) {
-    navigator.clipboard.writeText(texto).then(() => {
-      alert('Link copiado al portapapeles ✔️');
-    }).catch(() => {
-      alert('Error al copiar el link ❌');
-    });
+    navigator.clipboard
+      .writeText(texto)
+      .then(() => {
+        alert('Link copiado al portapapeles ✔️');
+      })
+      .catch(() => {
+        alert('Error al copiar el link ❌');
+      });
   }
 
   obtenerUrlParticipacion(): string {
-    return this.acortarParticipacion ? this.urlCortaParticipacion : this.urlParticipacion;
+    return this.acortarParticipacion
+      ? this.urlCortaParticipacion
+      : this.urlParticipacion;
   }
 
   obtenerUrlConsulta(): string {
@@ -90,17 +122,19 @@ export class EnlacesComponent implements OnInit {
     html2canvas(element, {
       useCORS: true,
       backgroundColor: '#fff',
-      scale: 2 // Aumenta la resolución del canvas
-    }).then(canvas => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL('imagen/png');
-      
-      // Personaliza el nombre del archivo según el tipo de QR
-      const nombreArchivo =  `codigo-qr-Questi-${this.tipoQR}.png`;
-      link.download = nombreArchivo;
-      link.click();
-    }).catch(error => {
-      console.log('Error al generar imagen del QR: ' , error);
-    });
+      scale: 2, // Aumenta la resolución del canvas
+    })
+      .then((canvas) => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('imagen/png');
+
+        // Personaliza el nombre del archivo según el tipo de QR
+        const nombreArchivo = `codigo-qr-Questi-${this.tipoQR}.png`;
+        link.download = nombreArchivo;
+        link.click();
+      })
+      .catch((error) => {
+        console.log('Error al generar imagen del QR: ', error);
+      });
   }
 }

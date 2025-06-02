@@ -31,7 +31,6 @@ import { PreguntaDTO } from '../../interfaces/pregunta.dto';
 import { OpcionDTO } from '../../interfaces/opcion.dto';
 import { validateOpciones } from '../../validators/validateOpciones';
 
-
 @Component({
   selector: 'app-crearEncuesta',
   standalone: true,
@@ -214,13 +213,29 @@ export class CrearEncuestaComponent {
             '/enlaces',
             res.id,
             res.codigoRespuesta,
-            res.codigoResultados
+            res.codigoResultados,
           ]);
         },
         error: () => {
           alert('Error al guardar la encuesta. Intenta más tarde.');
         },
       });
+    // .subscribe({
+    //   next: (res) => {
+    //     console.log('Respuesta backend:', res);
+    //     this.router.navigate([
+    //       '/enlaces',
+    //       res.id,
+    //       res.codigoRespuesta,
+    //       res.codigoResultados,
+    //       ,
+    //       { state: { test: 1 } },
+    //     ]);
+    //   },
+    //   error: () => {
+    //     alert('Error al guardar la encuesta. Intenta más tarde.');
+    //   },
+    // });
   }
 
   eliminarEncuesta() {
