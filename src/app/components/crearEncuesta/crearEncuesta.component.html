@@ -304,6 +304,17 @@
        <label for="">Falso</label>
       </div>
     </div>  
+
+    <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="flex gap-4">
+      <div class="flex items-center my-1">
+        <span class="pi pi-check p-disabled"></span>
+        <label class="ml-2">Verdadero</label>
+      </div>
+      <div class="flex items-center my-1">
+        <span class="pi pi-times p-disabled"></span>
+        <label class="ml-2">Falso</label>
+      </div>
+      
   </div>
   <p-button styleClass="acento ">Enviar</p-button>
 </div>
