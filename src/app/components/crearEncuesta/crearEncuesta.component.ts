@@ -24,12 +24,6 @@ import {
   tiposPreguntaPresentacion,
 } from '../../enums/tipos-pregunta.enum';
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { IconField } from 'primeng/iconfield';
-import { map } from 'rxjs';
-import { PreguntaDTO } from '../../interfaces/pregunta.dto';
-import { OpcionDTO } from '../../interfaces/opcion.dto';
-import { validateOpciones } from '../../validators/validateOpciones';
 
 @Component({
   selector: 'app-crearEncuesta',
