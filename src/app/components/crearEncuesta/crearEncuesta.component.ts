@@ -179,14 +179,11 @@ export class CrearEncuestaComponent {
       numero: i + 1,
       texto: p.get('texto')?.value,
       tipo: p.get('tipo')?.value,
-      opciones: (
+      opciones:
         p.get('tipo')?.value ===
           TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
         p.get('tipo')?.value ===
-          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE ||
-        p.get('tipo')?.value ===
-          TiposRespuestaEnum.VERDADERO_FALSO
-      )
+          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
           ? this.getOpciones(p).controls.map((ctrl, idx) => ({
               texto: ctrl.value,
               numero: idx + 1,
