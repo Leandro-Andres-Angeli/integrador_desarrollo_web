@@ -1,140 +1,119 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Data, Router, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
-import { QRCodeComponent } from 'angularx-qrcode'; // Importación del componente QR
-import { CommonModule } from '@angular/common';
-import html2canvas from 'html2canvas';
-import { map } from 'rxjs';
+import { CheckboxModule } from 'primeng/checkbox';
+import { QRDialogComponent } from '../../components/qrdialog/qrdialog.component';
+import { EnlacesService } from '../../services/enlaces.service';
+
+interface Enlaces {
+  urlParticipacion: string;
+  urlConsulta: string;
+}
 
 @Component({
   selector: 'app-enlaces',
   standalone: true,
   imports: [
-    RouterModule,
     ButtonModule,
     FloatLabelModule,
     CheckboxModule,
     FormsModule,
-    QRCodeComponent,
     CommonModule,
+    QRDialogComponent
   ],
   templateUrl: './enlaces.component.html',
   styleUrls: ['./enlaces.component.css'],
 })
 export class EnlacesComponent implements OnInit {
-  urlParticipacion: string = '';
-  urlConsulta: string = '';
+  mostrarQR: boolean = false;
+  tipoQR: 'Encuesta' | 'Resultados' = 'Encuesta';
+
+  idEncuesta!: number;
+  codigoRespuesta!: string;
+  codigoResultados: string = '';
+
+  enlaceParticipacion: string = '';
+  enlaceConsulta: string = '';
+
 
   acortarParticipacion = false;
   acortarConsulta = false;
 
-  urlCortaParticipacion = 'https://encue.st/p/2025';
-  urlCortaConsulta = 'https://encue.st/r/2025';
-
-  //Manejo para mostrar el QR
-  mostrarQR: boolean = false;
-  qrUrl: string = '';
-
-  // Referencia al contenedor del QR para descargarlo
-  @ViewChild('qrContainer', { static: false }) qrContainer!: ElementRef;
-
-  tipoQR: 'participacion' | 'consulta' = 'participacion';
-
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private enlacesService: EnlacesService
+  ) {}
 
   ngOnInit(): void {
-    const snap = this.activatedRoute.snapshot;
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      const codResul = params.get('codigoResultados');
+      const codResp = params.get('codigoRespuesta');
 
-    const { codigoRespuesta, codigoResultados } = snap.params;
-    this.urlParticipacion = codigoRespuesta;
-    this.urlConsulta = codigoResultados;
-    // console.log('extras ', extras);
-    // this.activatedRoute.data
-    //   .pipe(map((res) => console.log('rees', res)))
-    //   .subscribe();
-    // this.activatedRoute.data
-    //   .pipe(
-    //     map((res: Record<string, any>) => {
-    //       console.log('ressss', res);
-    //       this.urlParticipacion = res['codigoRespuesta'];
-    //       this.urlConsulta = res['codigoResultados'];
-    //     })
-    //   )
-    //   .subscribe();
-    // Aquí puedes inicializar algo si necesitas al iniciar el componente
-  }
+      if (!idParam || !codResp || !codResul) {
+        console.error('Parámetros inválidos en la URL');
+        return;
+      }
 
-  // Función para copiar al portapapeles
-  copiarTexto(texto: string) {
-    navigator.clipboard
-      .writeText(texto)
-      .then(() => {
-        alert('Link copiado al portapapeles ✔️');
-      })
-      .catch(() => {
-        alert('Error al copiar el link ❌');
+      this.idEncuesta = +idParam;
+      this.codigoResultados = codResul;
+      this.codigoRespuesta = codResp;
+
+      this.enlacesService.generarEnlaces(this.idEncuesta, this.codigoResultados, this.codigoRespuesta).subscribe({
+        next: (enlaces: Enlaces) => {
+          this.enlaceParticipacion = enlaces.urlParticipacion;
+          this.enlaceConsulta = enlaces.urlConsulta;
+        },
+        error: (err: any) => {
+          console.error('Error al generar enlaces:', err);
+        }
       });
+    });
   }
 
   obtenerUrlParticipacion(): string {
-    return this.acortarParticipacion
-      ? this.urlCortaParticipacion
-      : this.urlParticipacion;
+    if (this.acortarParticipacion) {
+      const cortos = this.enlacesService.generarEnlacesCortos(this.idEncuesta);
+      return cortos.urlParticipacion;
+    }
+    return this.enlaceParticipacion;
   }
 
   obtenerUrlConsulta(): string {
-    return this.acortarConsulta ? this.urlCortaConsulta : this.urlConsulta;
+    if (this.acortarConsulta) {
+      const cortos = this.enlacesService.generarEnlacesCortos(this.idEncuesta);
+      return cortos.urlConsulta;
+    }
+    return this.enlaceConsulta;
   }
 
-  // Función para mostrar el QR
-  mostrarQRParticipacion() {
-    this.qrUrl = this.obtenerUrlParticipacion();
-    this.tipoQR = 'participacion'; // Establece el tipo de QR
-    this.mostrarQR = true;
-  }
-
-  mostrarQRConsulta() {
-    this.qrUrl = this.obtenerUrlConsulta();
-    this.tipoQR = 'consulta'; // Establece el tipo de QR
-    this.mostrarQR = true;
-  }
-
-  // Función para ocultar el QR
-  cerrarQR() {
-    this.mostrarQR = false;
-  }
-
-  descargarQR() {
-    const element = this.qrContainer.nativeElement;
-    const logo = element.querySelector('.qr-logo');
-
-    if (logo?.complete) {
-      this.generarCanvas(element);
-    } else {
-      logo.onload = () => this.generarCanvas(element);
+  async copiarTexto(texto: string): Promise<void> {
+    const ok = await this.enlacesService.copiarAlPortapapeles(texto);
+    if (ok) {
+      alert('Link copiado al portapapeles ✔️');
     }
   }
 
-  generarCanvas(element: HTMLElement) {
-    html2canvas(element, {
-      useCORS: true,
-      backgroundColor: '#fff',
-      scale: 2, // Aumenta la resolución del canvas
-    })
-      .then((canvas) => {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('imagen/png');
+  mostrarQRParticipacion(): void {
+    this.tipoQR = 'Encuesta';
+    this.mostrarQR = true;
+  }
 
-        // Personaliza el nombre del archivo según el tipo de QR
-        const nombreArchivo = `codigo-qr-Questi-${this.tipoQR}.png`;
-        link.download = nombreArchivo;
-        link.click();
-      })
-      .catch((error) => {
-        console.log('Error al generar imagen del QR: ', error);
-      });
+  mostrarQRConsulta(): void {
+    this.tipoQR = 'Resultados';
+    this.mostrarQR = true;
+  }
+
+  cerrarQR(): void {
+    this.mostrarQR = false;
+  }
+
+  get qrUrl(): string {
+    return this.tipoQR === 'Encuesta'
+      ? this.obtenerUrlParticipacion()
+      : this.obtenerUrlConsulta();
   }
 }
