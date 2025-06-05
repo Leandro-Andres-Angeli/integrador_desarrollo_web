@@ -20,6 +20,12 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TablaResultadosComponent } from './tabla-resultados/tabla-resultados.component';
 import { AngularD3CloudComponent } from 'angular-d3-cloud';
+import {
+  PreguntaResultadoDto,
+  RespuestaEncuestadoDto,
+  RespuestaOpcionDto,
+} from '../../interfaces/resultados.dto';
+import { OpcionDTO } from '../../interfaces/opcion.dto';
 @Component({
   selector: 'app-resultados',
   styleUrls: ['./resultados.component.css'],
@@ -51,14 +57,15 @@ import { AngularD3CloudComponent } from 'angular-d3-cloud';
 export class ResultadosComponent implements OnInit {
   id!: number | null;
   codigoResultado!: string | null;
-  preguntas: any;
-  respuestas: any = {};
+  preguntas: PreguntaResultadoDto[] = [];
+  respuestas: RespuestaEncuestadoDto[] = [];
   nombre: string = '';
   error: string | null = null;
-  options: any;
+  opcionesGrafico: any;
 
-  fontSizeMapper = (word: any) => word.value * 25;
+  fontSizeMapper = (palabra: any) => palabra.value * 25;
   rotate = () => ~~(Math.random() * 2) * 90;
+
   constructor(
     private resultadosService: ResultadosService,
     private route: ActivatedRoute
@@ -101,7 +108,7 @@ export class ResultadosComponent implements OnInit {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
-    this.options = {
+    this.opcionesGrafico = {
       cutout: '60%',
       plugins: {
         legend: {
@@ -112,15 +119,15 @@ export class ResultadosComponent implements OnInit {
       },
     };
   }
-  getData(pregunta: any) {
+  getData(pregunta: PreguntaResultadoDto) {
     const data = {
-      labels: pregunta.opciones.map((o: any) => {
+      labels: pregunta.opciones.map((o: OpcionDTO) => {
         return o.texto;
       }),
       datasets: [
         {
           label: 'Cantidad',
-          data: pregunta.respuestasOpciones.map((ro: any) => {
+          data: pregunta.respuestasOpciones.map((ro: RespuestaOpcionDto) => {
             return ro.cantidad;
           }),
         },

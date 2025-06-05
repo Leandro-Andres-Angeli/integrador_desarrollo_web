@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ResultadosDto } from '../interfaces/resultados.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,12 @@ export class ResultadosService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerResultados(id: number, codigoResultado: string): Observable<any> {
+  obtenerResultados(
+    id: number,
+    codigoResultado: string
+  ): Observable<ResultadosDto> {
     console.log(id, codigoResultado);
-    return this.http.get(
+    return this.http.get<ResultadosDto>(
       this.apiUrl + 'resultados/' + id + '?codigo=' + codigoResultado
     );
   }

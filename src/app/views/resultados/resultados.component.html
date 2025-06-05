@@ -59,7 +59,9 @@
           </div>
         </p-tabpanel>
         <p-tabpanel value="1">
-          <ng-container *ngIf="respuestas?.length > 0; else noResultados">
+          <ng-container
+            *ngIf="respuestas && respuestas.length > 0; else noResultados"
+          >
             <p-card *ngFor="let pregunta of preguntas">
               <p-fieldset legend="Pregunta {{ pregunta.numero + 1 }}">
                 <p-accordion [activeIndex]="0">
@@ -110,7 +112,7 @@
                           <p-chart
                             type="doughnut"
                             [data]="getData(pregunta)"
-                            [options]="options"
+                            [options]="opcionesGrafico"
                           />
                         </div>
                       </div>
@@ -124,7 +126,7 @@
                         <p-chart
                           type="bar"
                           [data]="getData(pregunta)"
-                          [options]="options"
+                          [options]="opcionesGrafico"
                         />
                       </div>
                     </div>
