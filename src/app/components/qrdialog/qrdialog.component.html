@@ -1,0 +1,32 @@
+<div *ngIf="mostrar" class="modal-qr" role="dialog" aria-modal="true">
+  <div class="modal-qr-content">
+    <p-button
+      icon="pi pi-times"
+      styleClass="p-button-rounded acento p-button-text cerrar-modal"
+      (onClick)="cerrarQR()"
+      aria-label="Cerrar QR"
+    ></p-button>
+    <h3>Escaneá código QR</h3>
+
+    <div #qrContainer class="qr-wrapper">
+      <qrcode [qrdata]="qrUrl" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+      <img
+        src="assets/images/logos/logo-VioletaQR.svg"
+        alt="Logo QR"
+        class="qr-logo"
+      />
+    </div>
+
+    <div class="qr-url">
+      haz captura con tu celular o <br />
+      <p-button
+        icon="pi pi-download"
+        label="Descargá"
+        styleClass="primario p-button-sm m-2"
+        (onClick)="descargarQR()"
+      ></p-button>
+      <br />
+      para usarlo más tarde.
+    </div>
+  </div>
+</div>
