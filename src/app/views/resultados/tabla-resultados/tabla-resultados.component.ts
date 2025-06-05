@@ -1,6 +1,11 @@
 import { Component, Input, input } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import {
+  PreguntaResultadoDto,
+  RespuestaEncuestadoDto,
+  RespuestasDto,
+} from '../../../interfaces/resultados.dto';
 @Component({
   selector: 'app-tabla-resultados',
   imports: [TableModule, CommonModule],
@@ -9,14 +14,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './tabla-resultados.component.css',
 })
 export class TablaResultadosComponent {
-  preguntas = input<any[]>([]);
-  respuestas = input<any[]>([]);
+  preguntas = input<PreguntaResultadoDto[]>([]);
+  respuestas = input<RespuestaEncuestadoDto[]>([]);
 
-  get tablaRespuestas(): any[] {
+  get tablaRespuestas(): FilaResultado[] {
     return this.respuestas().map((respuesta) => {
-      const fila: any = { id: respuesta.id };
+      const fila: FilaResultado = { id: respuesta.id };
 
-      respuesta.respuestas.forEach((r: any) => {
+      respuesta.respuestas.forEach((r: RespuestasDto) => {
         fila[r.preguntaId] = r.textoRespuesta.join(', ');
       });
 
@@ -24,3 +29,8 @@ export class TablaResultadosComponent {
     });
   }
 }
+
+type FilaResultado = {
+  id: number;
+  [preguntaId: number]: string;
+};
