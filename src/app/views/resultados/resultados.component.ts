@@ -9,23 +9,19 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { AccordionModule } from 'primeng/accordion';
-import { FieldsetModule } from 'primeng/fieldset';
-import { ChartModule } from 'primeng/chart';
 import { MessageModule } from 'primeng/message';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { catchError } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TablaResultadosComponent } from './tabla-resultados/tabla-resultados.component';
-import { AngularD3CloudComponent } from 'angular-d3-cloud';
+import { GraficosResultadosComponent } from './graficos-resultados/graficos-resultados.component';
+
 import {
   PreguntaResultadoDto,
   RespuestaEncuestadoDto,
-  RespuestaOpcionDto,
 } from '../../interfaces/resultados.dto';
-import { OpcionDTO } from '../../interfaces/opcion.dto';
+
 @Component({
   selector: 'app-resultados',
   styleUrls: ['./resultados.component.css'],
@@ -40,17 +36,13 @@ import { OpcionDTO } from '../../interfaces/opcion.dto';
     RadioButtonModule,
     CheckboxModule,
     InputTextModule,
-    AccordionModule,
-    FieldsetModule,
-    ChartModule,
-    ScrollPanelModule,
     MessageModule,
     JsonPipe,
     TabsModule,
     CommonModule,
     TableModule,
     TablaResultadosComponent,
-    AngularD3CloudComponent,
+    GraficosResultadosComponent,
   ],
   standalone: true,
 })
@@ -61,10 +53,6 @@ export class ResultadosComponent implements OnInit {
   respuestas: RespuestaEncuestadoDto[] = [];
   nombre: string = '';
   error: string | null = null;
-  opcionesGrafico: any;
-
-  fontSizeMapper = (palabra: any) => palabra.value * 25;
-  rotate = () => ~~(Math.random() * 2) * 90;
 
   constructor(
     private resultadosService: ResultadosService,
@@ -87,53 +75,18 @@ export class ResultadosComponent implements OnInit {
           this.nombre = res.nombre;
           this.preguntas = res.preguntas;
           this.respuestas = res.respuestas;
-          console.log(this.preguntas, 'this.preguntas');
           this.preguntas.sort(
             (a: { numero: number }, b: { numero: number }) =>
               a.numero - b.numero
           );
-
-          this.preguntas.sort(
-            (a: { numero: number }, b: { numero: number }) =>
-              a.numero - b.numero
+          this.respuestas.sort(
+            (a: { id: number }, b: { id: number }) => a.id - b.id
           );
-
-          console.log('Datos recibidos:', res);
         },
         error: (err) => {
           console.error('Error al cargar resultados', err);
         },
       });
-
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
-    this.opcionesGrafico = {
-      cutout: '60%',
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor,
-          },
-        },
-      },
-    };
-  }
-  getData(pregunta: PreguntaResultadoDto) {
-    const data = {
-      labels: pregunta.opciones.map((o: OpcionDTO) => {
-        return o.texto;
-      }),
-      datasets: [
-        {
-          label: 'Cantidad',
-          data: pregunta.respuestasOpciones.map((ro: RespuestaOpcionDto) => {
-            return ro.cantidad;
-          }),
-        },
-      ],
-    };
-    return data;
   }
 
   descargarCSV() {

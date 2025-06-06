@@ -50,101 +50,21 @@
             [preguntas]="preguntas"
             [respuestas]="respuestas"
           ></app-tabla-resultados>
-
-          <div *ngIf="respuestas?.length === 0" class="p-4 text-center">
-            <p-message
-              severity="info"
-              text="Esta encuesta no tiene resultados aún."
-            ></p-message>
-          </div>
         </p-tabpanel>
         <p-tabpanel value="1">
-          <ng-container
-            *ngIf="respuestas && respuestas.length > 0; else noResultados"
-          >
-            <p-card *ngFor="let pregunta of preguntas">
-              <p-fieldset legend="Pregunta {{ pregunta.numero + 1 }}">
-                <p-accordion [activeIndex]="0">
-                  <p-accordionTab header="{{ pregunta.texto }}">
-                    <div class="p-card-content">
-                      <!-- Pregunta abierta -->
-                      <div *ngIf="pregunta.tipo === 'ABIERTA'">
-                        <p-tabs value="0">
-                          <p-tablist>
-                            <p-tab value="0">Nube de palabras</p-tab>
-                            <p-tab value="1">Respuestas</p-tab>
-                          </p-tablist>
-                          <p-tabpanels>
-                            <p-tabpanel value="0">
-                              <angular-d3-cloud
-                                [data]="pregunta.frecuenciaPalabras"
-                                [width]="600"
-                                [height]="400"
-                                [fontSizeMapper]="fontSizeMapper"
-                                [rotate]="rotate"
-                              >
-                              </angular-d3-cloud>
-                            </p-tabpanel>
-                            <p-tabpanel value="1">
-                              <p-scrollPanel
-                                [style]="{ width: '100%', height: '150px' }"
-                              >
-                                <p
-                                  *ngFor="
-                                    let respuesta of pregunta.respuestasAbiertas
-                                  "
-                                >
-                                  {{ respuesta.texto }}
-                                </p>
-                              </p-scrollPanel>
-                            </p-tabpanel>
-                          </p-tabpanels>
-                        </p-tabs>
-                      </div>
-
-                      <!-- Selección simple -->
-                      <div
-                        *ngIf="
-                          pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'
-                        "
-                      >
-                        <div class="flex justify-content-center">
-                          <p-chart
-                            type="doughnut"
-                            [data]="getData(pregunta)"
-                            [options]="opcionesGrafico"
-                          />
-                        </div>
-                      </div>
-
-                      <!-- Selección múltiple -->
-                      <div
-                        *ngIf="
-                          pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'
-                        "
-                      >
-                        <p-chart
-                          type="bar"
-                          [data]="getData(pregunta)"
-                          [options]="opcionesGrafico"
-                        />
-                      </div>
-                    </div>
-                  </p-accordionTab>
-                </p-accordion>
-              </p-fieldset>
-            </p-card>
-          </ng-container>
-          <ng-template #noResultados>
-            <div class="p-4 text-center">
-              <p-message
-                severity="info"
-                text="Esta encuesta no tiene resultados aún."
-              ></p-message>
-            </div>
-          </ng-template>
+          <app-graficos-resultados
+            class="full-flex-width"
+            [preguntas]="preguntas"
+            [respuestas]="respuestas"
+          ></app-graficos-resultados>
         </p-tabpanel>
       </p-tabpanels>
+      <div *ngIf="respuestas?.length === 0" class="p-4 text-center">
+        <p-message
+          severity="info"
+          text="Esta encuesta no tiene resultados aún."
+        ></p-message>
+      </div>
     </p-tabs>
   </div>
 </div>

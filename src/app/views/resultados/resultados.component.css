@@ -79,3 +79,13 @@ p.copyright {
 .tabs-bar button {
   margin: 1rem 1rem 1rem auto;
 }
+
+.p-tabpanel {
+  overflow-x: auto;
+  display: flex;
+  width: 100%;
+}
+
+.full-flex-width {
+  flex: 1;
+}
