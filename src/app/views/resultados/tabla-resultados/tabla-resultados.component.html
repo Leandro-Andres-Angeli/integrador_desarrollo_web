@@ -7,15 +7,18 @@
     <ng-template #header>
       <tr>
         <th>#</th>
-        <th *ngFor="let pregunta of preguntas()">
+        <th
+          *ngFor="let pregunta of preguntas()"
+          [style]="{ 'min-width': '15rem' }"
+        >
           {{ pregunta.texto }}
         </th>
       </tr>
     </ng-template>
 
-    <ng-template #body let-respuesta>
+    <ng-template #body let-respuesta let-indice="rowIndex">
       <tr>
-        <td>{{ respuesta.id }}</td>
+        <td>{{ indice + 1 }}</td>
         <td *ngFor="let p of preguntas()">
           {{ respuesta[p.id] || "-" }}
         </td>
