@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -29,7 +29,6 @@ import {
   imports: [
     ButtonModule,
     RouterModule,
-    NgFor,
     NgIf,
     FormsModule,
     CardModule,
