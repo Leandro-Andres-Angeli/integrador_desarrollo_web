@@ -15,11 +15,11 @@ export class EnlacesService {
 
   constructor(private encuestasService: EncuestasService) {}
 
-  generarEnlaces(idEncuesta: number, codigoResultados: string, codigoRespuesta: string): Observable<Enlaces> {
+  generarEnlaces(idEncuesta: number, codigoResultado: string, codigoRespuesta: string): Observable<Enlaces> {
     return new Observable<Enlaces>(observer => {
       const enlaces: Enlaces = {
-        urlParticipacion: `${window.location.origin}/respuesta/${idEncuesta}/${codigoRespuesta}`,
-        urlConsulta: `${window.location.origin}/resultados/${idEncuesta}/${codigoResultados}`        
+        urlParticipacion: `${window.location.origin}/respuestas/${idEncuesta}/${codigoRespuesta}`,
+        urlConsulta: `${window.location.origin}/resultados/${idEncuesta}/${codigoResultado}`        
       };
       observer.next(enlaces);
       observer.complete();

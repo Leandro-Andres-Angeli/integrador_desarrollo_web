@@ -6,7 +6,7 @@ import { AgradecimientoComponent } from './components/agradecimiento/agradecimie
 import { ResultadosComponent } from './views/resultados/resultados.component';
 import { ErrorGuardarEncuestaComponent } from './views/error-guardar-encuesta/error-guardar-encuesta.component';
 import { EnlacesComponent } from './views/enlaces/enlaces.component';
-
+import { RespuestasComponent } from './views/respuestas/respuestas.component';
 export const routes: Routes = [
   {
     path: '',
@@ -36,6 +36,10 @@ export const routes: Routes = [
   {
     path: 'enlaces/:id/:codigoRespuesta/:codigoResultados',
     component: EnlacesComponent,
+  },
+  {
+    path:  'respuestas/:id/:codigoRespuesta',
+    component: RespuestasComponent,
   },
   {
     path: '**',
