@@ -162,9 +162,10 @@
       </div>
 
       <!-- Verdadero o falso -->
-      <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="mt-4">
-        
-      </div>
+      <div
+        *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
+        class="mt-4"
+      ></div>
 
       <div class="acciones">
         <p-button
@@ -281,7 +282,10 @@
     </div>
 
     <!-- Verdadero o falso -->
-    <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="flex gap-4">
+    <div
+      *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
+      class="flex gap-4"
+    >
       <div class="flex items-center my-1">
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">Verdadero</label>
@@ -290,7 +294,7 @@
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">Falso</label>
       </div>
-      
+    </div>
   </div>
+  <p-button styleClass="acento ">Enviar</p-button>
 </div>
-<p-button styleClass="acento ">Enviar</p-button>

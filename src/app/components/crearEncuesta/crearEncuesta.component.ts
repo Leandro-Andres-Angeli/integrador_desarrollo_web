@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
@@ -34,6 +34,7 @@ import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
     ButtonModule,
     InputTextModule,
     RouterModule,
+
     FloatLabelModule,
     ReactiveFormsModule,
     SelectModule,
@@ -176,12 +177,12 @@ export class CrearEncuestaComponent {
       opciones:
         p.get('tipo')?.value ===
           TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
-        p.get('tipo')?.value ===
+          p.get('tipo')?.value ===
           TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
           ? this.getOpciones(p).controls.map((ctrl, idx) => ({
-              texto: ctrl.value,
-              numero: idx + 1,
-            }))
+            texto: ctrl.value,
+            numero: idx + 1,
+          }))
           : [],
     }));
 

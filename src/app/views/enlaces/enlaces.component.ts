@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -22,7 +22,8 @@ interface Enlaces {
     CheckboxModule,
     FormsModule,
     CommonModule,
-    QRDialogComponent
+    QRDialogComponent,
+    RouterLink
   ],
   templateUrl: './enlaces.component.html',
   styleUrls: ['./enlaces.component.css'],
@@ -45,7 +46,7 @@ export class EnlacesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private enlacesService: EnlacesService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
