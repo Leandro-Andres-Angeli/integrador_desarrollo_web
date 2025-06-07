@@ -3,6 +3,7 @@ import {
   PreguntaResultadoDto,
   RespuestaEncuestadoDto,
   RespuestaOpcionDto,
+  RespuestaVerdaderoFalsoDto,
 } from '../../../interfaces/resultados.dto';
 import { ChartModule } from 'primeng/chart';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
@@ -57,14 +58,35 @@ export class GraficosResultadosComponent {
   }
   getData(pregunta: PreguntaResultadoDto) {
     const data = {
-      labels: pregunta.opciones.map((o: OpcionDTO) => {
-        return o.texto;
-      }),
+      labels: pregunta.opciones
+        .sort((a: OpcionDTO, b: OpcionDTO) => a.numero - b.numero)
+        .map((o: OpcionDTO) => {
+          return o.texto;
+        }),
       datasets: [
         {
           label: 'Cantidad',
           data: pregunta.respuestasOpciones.map((ro: RespuestaOpcionDto) => {
             return ro.cantidad;
+          }),
+        },
+      ],
+    };
+    return data;
+  }
+
+  getDataVF(pregunta: PreguntaResultadoDto) {
+    const data = {
+      labels: pregunta.opciones
+        .sort((a: OpcionDTO, b: OpcionDTO) => a.numero - b.numero)
+        .map((o: OpcionDTO) => {
+          return o.texto;
+        }),
+      datasets: [
+        {
+          label: 'Cantidad',
+          data: pregunta.respuestasVF.map((rvf: RespuestaVerdaderoFalsoDto) => {
+            return rvf.cantidad;
           }),
         },
       ],
