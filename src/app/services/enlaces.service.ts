@@ -19,7 +19,7 @@ export class EnlacesService {
     return new Observable<Enlaces>(observer => {
       const enlaces: Enlaces = {
         urlParticipacion: `${window.location.origin}/respuestas/${idEncuesta}/${codigoRespuesta}`,
-        urlConsulta: `${window.location.origin}/resultados/${idEncuesta}/${codigoResultado}`        
+        urlConsulta: `${window.location.origin}/resultados/${idEncuesta}?codigo=${codigoResultado}`,
       };
       observer.next(enlaces);
       observer.complete();
