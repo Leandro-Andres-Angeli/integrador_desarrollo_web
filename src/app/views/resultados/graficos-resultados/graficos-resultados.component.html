@@ -53,6 +53,17 @@
                 [options]="opcionesGrafico"
               />
             </div>
+
+            <!-- Verdadero o Falso -->
+            <div *ngIf="pregunta.tipo === 'VERDADERO_FALSO'">
+              <div class="flex justify-content-center">
+                <p-chart
+                  type="doughnut"
+                  [data]="getDataVF(pregunta)"
+                  [options]="opcionesGrafico"
+                />
+              </div>
+            </div>
           </div>
         </p-accordionTab>
       </p-accordion>

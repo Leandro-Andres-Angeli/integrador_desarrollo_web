@@ -6,6 +6,12 @@ export interface RespuestaOpcionDto {
   cantidad: number;
 }
 
+export interface RespuestaVerdaderoFalsoDto {
+  id: number;
+  valor: boolean;
+  cantidad: number;
+}
+
 interface RespuestaAbiertaDto {
   id: number;
   texto: string;
@@ -19,6 +25,7 @@ export interface PreguntaResultadoDto {
   opciones: OpcionDTO[];
   respuestasOpciones: RespuestaOpcionDto[];
   respuestasAbiertas: RespuestaAbiertaDto[];
+  respuestasVF: RespuestaVerdaderoFalsoDto[];
   frecuenciaPalabras: PalabraFrecuenciaDto[];
 }
 
