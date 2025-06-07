@@ -8,4 +8,6 @@ export interface EncuestaDTO {
     preguntas: PreguntaDTO[];
     
     codigoRespuesta: string;
+
+    codigoResultados: string;
 }
