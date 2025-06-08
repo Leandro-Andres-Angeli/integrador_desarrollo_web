@@ -18,16 +18,16 @@
     <ng-container *ngIf="tituloEditando; else verTitulo">
       <div class="input-nombre-container">
         <p-floatlabel>
-        <input
-          id="input-nombre"
-          pInputText
-          formControlName="nombre"
-          autocomplete="off"
-          name="nombre"
-          aria-describedby="nombre-text-helper"
-          style="background: #fff; color: #09090b"
-        />
-        <label for="input-nombre">Escribir título...</label>
+          <input
+            id="input-nombre"
+            pInputText
+            formControlName="nombre"
+            autocomplete="off"
+            name="nombre"
+            aria-describedby="nombre-text-helper"
+            style="background: #fff; color: #09090b"
+          />
+          <label for="input-nombre">Escribir título...</label>
         </p-floatlabel>
       </div>
       <p-button
@@ -35,7 +35,8 @@
         icon="pi pi-check"
         styleClass="neutral"
         (click)="guardarTitulo()"
-        [disabled]="tituloControl.invalid">
+        [disabled]="tituloControl.invalid"
+      >
       </p-button>
     </ng-container>
 
@@ -52,14 +53,14 @@
     </ng-template>
   </div>
   @if ( encuestaForm.controls["nombre"].dirty &&
-        encuestaForm.controls["nombre"].invalid ) {
-        <div id="nombre-text-helper" class="text-helper-nombre">
-          <i class="pi pi-exclamation-circle mr-2"></i>
-          Campo requerido.
-        </div>
-        }
-  <br>
-  <br>
+  encuestaForm.controls["nombre"].invalid ) {
+  <div id="nombre-text-helper" class="text-helper-nombre">
+    <i class="pi pi-exclamation-circle mr-2"></i>
+    Campo requerido.
+  </div>
+  }
+  <br />
+  <br />
 
   <!-- PREGUNTAS -->
   <div
@@ -69,22 +70,23 @@
   >
     <ng-container *ngIf="pregunta.get('editando')?.value; else preguntaVista">
       <div class="input-pregunta-select-container">
-      <input
-        type="text"
-        pInputText
-        formControlName="texto"
-        placeholder="Escribir pregunta..."
-        class="input-pregunta"
-      />
-      <p-select
-        [options]="tiposRespuesta"
-        (onChange)="handleTipoRespuestaChange(pregunta)"
-        formControlName="tipo"
-        class="dropdown-estilizado p-select"
-        inputId="tipo-pregunta-{{ i }}"
-        aria-label="Tipo de respuesta"
-        [autocapitalize]="true"> 
-      </p-select>
+        <input
+          type="text"
+          pInputText
+          formControlName="texto"
+          placeholder="Escribir pregunta..."
+          class="input-pregunta"
+        />
+        <p-select
+          [options]="tiposRespuesta"
+          (onChange)="handleTipoRespuestaChange(pregunta)"
+          formControlName="tipo"
+          class="dropdown-estilizado p-select"
+          inputId="tipo-pregunta-{{ i }}"
+          aria-label="Tipo de respuesta"
+          [autocapitalize]="true"
+        >
+        </p-select>
       </div>
       @if( pregunta.controls["texto"].invalid){
       <div id="nombre-text-helper" class="text-helper">
@@ -155,9 +157,11 @@
       </div>
 
       <!-- Verdadero o falso -->
-      <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="mt-4">
-      </div>
-      
+      <div
+        *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
+        class="mt-4"
+      ></div>
+
       <div class="acciones">
         <p-button
           icon="pi pi-times"
@@ -275,7 +279,10 @@
     </div>
 
     <!-- Verdadero o falso -->
-    <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="flex gap-4">
+    <div
+      *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
+      class="flex gap-4"
+    >
       <div class="flex items-center my-1">
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">Verdadero</label>
@@ -284,7 +291,7 @@
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">Falso</label>
       </div>
-      
+    </div>
   </div>
+  <p-button styleClass="acento ">Enviar</p-button>
 </div>
-<p-button styleClass="acento ">Enviar</p-button>
