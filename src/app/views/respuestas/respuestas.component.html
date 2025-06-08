@@ -41,12 +41,14 @@
     <!-- Pregunta ABIERTA -->
     <div *ngIf="pregunta.tipo === 'ABIERTA'">
       <textarea
+        style="resize: none"
         pInputTextarea
         [(ngModel)]="respuestas.respuestasAbiertas[getAbiertaIndex(i)].texto"
         (ngModelChange)="guardarRespuestaAbierta($event, getAbiertaIndex(i))"
         placeholder="Escribir respuesta..."
         rows="4"
         cols="50"
+        class="resize-none"
       ></textarea>
     </div>
 
@@ -62,7 +64,9 @@
           (onClick)="guardarRespuestaOpcion(opcion.id, getOpcionSimpleIndex(i))"
           inputId="opcion-{{ i }}-{{ opcion.id }}"
         ></p-radioButton>
-        <label class="ml-3" for="opcion-{{ i }}-{{ opcion.id }}">{{ opcion.texto }}</label>
+        <label class="ml-3" for="opcion-{{ i }}-{{ opcion.id }}">{{
+          opcion.texto
+        }}</label>
       </div>
     </div>
 
@@ -75,7 +79,9 @@
           [(ngModel)]="opcionesSeleccionadas[pregunta.id]"
           (ngModelChange)="guardarRespuestaMultiple($event, pregunta.id)"
         ></p-checkbox>
-        <label class="ml-3" [for]="'opcion-' + i + '-' + opcion.id">{{ opcion.texto }}</label>
+        <label class="ml-3" [for]="'opcion-' + i + '-' + opcion.id">{{
+          opcion.texto
+        }}</label>
       </div>
     </div>
 
