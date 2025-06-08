@@ -52,7 +52,7 @@
 
     <!-- Pregunta OPCIÓN MÚLTIPLE SELECCIÓN SIMPLE -->
     <div *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
-      <div *ngFor="let opcion of pregunta.opciones">
+      <div *ngFor="let opcion of pregunta.opciones" class="mb-1">
         <p-radioButton
           name="opcion-{{ i }}"
           [value]="opcion.id"
@@ -68,7 +68,7 @@
 
     <!-- Pregunta OPCIÓN MÚLTIPLE SELECCIÓN MULTIPLE -->
     <div *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'">
-      <div *ngFor="let opcion of pregunta.opciones">
+      <div *ngFor="let opcion of pregunta.opciones" class="mb-1">
         <p-checkbox
           [inputId]="'opcion-' + i + '-' + opcion.id"
           [value]="opcion.id"

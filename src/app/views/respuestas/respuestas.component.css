@@ -105,14 +105,6 @@
   color: #000;
 }
 
-.icono-vf.verdadero {
-  color: #28a745;
-}
-
-.icono-vf.falso {
-  color: #dc3545;
-}
-
 /* Estilo general para el textarea de PrimeNG */
 textarea[pInputTextarea] {
   background: #fff;
@@ -127,13 +119,20 @@ textarea[pInputTextarea] {
   width: 90%;
   font-family: montserrat, sans-serif;
 }
-
+textarea[pInputTextarea]:hover {
+  background: #fff;
+  color: #000;
+  border-color: #8e7ca8;
+  outline: none;
+}
 textarea[pInputTextarea]:focus {
   background: #fff;
   color: #000;
-  border-color: #b9faf8;
+  border-color: #8e7ca8;
   outline: none;
 }
+
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -141,3 +140,39 @@ textarea[pInputTextarea]:focus {
     flex-direction: column;
   }
 }
+
+
+
+/* Personalización de input radio nativo usando variables */
+input[type="radio"] {
+  background-color: rgb(0, 0, 0);
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: relative;
+}
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: #0c0c0c;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+
+input[type="radio"]:checked {
+  background-color: #b9faf8;
+  border-color: #000;
+}
+
+input[type="radio"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+   
