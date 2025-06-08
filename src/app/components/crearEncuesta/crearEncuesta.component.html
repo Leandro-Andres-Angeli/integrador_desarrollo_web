@@ -230,68 +230,81 @@
 
 <!-- MODO VISTA PREVIA -->
 <div *ngIf="modoVistaPrevia" class="encuesta-container">
-  <h2 class="titulo-texto">{{ tituloControl.value }}</h2>
+  <div class="titulo-preview">
+    <h2 class="titulo-texto">{{ tituloControl.value }}</h2>
+  </div>
 
-  <div
-    *ngFor="let pregunta of preguntasFormGroups; let i = index"
-    class="pregunta-item"
-  >
-    <p>
-      <strong>{{ i + 1 }}. {{ pregunta.get("texto")?.value }}</strong>
-    </p>
+  <div *ngFor="let pregunta of preguntasFormGroups; let i = index" class="pregunta-item">
+    <div class="cabecera-pregunta">
+      <span class="numero-pregunta">Pregunta {{ i + 1 }}</span>
+      <h4 class="texto-pregunta">{{ pregunta.get('texto')?.value }}</h4>
+    </div>
 
     <!-- Abierta -->
-    <input
-      *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'"
-      type="text"
-      pInputText
-      disabled
-      placeholder="Respuesta..."
-      style="background: #fff"
-    />
+    <div *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'">
+      <textarea 
+        pInputTextarea
+        placeholder="Escribir respuesta..."
+        rows="4"
+        cols="50"
+        name="abierta-{{ i }}"
+      ></textarea>
+    </div>
 
-    <!-- Opción simple -->
-    <div
-      *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE'"
-    >
-      <div
-        *ngFor="let opcion of getOpciones(pregunta).controls; let j = index"
-        class="flex items-center my-1"
-      >
-        <span class="pi pi-circle-off p-disabled"></span>
-        <label class="ml-2">{{ opcion.value }}</label>
+    <!-- Opción múltiple selección simple -->
+    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
+      <div *ngFor="let opcion of pregunta.get('opciones')?.value; let j = index" class="mb-1">
+        <p-radioButton
+          name="opcion-prev-{{ i }}"
+          [value]="opcion"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaSimple"
+          inputId="opcion-prev-{{ i }}-{{ j }}"
+        ></p-radioButton>
+        <label class="ml-3" for="opcion-prev-{{ i }}-{{ j }}">{{ opcion }}</label>
       </div>
     </div>
 
-    <!-- Opción múltiple -->
-    <div
-      *ngIf="
-        pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'
-      "
-    >
-      <div
-        *ngFor="let opcion of getOpciones(pregunta).controls; let j = index"
-        class="flex items-center gap-2 my-1"
-      >
-        <span class="pi pi-stop p-component p-disabled"></span>
-        <label class="ml-2">{{ opcion.value }}</label>
+    <!-- Opción múltiple selección múltiple -->
+    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'">
+      <div *ngFor="let opcion of pregunta.get('opciones')?.value; let j = index" class="mb-1">
+        <p-checkbox
+          [inputId]="'opcion-prev-' + i + '-' + j"
+          [value]="opcion"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaMultiple"
+          name="multiple-{{ i }}"
+        ></p-checkbox>
+        <label class="ml-3" [for]="'opcion-prev-' + i + '-' + j">{{ opcion }}</label>
       </div>
     </div>
 
     <!-- Verdadero o falso -->
-    <div
-      *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
-      class="flex gap-4"
-    >
-      <div class="flex items-center my-1">
-        <span class="pi pi-circle-off p-disabled"></span>
+    <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="flex gap-4 mt-2">
+      <div class="flex items-center">
+        <input
+          type="radio"
+          name="vf-prev-{{ i }}"
+          [value]="true"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaVF"
+        />
         <label class="ml-2">Verdadero</label>
       </div>
-      <div class="flex items-center my-1">
-        <span class="pi pi-circle-off p-disabled"></span>
+      <div class="flex items-center">
+        <input
+          type="radio"
+          name="vf-prev-{{ i }}"
+          [value]="false"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaVF"
+        />
         <label class="ml-2">Falso</label>
       </div>
     </div>
   </div>
-  <p-button styleClass="acento ">Enviar</p-button>
+
+  <div class="text-center mt-6">
+    <p-button
+      label="Enviar"
+      styleClass="acento"
+      [disabled]="true"
+    ></p-button>
+  </div>
 </div>
