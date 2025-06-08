@@ -1,10 +1,7 @@
 /* Estructura principal */
 .navbar {
-  /* position: fixed; */
   top: 0;
-  /* width: 100vw;
-  z-index: 100; */
-  background-color: #1e1e1e; /* fondo neutro oscuro */
+  background-color: #1e1e1e;
 }
 
 .navbar-content {
@@ -33,22 +30,19 @@
   background-color: #fffcfc;
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-family: montserrat, sans-serif;
 }
 
 .titulo-respuestas {
   text-align: center;
   margin-bottom: 2rem;
+  color: #000;
 }
 
 .titulo-respuestas h2 {
   font-size: 2rem;
   font-weight: 600;
-  color: #222;
-}
-
-.subtitulo {
-  color: #666;
-  font-size: 1rem;
+  color: #000;
 }
 
 .pregunta-respuesta {
@@ -57,6 +51,11 @@
   border-radius: 1rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  color: #000;
+  font-family: montserrat, sans-serif;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
 }
 
 .cabecera-pregunta {
@@ -72,7 +71,7 @@
 
 .texto-pregunta {
   font-size: 1.25rem;
-  color: #333;
+  color: #000;
   margin: 0;
 }
 
@@ -80,14 +79,16 @@
   background-color: #f9f9f9;
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  color: #444;
-  font-style: italic;
+  color: #000;
+  font-style: normal;
 }
 
 .respuesta-multiple {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  color: #000;
+  background-color: #fff;
 }
 
 .chip {
@@ -100,7 +101,8 @@
 
 .respuesta-vf {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  color: #000;
 }
 
 .icono-vf.verdadero {
@@ -109,6 +111,28 @@
 
 .icono-vf.falso {
   color: #dc3545;
+}
+
+/* Estilo general para el textarea de PrimeNG */
+textarea[pInputTextarea] {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 90%;
+  font-family: montserrat, sans-serif;
+}
+
+textarea[pInputTextarea]:focus {
+  background: #fff;
+  color: #000;
+  border-color: #b9faf8;
+  outline: none;
 }
 
 /* Responsive */

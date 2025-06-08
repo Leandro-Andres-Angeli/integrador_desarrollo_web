@@ -27,7 +27,6 @@
 <div class="respuestas-container" *ngIf="encuesta">
   <div class="titulo-respuestas">
     <h2>{{ encuesta.nombre }}</h2>
-    <p class="subtitulo">Completa las respuestas</p>
   </div>
 
   <div
@@ -41,13 +40,14 @@
 
     <!-- Pregunta ABIERTA -->
     <div *ngIf="pregunta.tipo === 'ABIERTA'">
-      <input
-        type="text"
-        pInputText
+      <textarea
+        pInputTextarea
         [(ngModel)]="respuestas.respuestasAbiertas[getAbiertaIndex(i)].texto"
         (ngModelChange)="guardarRespuestaAbierta($event, getAbiertaIndex(i))"
-        placeholder="Escribe tu respuesta..."
-      />
+        placeholder="Escribir respuesta..."
+        rows="4"
+        cols="50"
+      ></textarea>
     </div>
 
     <!-- Pregunta OPCIÓN MÚLTIPLE SELECCIÓN SIMPLE -->
@@ -62,7 +62,7 @@
           (onClick)="guardarRespuestaOpcion(opcion.id, getOpcionSimpleIndex(i))"
           inputId="opcion-{{ i }}-{{ opcion.id }}"
         ></p-radioButton>
-        <label for="opcion-{{ i }}-{{ opcion.id }}">{{ opcion.texto }}</label>
+        <label class="ml-3" for="opcion-{{ i }}-{{ opcion.id }}">{{ opcion.texto }}</label>
       </div>
     </div>
 
@@ -75,7 +75,7 @@
           [(ngModel)]="opcionesSeleccionadas[pregunta.id]"
           (ngModelChange)="guardarRespuestaMultiple($event, pregunta.id)"
         ></p-checkbox>
-        <label [for]="'opcion-' + i + '-' + opcion.id">{{ opcion.texto }}</label>
+        <label class="ml-3" [for]="'opcion-' + i + '-' + opcion.id">{{ opcion.texto }}</label>
       </div>
     </div>
 
