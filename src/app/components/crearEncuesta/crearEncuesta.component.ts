@@ -7,6 +7,7 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
+  FormsModule,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -40,6 +41,7 @@ import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
     CheckboxModule,
     RadioButtonModule,
     ToggleSwitchModule,
+    FormsModule,
     JsonPipe,
   ],
   providers: [EncuestasService],
@@ -50,6 +52,13 @@ export class CrearEncuestaComponent {
   encuestaForm: FormGroup;
   tituloEditando = true;
   modoVistaPrevia = false;
+
+  vistaPreviaRespuestas: {
+    respuestaAbierta?: string;
+    respuestaSimple?: string;
+    respuestaMultiple?: string[];
+    respuestaVF?: boolean;
+  }[] = [];
 
   tiposRespuesta = tiposPreguntaPresentacion.map((t) => ({
     label: t.presentacion,
@@ -155,9 +164,14 @@ export class CrearEncuestaComponent {
   }
 
   activarVistaPrevia() {
-    this.modoVistaPrevia = true;
-    console.log('Modo vista previa activado');
-  }
+  this.vistaPreviaRespuestas = this.preguntasFormGroups.map(() => ({
+    respuestaAbierta: '',
+    respuestaSimple: '',
+    respuestaMultiple: [],
+    respuestaVF: undefined
+  }));
+  this.modoVistaPrevia = true;
+}
 
   salirVistaPrevia() {
     this.modoVistaPrevia = false;
@@ -248,7 +262,7 @@ export class CrearEncuestaComponent {
   confirmClearEncuesta(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `<div class="confirm-delete-message"> ¿Estás seguro que querés eliminar esta encuesta? <br/>  Al eliminar la encuesta , perderas todo lo que hayas hecho hasta ahora </div>`,
+      message: `<div class="confirm-delete-message"> ¿Estás seguro de que querés eliminar esta encuesta? <br/>  Al eliminar la encuesta perderás todo lo que hayas hecho hasta ahora. </div>`,
 
       header: 'Eliminar encuesta',
       closable: false,
@@ -278,7 +292,7 @@ export class CrearEncuestaComponent {
       message: `<div class="confirm-save-encuesta"> 
       Al finalizar la encuesta te devolveremos dos links para que puedas compartirla y consultarla.
       <br/>
-      RECUERDA GUARDAR LOS LINKS para no perder tu acceso a la encuesta.
+      <strong> RECUERDA GUARDAR LOS LINKS</strong> para no perder tu acceso a la encuesta.
       </div>`,
 
       header: 'Finalizar encuesta',
