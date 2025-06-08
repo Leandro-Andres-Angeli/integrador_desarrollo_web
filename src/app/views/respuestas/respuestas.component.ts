@@ -24,7 +24,7 @@ export class RespuestasComponent implements OnInit {
         respuestasVerdaderoFalso: []
     };
 
-    selectedOptions: { [preguntaId: number]: number[] } = {};
+    opcionesSeleccionadas: { [preguntaId: number]: number[] } = {};
 
 
     idEncuesta!: number;
@@ -91,7 +91,7 @@ export class RespuestasComponent implements OnInit {
                     });
                     break;
                 case 'OPCION_MULTIPLE_SELECCION_MULTIPLE':
-                    this.selectedOptions[pregunta.id] = [];
+                    this.opcionesSeleccionadas[pregunta.id] = [];
                     break;
                 case 'VERDADERO_FALSO':
                     if (this.respuestas.respuestasVerdaderoFalso) {
@@ -176,7 +176,7 @@ export class RespuestasComponent implements OnInit {
 
         // Validación de campos vacíos
         if (this.validarRespuestas()) {
-            alert('Por favor, completa todas las respuestas antes de enviar.');
+            alert('⚠️ Por favor, completa todas las respuestas antes de enviar la encuesta.');
             return;
         }
 

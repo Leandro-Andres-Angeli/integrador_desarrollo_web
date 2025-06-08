@@ -34,15 +34,13 @@ import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
     ButtonModule,
     InputTextModule,
     RouterModule,
-
     FloatLabelModule,
     ReactiveFormsModule,
     SelectModule,
     CheckboxModule,
     RadioButtonModule,
-    ToggleSwitchModule,
-    JsonPipe,
-  ],
+    ToggleSwitchModule
+],
   providers: [EncuestasService],
   templateUrl: './crearEncuesta.component.html',
   styleUrl: './crearEncuesta.component.css',

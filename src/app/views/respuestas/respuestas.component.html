@@ -72,7 +72,7 @@
         <p-checkbox
           [inputId]="'opcion-' + i + '-' + opcion.id"
           [value]="opcion.id"
-          [(ngModel)]="selectedOptions[pregunta.id]"
+          [(ngModel)]="opcionesSeleccionadas[pregunta.id]"
           (ngModelChange)="guardarRespuestaMultiple($event, pregunta.id)"
         ></p-checkbox>
         <label [for]="'opcion-' + i + '-' + opcion.id">{{ opcion.texto }}</label>
