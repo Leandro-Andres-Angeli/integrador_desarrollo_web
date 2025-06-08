@@ -1,60 +1,76 @@
-<div class="wave-background-top"></div>
+<div class="wrapper">
+  <div class="wave-background-top"></div>
 
-<div class="container">
-  <img
-    src="assets/images/logos/logos=logo-celeste.svg"
-    alt="Logo"
-    class="logo-cuesti-celeste"
-  />
-</div>
-
-<section class="welcome">
-  <div class="welcome-text">
-    <h1>¡Te damos la bienvenida!</h1>
-    <h2>
-      Creá una encuesta y compartila con quien quieras<br />
-      <strong>sin iniciar sesión.</strong>
-    </h2>
-    <button
-      routerLink="crearEncuesta"
-      label="Crear encuesta"
-      class="p-button-primario"
-      style="margin-bottom: 100px; margin-top: 10px">
-      Crear encuesta
-    </button>
-
-    <!-- para testear los resultados -->
-    <div class="mt-2">
-      <p-inputgroup >
-        <p-inputgroup-addon>
-          <i class="pi pi-user"></i>
-        </p-inputgroup-addon>
-        <input pInputText [(ngModel)]="codigo" placeholder="Codigo" style="background: #fff;"/>
-        <input pInputText [(ngModel)]="id" placeholder="id" style="background: #fff;"/><p-button
-          [routerLink]="['/resultados', id]"
-          [queryParams]="{ codigo: codigo }"
-          label=""
-          class="p-button-primario"
-        >
-          Ver resultados
-        </p-button>
-      </p-inputgroup>
-    </div>
-    <!-- para testear los resultados -->
-  </div>
-
-  <div class="welcome-image">
+  <div class="container">
     <img
-      src="assets/images/home/clipboard-welcome.svg"
-      alt="check list"
-      class="imagen-home"
+      src="assets/images/logos/logos=logo-celeste.svg"
+      alt="Logo"
+      class="logo-cuesti-celeste"
     />
   </div>
-</section>
 
-<footer class="footer">
-  <p class="copyright">
-    © Qüesti | Todos los derechos reservados <br />
-    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR">para el 🌎
-  </p>
-</footer>
+  <section class="welcome">
+    <div class="welcome-text">
+      <h1>¡Te damos la bienvenida!</h1>
+      <h2>
+        Creá una encuesta y compartila con quien quieras<br />
+        <strong>sin iniciar sesión.</strong>
+      </h2>
+      <button
+        routerLink="crearEncuesta"
+        label="Crear encuesta"
+        class="p-button-primario"
+        style="margin-bottom: 100px; margin-top: 10px"
+      >
+        Crear encuesta
+      </button>
+
+      <!-- para testear los resultados -->
+      <div class="mt-2">
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-user"></i>
+          </p-inputgroup-addon>
+          <input
+            pInputText
+            [(ngModel)]="codigo"
+            placeholder="Codigo"
+            style="background: #fff"
+          />
+          <input
+            pInputText
+            [(ngModel)]="id"
+            placeholder="id"
+            style="background: #fff"
+          /><p-button
+            [routerLink]="['/resultados', id]"
+            [queryParams]="{ codigo: codigo }"
+            label=""
+            class="p-button-primario"
+          >
+            Ver resultados
+          </p-button>
+        </p-inputgroup>
+      </div>
+      <!-- para testear los resultados -->
+    </div>
+
+    <div class="welcome-image">
+      <img
+        src="assets/images/home/clipboard-welcome.svg"
+        alt="check list"
+        class="imagen-home"
+      />
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="copyright">
+      © Qüesti | Todos los derechos reservados <br />
+      Desarrollado en<img
+        src="/assets/icons/argentina24.png"
+        alt="IconoAR"
+      />para el 🌎
+    </p>
+  </footer>
+</div>

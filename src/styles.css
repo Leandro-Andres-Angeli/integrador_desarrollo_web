@@ -11,16 +11,16 @@
   --color-gris-claro: #c5c4c4;
   --color-negro: #000;
 
-  --p-radiobutton-background:var(--color-blanco) !important;
-  --p-radiobutton-border-color:var(--color-negro) !important;
-  --p-radiobutton-checked-background:var(--color-negro) !important;
-  --p-radiobutton-checked-hover-background:#8e7ca8 !important;
-  --p-radiobutton-checked-border-color:var(--color-negro) !important;
-  --p-radiobutton-checked-hover-border-color:#8e7ca8 !important;
-  --p-radiobutton-checked-focus-border-color:var(--color-negro) !important;
-  --p-radiobutton-focus-ring-color:var(--color-negro) !important;
-  --p-radiobutton-icon-checked-color:var(--color-blanco) !important;
-  --p-radiobutton-icon-checked-hover-color:var(--color-blanco) !important;
+  --p-radiobutton-background: var(--color-blanco) !important;
+  --p-radiobutton-border-color: var(--color-negro) !important;
+  --p-radiobutton-checked-background: var(--color-negro) !important;
+  --p-radiobutton-checked-hover-background: #8e7ca8 !important;
+  --p-radiobutton-checked-border-color: var(--color-negro) !important;
+  --p-radiobutton-checked-hover-border-color: #8e7ca8 !important;
+  --p-radiobutton-checked-focus-border-color: var(--color-negro) !important;
+  --p-radiobutton-focus-ring-color: var(--color-negro) !important;
+  --p-radiobutton-icon-checked-color: var(--color-blanco) !important;
+  --p-radiobutton-icon-checked-hover-color: var(--color-blanco) !important;
   --p-radiobutton-hover-border-color: #8e7ca8 !important;
 
   --p-checkbox-background: var(--color-blanco) !important;
@@ -30,7 +30,6 @@
   --p-checkbox-checked-hover-background: #8e7ca8 !important;
   --p-checkbox-checked-hover-border-color: #8e7ca8 !important;
   --p-checkbox-checked-focus-border-color: var(--color-negro) !important;
-
 }
 
 /* Reset básico */
@@ -222,3 +221,6 @@ a:visited {
   text-decoration: none;
 }
 
+body {
+  min-height: 100dvh;
+}

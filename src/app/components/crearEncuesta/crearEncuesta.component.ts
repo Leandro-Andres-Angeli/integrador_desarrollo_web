@@ -119,7 +119,10 @@ export class CrearEncuestaComponent {
     this.preguntas.push(pregunta);
   }
   handleTipoRespuestaChange(pregunta: FormGroup) {
-    if (pregunta.controls['tipo'].value === TiposRespuestaEnum.ABIERTA) {
+    if (pregunta.controls['tipo'].value !== TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE &&
+      pregunta.controls['tipo'].value !== TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE
+
+    ) {
       pregunta.removeControl('opciones');
     } else {
       console.log('here');
@@ -189,17 +192,15 @@ export class CrearEncuestaComponent {
       tipo: p.get('tipo')?.value,
       opciones: (
         p.get('tipo')?.value ===
-          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
+        TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
         p.get('tipo')?.value ===
-          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE ||
-        p.get('tipo')?.value ===
-          TiposRespuestaEnum.VERDADERO_FALSO
+        TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
       )
-          ? this.getOpciones(p).controls.map((ctrl, idx) => ({
-              texto: ctrl.value,
-              numero: idx + 1,
-            }))
-          : [],
+        ? this.getOpciones(p).controls.map((ctrl, idx) => ({
+          texto: ctrl.value,
+          numero: idx + 1,
+        }))
+        : [],
     }));
 
     this.encuestasService
