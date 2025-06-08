@@ -8,7 +8,6 @@
 ></app-navbar>
 
 <!-- MODO EDICIÓN -->
-
 <div
   *ngIf="!modoVistaPrevia"
   [formGroup]="encuestaForm"
@@ -17,7 +16,8 @@
   <!-- TÍTULO -->
   <div class="titulo-container">
     <ng-container *ngIf="tituloEditando; else verTitulo">
-      <p-floatlabel>
+      <div class="input-nombre-container">
+        <p-floatlabel>
         <input
           id="input-nombre"
           pInputText
@@ -27,23 +27,16 @@
           aria-describedby="nombre-text-helper"
           style="background: #fff; color: #09090b"
         />
-        @if ( encuestaForm.controls["nombre"].dirty &&
-        encuestaForm.controls["nombre"].invalid ) {
-        <div id="nombre-text-helper" class="text-helper">
-          <i class="pi pi-exclamation-circle"></i>
-          Campo requerido
-        </div>
-        }
-
-        <label for="input-nombre">Escribir título</label>
-      </p-floatlabel>
+        <label for="input-nombre">Escribir título...</label>
+        </p-floatlabel>
+      </div>
       <p-button
         label="Listo"
         icon="pi pi-check"
         styleClass="neutral"
         (click)="guardarTitulo()"
-        [disabled]="tituloControl.invalid"
-      ></p-button>
+        [disabled]="tituloControl.invalid">
+      </p-button>
     </ng-container>
 
     <ng-template #verTitulo>
@@ -58,29 +51,31 @@
       ></button>
     </ng-template>
   </div>
+  @if ( encuestaForm.controls["nombre"].dirty &&
+        encuestaForm.controls["nombre"].invalid ) {
+        <div id="nombre-text-helper" class="text-helper-nombre">
+          <i class="pi pi-exclamation-circle mr-2"></i>
+          Campo requerido.
+        </div>
+        }
+  <br>
+  <br>
 
   <!-- PREGUNTAS -->
-
   <div
     *ngFor="let pregunta of preguntasFormGroups; let i = index"
     [formGroup]="pregunta"
     class="pregunta-item"
   >
     <ng-container *ngIf="pregunta.get('editando')?.value; else preguntaVista">
+      <div class="input-pregunta-select-container">
       <input
         type="text"
         pInputText
         formControlName="texto"
-        placeholder="Escribe tu pregunta..."
+        placeholder="Escribir pregunta..."
         class="input-pregunta"
       />
-      @if( pregunta.controls["texto"].invalid){
-      <div id="nombre-text-helper" class="text-helper">
-        <i class="pi pi-exclamation-circle"></i>
-        Campo requerido
-      </div>
-      }
-
       <p-select
         [options]="tiposRespuesta"
         (onChange)="handleTipoRespuestaChange(pregunta)"
@@ -88,20 +83,18 @@
         class="dropdown-estilizado p-select"
         inputId="tipo-pregunta-{{ i }}"
         aria-label="Tipo de respuesta"
-        [autocapitalize]="true"
-      ></p-select>
+        [autocapitalize]="true"> 
+      </p-select>
+      </div>
+      @if( pregunta.controls["texto"].invalid){
+      <div id="nombre-text-helper" class="text-helper">
+        <i class="pi pi-exclamation-circle"></i>
+        Campo requerido.
+      </div>
+      }
       <br />
-      <!-- <div class="flex items-center gap-2 obligatorio-switch">
-        <p-toggleSwitch
-          id="obligatoria-switch"
-          formControlName="obligatoria"
-          styleClass="ml-2"
-        ></p-toggleSwitch>
-        <label for="obligatoria-switch" class="mr-2">Obligatorio</label>
-      </div> -->
 
       <!-- Opciones -->
-
       <div
         *ngIf="
           pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' ||
@@ -114,7 +107,7 @@
         @if(pregunta.controls["opciones"].invalid){
         <div id="nombre-text-helper" class="text-helper">
           <i class="pi pi-exclamation-circle"></i>
-          Añadir al menos dos posibles respuestas a la pregunta
+          Añadir al menos dos posibles respuestas a la pregunta.
         </div>
         }
         <div
@@ -137,7 +130,7 @@
             @if(getOpciones(pregunta).controls[j].invalid){
             <div id="nombre-text-helper" class="text-helper">
               <i class="pi pi-exclamation-circle"></i>
-              Campo opcion no debe estar vacio
+              El campo opción no debe estar vacío.
             </div>
             }
           </div>
@@ -162,11 +155,9 @@
       </div>
 
       <!-- Verdadero o falso -->
-      <div
-        *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
-        class="mt-4"
-      ></div>
-
+      <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="mt-4">
+      </div>
+      
       <div class="acciones">
         <p-button
           icon="pi pi-times"
@@ -210,7 +201,7 @@
   </div>
 
   <!-- BOTONES -->
-  <div class="botones-añadir-eliminar">
+  <div class="boton-anadir-container">
     <div class="boton-centro">
       <button
         pButton
@@ -220,6 +211,8 @@
         class="p-button primario"
       ></button>
     </div>
+  </div>
+  <div class="boton-eliminar-container">
     <div class="boton-eliminar">
       <p-button
         label="Eliminar"
@@ -282,10 +275,7 @@
     </div>
 
     <!-- Verdadero o falso -->
-    <div
-      *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
-      class="flex gap-4"
-    >
+    <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="flex gap-4">
       <div class="flex items-center my-1">
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">Verdadero</label>
@@ -294,7 +284,7 @@
         <span class="pi pi-circle-off p-disabled"></span>
         <label class="ml-2">Falso</label>
       </div>
-    </div>
+      
   </div>
-  <p-button styleClass="acento ">Enviar</p-button>
 </div>
+<p-button styleClass="acento ">Enviar</p-button>
