@@ -3,6 +3,7 @@
     <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
 
     <div class="navbar-buttons">
+        <p-button label="Salir" routerLink="home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
         <p-button label="+ Crear encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
     </div>
   </div>
@@ -10,14 +11,16 @@
 
 <section class="contenedor">
     <div class="contenido">
-        <h3>¡Gracias por responder la encuesta!</h3>
-        <img src="/assets/images/logos/logo-simple-violeta.svg" alt="Logo simple" class="logo-simple" />
-        <h4>Te invitamos a crear tu propia encuesta</h4>
-    </div>
-    <div class="boton-crear-salir">
-        <p-button label="+ Crear encuesta" routerLink="/crearEncuesta" styleClass="boton-centro acento"></p-button>
-        <h4> o </h4>
-        <p-button label="Salir" routerLink="home" styleClass="boton-centro primario"></p-button>
+        <h2>¡Gracias por responder la encuesta!</h2>
+        <dotlottie-player
+          src="https://lottie.host/8be736c2-6c42-484e-9b5a-0de10087b50c/wqkWj268i9.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 330px; height: 330px; margin: 0 auto;"
+          loop
+          autoplay>
+        </dotlottie-player>
+        <h3>Te invitamos a crear tu propia encuesta</h3>
     </div>
 </section>
 
