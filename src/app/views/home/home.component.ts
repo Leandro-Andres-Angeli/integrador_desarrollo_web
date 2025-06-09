@@ -26,7 +26,4 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   standalone: true,
 })
 export class HomeComponent {
-  // para testear los resultados
-  codigo: string = '';
-  id: string = '';
 }
