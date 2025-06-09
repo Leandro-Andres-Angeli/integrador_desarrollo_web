@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TablaResultadosComponent } from './tabla-resultados/tabla-resultados.component';
 import { GraficosResultadosComponent } from './graficos-resultados/graficos-resultados.component';
-
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import {
   PreguntaResultadoDto,
   RespuestaEncuestadoDto,
@@ -42,6 +42,7 @@ import {
     TableModule,
     TablaResultadosComponent,
     GraficosResultadosComponent,
+    ToggleSwitchModule
   ],
   standalone: true,
 })
@@ -56,7 +57,7 @@ export class ResultadosComponent implements OnInit {
   constructor(
     private resultadosService: ResultadosService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));

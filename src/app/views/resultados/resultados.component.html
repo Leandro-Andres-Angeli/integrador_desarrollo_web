@@ -32,10 +32,14 @@
   <h1 *ngIf="nombre">{{ nombre }}</h1>
   <div class="card">
     <p-tabs value="0">
-      <p-tablist class="tabs-bar">
+      <p-tablist class="tabs-bar p-2">
         <p-tab value="0">Tablas</p-tab>
         <p-tab value="1">Gráficos</p-tab>
-        <button class="p-button-primario" (click)="descargarCSV()">
+        <label for="" class="flex gap-2 align-items-center ml-auto mr-2">
+          encuesta activa
+          <p-toggleswitch />
+        </label>
+        <button class="p-button-primario m-3" (click)="descargarCSV()">
           <img
             src="../../../assets/icons/csv.svg"
             alt="Descargar"

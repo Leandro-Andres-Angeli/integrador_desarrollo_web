@@ -144,11 +144,11 @@ a.secundario:hover {
   border: none !important;
 }
 
-.p-toggleswitch .p-toggleswitch-slider {
-  background: #b9faf8 !important; /* desactivado: color secundario */
+/* .p-toggleswitch .p-toggleswitch-slider {
+  background: #b9faf8 !important;  
   border-radius: 20px !important;
   transition: background 0.2s;
-}
+} */
 .p-toggleswitch.p-highlight .p-toggleswitch-slider {
   background: #a663cc !important; /* activado: color acento */
 }
