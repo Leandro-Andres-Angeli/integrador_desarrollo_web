@@ -3,23 +3,26 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { EncuestaDTO } from '../interfaces/encuesta.dto';
 import { CrearRespuestaDTO } from '../interfaces/crear-respuesta.dto';
+import { PreguntaDTO } from '../interfaces/pregunta.dto';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class RespuestasService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  
+
   getEncuesta(id: number, codigoRespuesta: string): Observable<EncuestaDTO> {
     if (!id || !codigoRespuesta) {
       return throwError(() => new Error('ID y códigos son requeridos'));
     }
 
     const params = new HttpParams()
-    .set('codigo', codigoRespuesta)
-    .set('tipo', 'RESPUESTA');
+      .set('codigo', codigoRespuesta)
+      .set('tipo', 'RESPUESTA');
 
     return this.http.get<EncuestaDTO>(
       `/api/v1/encuestas/${id}`,
@@ -47,9 +50,10 @@ export class RespuestasService {
     return this.http.post<{ mensaje: string }>(
       `/api/v1/respuestas/${idEncuesta}`,
       respuestas,
-      { params: new HttpParams().set('codigo', codigoRespuesta) } 
+      { params: new HttpParams().set('codigo', codigoRespuesta) }
     ).pipe(
       catchError(this.handleError)
     );
   }
+
 }
