@@ -1,6 +1,7 @@
 .wrapper {
   min-height: 100dvh;
 }
+
 .wave-background-top {
   position: relative;
   width: 100%;
@@ -70,7 +71,7 @@ img.logo-cuesti-celeste {
 .footer {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 250px;
   background-image: url("/assets/images/home/Vector-button.svg");
   background-repeat: no-repeat;
   background-position: center;

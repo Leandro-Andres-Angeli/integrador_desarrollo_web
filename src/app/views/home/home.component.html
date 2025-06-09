@@ -1,3 +1,4 @@
+
 <div class="wrapper">
   <div class="wave-background-top"></div>
 
@@ -24,35 +25,6 @@
       >
         Crear encuesta
       </button>
-
-      <!-- para testear los resultados -->
-      <div class="mt-2">
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <i class="pi pi-user"></i>
-          </p-inputgroup-addon>
-          <input
-            pInputText
-            [(ngModel)]="codigo"
-            placeholder="Codigo"
-            style="background: #fff"
-          />
-          <input
-            pInputText
-            [(ngModel)]="id"
-            placeholder="id"
-            style="background: #fff"
-          /><p-button
-            [routerLink]="['/resultados', id]"
-            [queryParams]="{ codigo: codigo }"
-            label=""
-            class="p-button-primario"
-          >
-            Ver resultados
-          </p-button>
-        </p-inputgroup>
-      </div>
-      <!-- para testear los resultados -->
     </div>
 
     <div class="welcome-image">
@@ -63,14 +35,14 @@
       />
     </div>
   </section>
-
-  <footer class="footer">
+</div>
+<footer class="footer">
     <p class="copyright">
-      © Qüesti | Todos los derechos reservados <br />
+      © Qüesti | Todos los derechos reservados. <br />
       Desarrollado en<img
         src="/assets/icons/argentina24.png"
         alt="IconoAR"
       />para el 🌎
     </p>
   </footer>
-</div>
+  
