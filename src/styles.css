@@ -192,6 +192,7 @@ a.secundario:hover {
 }
 @media (prefers-color-scheme: dark) {
   .p-dialog-content {
+    padding: 2rem;
     background-color: rgba(255, 255, 255, 0.847);
     * {
       color: black;
@@ -203,6 +204,16 @@ a.secundario:hover {
   }
 }
 
+.p-dialog-title {
+      padding-top: 1rem;
+      padding-left: 1rem;
+      padding-bottom: 0rem;
+    }
+
+.p-confirmdialog-reject-button {
+  padding-left: 5rem;
+}
+
 .p-dialog-content:has(span > .confirm-delete-message),
 .p-dialog-content:has(span > .confirm-save-encuesta) {
   background-color: #f1fefe;
@@ -210,12 +221,14 @@ a.secundario:hover {
   padding: 1.5rem 1rem;
   border-radius: 10px;
 }
+
 .text-helper {
   font-size: 14px;
   display: flex;
   padding: 5px 0;
   gap: 10px;
 }
+
 a:link,
 a:visited {
   text-decoration: none;

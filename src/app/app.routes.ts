@@ -2,11 +2,12 @@ import { Routes } from '@angular/router';
 import { CrearEncuestaComponent } from './components/crearEncuesta/crearEncuesta.component';
 import { HomeComponent } from './views/home/home.component';
 import { Error404Component } from './components/Errores/error404/error404.component';
-import { AgradecimientoComponent } from './components/agradecimiento/agradecimiento.component';
+import { AgradecimientoComponent } from './components/agradecimientoEncuestado/agradecimiento.component';
 import { ResultadosComponent } from './views/resultados/resultados.component';
 import { ErrorGuardarEncuestaComponent } from './views/error-guardar-encuesta/error-guardar-encuesta.component';
 import { EnlacesComponent } from './views/enlaces/enlaces.component';
 import { RespuestasComponent } from './views/respuestas/respuestas.component';
+import { AgradecimientoEncuestadorComponent } from './components/agradecimientoEncuestador/agradecimientoEncuestador.component';
 export const routes: Routes = [
   {
     path: '',
@@ -20,7 +21,6 @@ export const routes: Routes = [
     path: 'error404',
     component: Error404Component,
   },
-
   {
     path: 'guardarError',
     component: ErrorGuardarEncuestaComponent,
@@ -32,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'agradecimiento',
     component: AgradecimientoComponent,
+  },
+  {
+    path: 'agradecimiento-encuestador',
+    component: AgradecimientoEncuestadorComponent,
   },
   {
     path: 'enlaces/:id/:codigoRespuesta/:codigoResultados',
