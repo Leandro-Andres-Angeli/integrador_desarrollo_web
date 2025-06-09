@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, model, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CrearRespuestaDTO } from '../../interfaces/crear-respuesta.dto'
 import { RespuestasService } from '../../services/respuestas.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EncuestaDTO } from '../../interfaces/encuesta.dto';
@@ -11,7 +11,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     selector: 'app-respuestas',
-    imports: [ButtonModule, CommonModule, FormsModule, RadioButtonModule, CheckboxModule],
+    imports: [ButtonModule, CommonModule, FormsModule, RadioButtonModule, CheckboxModule, RouterLink],
     templateUrl: './respuestas.component.html',
     styleUrls: ['./respuestas.component.css'],
 
@@ -25,7 +25,7 @@ export class RespuestasComponent implements OnInit {
     };
 
     opcionesSeleccionadas: { [preguntaId: number]: number[] } = {};
-
+    pageNumber = model<number>(1)
 
     idEncuesta!: number;
     codigo!: string;
@@ -37,6 +37,7 @@ export class RespuestasComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+
         this.route.params.subscribe(params => {
             this.idEncuesta = +params['id'];
             this.codigo = params['codigoRespuesta'];
@@ -210,5 +211,11 @@ export class RespuestasComponent implements OnInit {
             (this.respuestas.respuestasVerdaderoFalso?.some(r => r.valor === undefined) ?? false);
 
         return respuestasIncompletas;
+    }
+    paginateForward() {
+        this.pageNumber.update((prev) => prev + 1)
+    }
+    paginateBackwards() {
+        this.pageNumber.update((prev) => prev - 1)
     }
 }
