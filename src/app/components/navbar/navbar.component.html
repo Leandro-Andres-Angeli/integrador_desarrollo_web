@@ -17,6 +17,7 @@
       </ng-container>
       <ng-container *ngIf="modoVistaPrevia">
         <p-button
+          icon="pi pi-angle-left"
           label="Regresar"
           styleClass="secundario"
           (click)="salirClick.emit()"
@@ -37,7 +38,7 @@
         [severity]="!validForm ? 'secondary' : 'primary'"
         [styleClass]="!validForm ? 'disabled ml-4' : 'acento ml-4'"
         [className]="!validForm ? 'pointer-events-none disabled' : ''"
-        [icon]="validForm ? 'pi pi-check' : 'pi pi-times'"
+        [icon]="validForm ? 'pi pi-check' : 'pi pi-check'"
         (click)="finalizarClick.emit()"
       ></p-button>
       <!-- <p class="text-white">valid {{ validForm | json }}</p> -->

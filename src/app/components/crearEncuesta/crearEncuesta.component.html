@@ -60,8 +60,6 @@
   </div>
   }
   <br />
-  <br />
-
   <!-- PREGUNTAS -->
   <div
     *ngFor="let pregunta of preguntasFormGroups; let i = index"
@@ -234,7 +232,7 @@
     <h2 class="titulo-texto">{{ tituloControl.value }}</h2>
   </div>
 
-  <div *ngFor="let pregunta of preguntasFormGroups; let i = index" class="pregunta-item">
+  <div *ngFor="let pregunta of preguntasFormGroups; let i = index" class="pregunta-item-preview">
     <div class="cabecera-pregunta">
       <span class="numero-pregunta">Pregunta {{ i + 1 }}</span>
       <h4 class="texto-pregunta">{{ pregunta.get('texto')?.value }}</h4>
@@ -272,6 +270,7 @@
           [value]="opcion"
           [(ngModel)]="vistaPreviaRespuestas[i].respuestaMultiple"
           name="multiple-{{ i }}"
+          binary="false"
         ></p-checkbox>
         <label class="ml-3" [for]="'opcion-prev-' + i + '-' + j">{{ opcion }}</label>
       </div>

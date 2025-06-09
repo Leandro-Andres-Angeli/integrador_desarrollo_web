@@ -58,6 +58,17 @@
   margin-top: 2rem;
 }
 
+.pregunta-respuesta:hover {
+  border: 1px solid #8e7ca8;
+}
+
+.pregunta-respuesta:hover:has(input:focus),
+.pregunta-respuesta:hover:has(textarea:focus) {
+  background-color: #fff !important;
+  border: 1px solid #000 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+
 .cabecera-pregunta {
   margin-bottom: 1rem;
 }
@@ -132,16 +143,12 @@ textarea[pInputTextarea]:focus {
   outline: none;
 }
 
-
-
 /* Responsive */
 @media (max-width: 768px) {
   .respuesta-multiple {
     flex-direction: column;
   }
 }
-
-
 
 /* Personalización de input radio nativo usando variables */
 input[type="radio"] {

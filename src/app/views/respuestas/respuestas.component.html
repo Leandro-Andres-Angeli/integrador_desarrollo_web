@@ -76,6 +76,7 @@
           [value]="opcion.id"
           [(ngModel)]="opcionesSeleccionadas[pregunta.id]"
           (ngModelChange)="guardarRespuestaMultiple($event, pregunta.id)"
+          binary="false"
         ></p-checkbox>
         <label class="ml-3" [for]="'opcion-' + i + '-' + opcion.id">{{
           opcion.texto
