@@ -76,10 +76,6 @@ p.copyright {
   justify-content: space-between;
 }
 
-.tabs-bar button {
-  margin: 1rem 1rem 1rem auto;
-}
-
 .p-tabpanel {
   overflow-x: auto;
   display: flex;
