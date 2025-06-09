@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { QRDialogComponent } from '../../components/qrdialog/qrdialog.component';
 import { EnlacesService } from '../../services/enlaces.service';
+import { ConfirmationService } from 'primeng/api';
+import { PrimeIcons } from 'primeng/api';
+import { Router } from '@angular/router';
 
 interface Enlaces {
   urlParticipacion: string;
@@ -45,7 +48,9 @@ export class EnlacesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private enlacesService: EnlacesService
+    private enlacesService: EnlacesService,
+    private confirmationService: ConfirmationService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -117,4 +122,100 @@ export class EnlacesComponent implements OnInit {
       ? this.obtenerUrlParticipacion()
       : this.obtenerUrlConsulta();
   }
+
+  salirEnlaces(event: Event) {
+  this.confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: `
+      <div class="confirm-delete-message">
+        <strong>¿Copiaste y guardaste los links?</strong> 
+        <br>
+        Al salir de esta pantalla ya no podrás recuperar tus links.
+      </div>
+    `,
+    header: 'Salir de esta pantalla',
+    closable: false,
+    closeOnEscape: true,
+    icon: 'pi pi-exclamation-triangle',
+    rejectButtonProps: {
+      label: 'Cancelar',
+      outlined: true,
+    },
+    acceptButtonProps: {
+      label: 'Salir',
+    },
+    acceptButtonStyleClass: 'confirm-btn',
+    rejectButtonStyleClass: 'reject-btn',
+    accept: () => {
+      this.router.navigate(['/agradecimiento-encuestador']);
+    },
+    reject: () => {
+      return;
+    },
+  });
+}
+
+  crearEncuestaEnlaces(event: Event) {
+  this.confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: `
+      <div class="confirm-delete-message">
+        <strong>¿Copiaste y guardaste los links?</strong> 
+        <br>
+        Al salir de esta pantalla ya no podrás recuperar tus links.
+      </div>
+    `,
+    header: 'Antes de crear otra encuesta...',
+    closable: false,
+    closeOnEscape: true,
+    icon: 'pi pi-exclamation-triangle',
+    rejectButtonProps: {
+      label: 'Cancelar',
+      outlined: true,
+    },
+    acceptButtonProps: {
+      label: '+ Crear encuesta',
+    },
+    acceptButtonStyleClass: 'confirm-btn',
+    rejectButtonStyleClass: 'reject-btn',
+    accept: () => {
+      this.router.navigate(['/crearEncuesta']);
+    },
+    reject: () => {
+      return;
+    },
+  });
+}
+
+irHomeEnlaces(event: Event) {
+  this.confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: `
+      <div class="confirm-delete-message">
+        <strong>¿Copiaste y guardaste los links?</strong> 
+        <br>
+        Al salir de esta pantalla ya no podrás recuperar tus links.
+      </div>
+    `,
+    header: 'Ir a la página de inicio',
+    closable: false,
+    closeOnEscape: true,
+    icon: 'pi pi-exclamation-triangle',
+    rejectButtonProps: {
+      label: 'Cancelar',
+      outlined: true,
+    },
+    acceptButtonProps: {
+      label: 'Ir al inicio',
+    },
+    acceptButtonStyleClass: 'confirm-btn',
+    rejectButtonStyleClass: 'reject-btn',
+    accept: () => {
+      this.router.navigate(['']);
+    },
+    reject: () => {
+      return;
+    },
+  });
+}
 }
