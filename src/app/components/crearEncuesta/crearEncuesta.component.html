@@ -15,7 +15,8 @@
 >
   <!-- TÍTULO -->
   <div class="titulo-container">
-    <ng-container *ngIf="tituloEditando; else verTitulo">
+    <div class="titulo-boton-container">
+      <ng-container *ngIf="tituloEditando; else verTitulo">
       <div class="input-nombre-container">
         <p-floatlabel>
           <input
@@ -38,34 +39,37 @@
         [disabled]="tituloControl.invalid"
       >
       </p-button>
-    </ng-container>
+      </ng-container>
 
-    <ng-template #verTitulo>
-      <h2 (click)="editarTitulo()" class="titulo-texto">
-        {{ tituloControl.value || "Haz clic para agregar un título" }}
-      </h2>
+      <ng-template #verTitulo>
+        <h2 (click)="editarTitulo()" class="titulo-texto">
+          {{ tituloControl.value || "Haz clic para agregar un título" }}
+        </h2>
       <button
         pButton
         icon="pi pi-pencil"
         class="p-button-rounded p-button-text"
         (click)="editarTitulo()"
       ></button>
-    </ng-template>
+      </ng-template>
+    </div>
+    @if ( encuestaForm.controls["nombre"].dirty &&
+    encuestaForm.controls["nombre"].invalid ) {
+    <div id="nombre-text-helper" class="text-helper-nombre">
+      <i class="pi pi-exclamation-circle mr-2"></i>
+      Campo requerido.
+    </div>
+    }
   </div>
-  @if ( encuestaForm.controls["nombre"].dirty &&
-  encuestaForm.controls["nombre"].invalid ) {
-  <div id="nombre-text-helper" class="text-helper-nombre">
-    <i class="pi pi-exclamation-circle mr-2"></i>
-    Campo requerido.
-  </div>
-  }
   <br />
   <!-- PREGUNTAS -->
   <div
     *ngFor="let pregunta of preguntasFormGroups; let i = index"
     [formGroup]="pregunta"
-    class="pregunta-item"
-  >
+    class="pregunta-item">
+    <div class="cabecera-pregunta">
+      <span class="numero-pregunta-edit">P.{{ i + 1 }}</span>
+    </div>
     <ng-container *ngIf="pregunta.get('editando')?.value; else preguntaVista">
       <div class="input-pregunta-select-container">
         <input
@@ -110,13 +114,11 @@
           Añadir al menos dos posibles respuestas a la pregunta.
         </div>
         }
-        <div
-          *ngFor="
+        <div *ngFor="
             let opcionCtrl of getOpciones(pregunta).controls;
             let j = index
-          "
-          class="flex items-center gap-2 mb-2"
-        >
+          ">
+        <div class="flex items-center gap-2 mb-2">
           <div>
             <input
               type="text"
@@ -126,13 +128,6 @@
               placeholder="Opción  {{ j + 1 }}"
               class="input-opcion"
             />
-
-            @if(getOpciones(pregunta).controls[j].invalid){
-            <div id="nombre-text-helper" class="text-helper">
-              <i class="pi pi-exclamation-circle"></i>
-              El campo opción no debe estar vacío.
-            </div>
-            }
           </div>
           <button
             *ngIf="getOpciones(pregunta).length > 1"
@@ -144,6 +139,13 @@
             [attr.aria-label]="'Eliminar opción ' + (j + 1)"
           ></button>
         </div>
+          @if(getOpciones(pregunta).controls[j].invalid){
+            <div id="nombre-text-helper" class="text-helper">
+              <i class="pi pi-exclamation-circle"></i>
+              El campo opción no debe estar vacío.
+            </div>
+            }
+      </div>
         <button
           pButton
           type="button"
