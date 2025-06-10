@@ -1,15 +1,15 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { FloatLabelModule } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { QRDialogComponent } from '../../components/qrdialog/qrdialog.component';
 import { EnlacesService } from '../../services/enlaces.service';
 import { ConfirmationService } from 'primeng/api';
-import { PrimeIcons } from 'primeng/api';
-import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 interface Enlaces {
   urlParticipacion: string;
@@ -21,18 +21,20 @@ interface Enlaces {
   standalone: true,
   imports: [
     ButtonModule,
-    FloatLabelModule,
     CheckboxModule,
     FormsModule,
     CommonModule,
     QRDialogComponent,
+    ToastModule
   ],
+  providers: [MessageService], 
   templateUrl: './enlaces.component.html',
   styleUrls: ['./enlaces.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
+
 export class EnlacesComponent implements OnInit {
-  mostrarQR: boolean = false;
+  mostrarQR = false;
   tipoQR: 'Encuesta' | 'Resultados' = 'Encuesta';
 
   idEncuesta!: number;
@@ -42,15 +44,18 @@ export class EnlacesComponent implements OnInit {
   enlaceParticipacion: string = '';
   enlaceConsulta: string = '';
 
-
   acortarParticipacion = false;
   acortarConsulta = false;
+
+  private enlaceParticipacionCortoSubject = new BehaviorSubject<string>('');
+  private enlaceConsultaCortoSubject = new BehaviorSubject<string>('');
 
   constructor(
     private route: ActivatedRoute,
     private enlacesService: EnlacesService,
     private confirmationService: ConfirmationService,
     private router: Router,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -82,16 +87,26 @@ export class EnlacesComponent implements OnInit {
 
   obtenerUrlParticipacion(): string {
     if (this.acortarParticipacion) {
-      const cortos = this.enlacesService.generarEnlacesCortos(this.idEncuesta);
-      return cortos.urlParticipacion;
+      if (!this.enlaceParticipacionCortoSubject.value) {
+        this.enlacesService.acortarUrl(this.enlaceParticipacion)
+        .subscribe(urlCorta => {
+          this.enlaceParticipacionCortoSubject.next(urlCorta);
+        })
+      }
+      return this.enlaceParticipacionCortoSubject.value || this.enlaceParticipacion;;
     }
     return this.enlaceParticipacion;
   }
 
   obtenerUrlConsulta(): string {
     if (this.acortarConsulta) {
-      const cortos = this.enlacesService.generarEnlacesCortos(this.idEncuesta);
-      return cortos.urlConsulta;
+      if (!this.enlaceConsultaCortoSubject.value) {
+        this.enlacesService.acortarUrl(this.enlaceConsulta)
+        .subscribe(urlCorta => {
+          this.enlaceConsultaCortoSubject.next(urlCorta);
+        });
+      }
+      return this.enlaceConsultaCortoSubject.value || this.enlaceConsulta;
     }
     return this.enlaceConsulta;
   }
@@ -99,7 +114,18 @@ export class EnlacesComponent implements OnInit {
   async copiarTexto(texto: string): Promise<void> {
     const ok = await this.enlacesService.copiarAlPortapapeles(texto);
     if (ok) {
-      alert('Link copiado al portapapeles ✔️');
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Copiado',
+        detail: 'Link copiado al portapapeles ✔️',
+        life: 3000
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'No se pudo copiar el link ❌'
+      });
     }
   }
 
