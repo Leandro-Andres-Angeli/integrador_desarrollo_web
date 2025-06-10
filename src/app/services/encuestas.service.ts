@@ -30,4 +30,15 @@ export class EncuestasService {
       '/api/v1/encuestas/' + idEncuesta + '?codigo=' + codigo + '&tipo=' + tipo
     );
   }
+
+  cambiarEstadoEncuesta(
+    idEncuesta: number,
+    codigo: string,
+    activa: boolean
+  ): Observable<{ mensaje: string }> {
+    return this.httpClient.patch<{ mensaje: string }>(
+      `/api/v1/encuestas/${idEncuesta}/estado?codigo=${codigo}`,
+      { activa }
+    );
+  }
 }

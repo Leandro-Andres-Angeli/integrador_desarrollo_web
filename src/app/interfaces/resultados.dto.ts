@@ -45,6 +45,7 @@ export interface ResultadosDto {
   preguntas: PreguntaResultadoDto[];
   respuestas: RespuestaEncuestadoDto[];
   codigoRespuesta: string;
+  activa: boolean;
 }
 export interface PalabraFrecuenciaDto {
   text: string;
