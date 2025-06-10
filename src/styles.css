@@ -31,9 +31,9 @@
   --p-checkbox-checked-hover-border-color: #8e7ca8 !important;
   --p-checkbox-checked-focus-border-color: var(--color-negro) !important;
 
-  --p-toggleswitch-background: #EADDFF !important;
+  --p-toggleswitch-background: #bdb6c9 !important;
   --p-toggleswitch-checked-background:#65558F !important;
-  --p-toggleswitch-checked-hover-background: #b9faf8 !important;
+  --p-toggleswitch-checked-hover-background: #a663cc !important;
   --p-toggleswitch-handle-checked-background: #fff !important;
 }
 
