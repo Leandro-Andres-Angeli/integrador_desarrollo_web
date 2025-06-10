@@ -38,7 +38,7 @@
     <div class="navbar-buttons-mobile">
       <ng-container *ngIf="!modoVistaPrevia">
         <p-button id="button-vista-previa"
-          icon="pi pi-exclamation-circle"
+          icon="pi pi-eye"
           styleClass="secundario"
           (click)="vistaPreviaClick.emit()"
         ></p-button>
@@ -46,7 +46,6 @@
       <ng-container *ngIf="modoVistaPrevia">
         <p-button id="button-regresar"
           icon="pi pi-angle-left"
-          label="Regresar"
           styleClass="secundario"
           (click)="salirClick.emit()"
         ></p-button>

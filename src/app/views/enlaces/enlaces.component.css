@@ -203,28 +203,15 @@ p.copyright {
 }
 
 @media (max-width: 480px) {
-  .navbar-content {
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0 1rem;
-    margin-top: 0.6rem;
-  }
-
-  .navbar-logo {
-    height: 50px;
-    margin-bottom: 1rem;
-  }
-
   .navbar-buttons {
     display: none;
   }
-
   .navbar-buttons-mobile {
     display: flex;
-    width: 100%;
+    align-items: center;
     justify-content: flex-end;
-    gap: 2rem;
-    margin-top: 0.5rem;
+    gap: 1.5rem;
+    margin-right: 0.4rem;
   }
 
   .titulo-principal-enlaces {
@@ -271,7 +258,7 @@ p.copyright {
 
   .footer-enlaces {
     height: auto;
-    padding: 2rem 1rem 1rem;
+    padding: 2rem 1rem 0rem;
     background-size: cover;
     background-position: center;
   }
