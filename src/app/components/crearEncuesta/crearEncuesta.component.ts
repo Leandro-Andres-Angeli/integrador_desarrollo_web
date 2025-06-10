@@ -1,4 +1,4 @@
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -19,7 +19,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ChangeDetectorRef } from '@angular/core';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 import {
   TiposRespuestaEnum,
   tiposPreguntaPresentacion,
@@ -42,7 +42,6 @@ import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
     RadioButtonModule,
     ToggleSwitchModule,
     FormsModule,
-    JsonPipe,
   ],
   providers: [EncuestasService],
   templateUrl: './crearEncuesta.component.html',
@@ -119,9 +118,11 @@ export class CrearEncuestaComponent {
     this.preguntas.push(pregunta);
   }
   handleTipoRespuestaChange(pregunta: FormGroup) {
-    if (pregunta.controls['tipo'].value !== TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE &&
-      pregunta.controls['tipo'].value !== TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE
-
+    if (
+      pregunta.controls['tipo'].value !==
+        TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE &&
+      pregunta.controls['tipo'].value !==
+        TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE
     ) {
       pregunta.removeControl('opciones');
     } else {
@@ -167,14 +168,14 @@ export class CrearEncuestaComponent {
   }
 
   activarVistaPrevia() {
-  this.vistaPreviaRespuestas = this.preguntasFormGroups.map(() => ({
-    respuestaAbierta: '',
-    respuestaSimple: '',
-    respuestaMultiple: [],
-    respuestaVF: undefined
-  }));
-  this.modoVistaPrevia = true;
-}
+    this.vistaPreviaRespuestas = this.preguntasFormGroups.map(() => ({
+      respuestaAbierta: '',
+      respuestaSimple: '',
+      respuestaMultiple: [],
+      respuestaVF: undefined,
+    }));
+    this.modoVistaPrevia = true;
+  }
 
   salirVistaPrevia() {
     this.modoVistaPrevia = false;
@@ -190,17 +191,16 @@ export class CrearEncuestaComponent {
       numero: i + 1,
       texto: p.get('texto')?.value,
       tipo: p.get('tipo')?.value,
-      opciones: (
+      opciones:
         p.get('tipo')?.value ===
-        TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
+          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
         p.get('tipo')?.value ===
-        TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
-      )
-        ? this.getOpciones(p).controls.map((ctrl, idx) => ({
-          texto: ctrl.value,
-          numero: idx + 1,
-        }))
-        : [],
+          TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_MULTIPLE
+          ? this.getOpciones(p).controls.map((ctrl, idx) => ({
+              texto: ctrl.value,
+              numero: idx + 1,
+            }))
+          : [],
     }));
 
     this.encuestasService
