@@ -10,4 +10,6 @@ export interface EncuestaDTO {
     codigoRespuesta: string;
 
     codigoResultados: string;
+
+    activa:boolean;
 }
