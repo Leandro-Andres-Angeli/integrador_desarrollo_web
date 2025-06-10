@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { EncuestasService } from './encuestas.service';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 interface Enlaces {
   urlParticipacion: string;
@@ -11,26 +11,23 @@ interface Enlaces {
   providedIn: 'root'
 })
 export class EnlacesService {
-  private readonly urlCorta = window.location.origin;
-
-  constructor(private encuestasService: EncuestasService) {}
+  constructor(private http: HttpClient) {}
 
   generarEnlaces(idEncuesta: number, codigoResultado: string, codigoRespuesta: string): Observable<Enlaces> {
-    return new Observable<Enlaces>(observer => {
       const enlaces: Enlaces = {
         urlParticipacion: `${window.location.origin}/respuestas/${idEncuesta}/${codigoRespuesta}`,
         urlConsulta: `${window.location.origin}/resultados/${idEncuesta}?codigo=${codigoResultado}`,
       };
-      observer.next(enlaces);
-      observer.complete();
-    });
+      return new Observable(observer => {
+        observer.next(enlaces);
+        observer.complete();
+      })
   }
 
-  generarEnlacesCortos(idEncuesta: number): Enlaces {
-    return {
-      urlParticipacion: `${this.urlCorta}/encuesta/${idEncuesta}`,
-      urlConsulta: `${this.urlCorta}/resultados/${idEncuesta}`
-    };
+  acortarUrl(url: string): Observable<string> {
+    const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+    const tinyUrlApi = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
+    return this.http.get(corsProxy + tinyUrlApi, { responseType: 'text' });
   }
 
   async copiarAlPortapapeles(texto: string): Promise<boolean> {

@@ -44,7 +44,7 @@ export class QRDialogComponent {
       .then((canvas: { toDataURL: (arg0: string) => string; }) => {
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');
-        link.download = `QR-Questi-${this.tipoQR}.png`;
+        link.download = `QR-Qüesti-${this.tipoQR}.png`;
         link.click();
       })
       .catch((error: any) => {
