@@ -17,11 +17,11 @@ export class ResultadosService {
 
   obtenerResultados(
     id: number,
-    codigoResultado: string
-  ): Observable<PaginationResult<ResultadosDto>> {
+    codigoResultado: string,
+    page = 1): Observable<PaginationResult<ResultadosDto>> {
     console.log(id, codigoResultado);
     return this.http.get<PaginationResult<ResultadosDto>>(
-      this.apiUrl + 'resultados/' + id + '?codigo=' + codigoResultado
+      this.apiUrl + 'resultados/' + id + '?codigo=' + codigoResultado + "&page=" + page
     );
   }
 

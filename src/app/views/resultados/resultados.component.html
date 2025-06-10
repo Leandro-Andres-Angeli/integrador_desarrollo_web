@@ -22,7 +22,7 @@
     </div>
   </div>
 </header>
-
+  
 @if(error){
 <div class="container">
   <p-message severity="warn">{{ error }}</p-message>
@@ -54,7 +54,12 @@
             class="full-flex-width"
             [preguntas]="preguntas"
             [respuestas]="respuestas"
-          ></app-graficos-resultados>
+           [(pageNumber)]="pageNumber"
+           [prev]="prev"
+           [next]="next"
+          >
+        
+        </app-graficos-resultados>
         </p-tabpanel>
       </p-tabpanels>
       <div *ngIf="respuestas?.length === 0" class="p-4 text-center">
