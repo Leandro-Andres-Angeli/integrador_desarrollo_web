@@ -35,7 +35,12 @@ import { ButtonModule } from 'primeng/button';
     NgFor,
     NgIf,
     ButtonModule,
+
   ],
+  animations: [
+
+
+  ]
 })
 export class GraficosResultadosComponent {
   preguntas = input<PreguntaResultadoDto[]>([]);
