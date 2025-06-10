@@ -199,7 +199,4 @@ export class ResultadosComponent implements OnInit {
     );
   }
 
-  confirmarCambiarEstadoEncuesta(event: any){
-
-  }
 }
