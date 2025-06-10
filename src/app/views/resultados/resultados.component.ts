@@ -16,12 +16,16 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TablaResultadosComponent } from './tabla-resultados/tabla-resultados.component';
 import { GraficosResultadosComponent } from './graficos-resultados/graficos-resultados.component';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import {
+  ToggleSwitchChangeEvent,
+  ToggleSwitchModule,
+} from 'primeng/toggleswitch';
 import {
   PreguntaResultadoDto,
   RespuestaEncuestadoDto,
 } from '../../interfaces/resultados.dto';
-
+import { EncuestasService } from '../../services/encuestas.service';
+import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
 @Component({
   selector: 'app-resultados',
   styleUrls: ['./resultados.component.css'],
@@ -42,7 +46,7 @@ import {
     TableModule,
     TablaResultadosComponent,
     GraficosResultadosComponent,
-    ToggleSwitchModule
+    ToggleSwitchModule,
   ],
   standalone: true,
 })
@@ -53,11 +57,15 @@ export class ResultadosComponent implements OnInit {
   respuestas: RespuestaEncuestadoDto[] = [];
   nombre: string = '';
   error: string | null = null;
+  activa!: boolean;
 
   constructor(
     private resultadosService: ResultadosService,
+    private encuestasService: EncuestasService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -72,10 +80,11 @@ export class ResultadosComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          const { data } = res
+          const { data } = res;
           this.nombre = data.nombre;
           this.preguntas = data.preguntas;
           this.respuestas = data.respuestas;
+          this.activa = data.activa;
           // this.preguntas.sort(
           //   (a: { numero: number }, b: { numero: number }) =>
           //     a.numero - b.numero
@@ -96,5 +105,65 @@ export class ResultadosComponent implements OnInit {
       this.codigoResultado!,
       this.nombre
     );
+  }
+
+  cambiarEstadoEncuesta(): void {
+    this.encuestasService
+      .cambiarEstadoEncuesta(this.id!, this.codigoResultado!, this.activa)
+      .subscribe({
+        next: (res) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Nuevo Estado',
+            detail: res.mensaje,
+            life: 3000,
+          });
+        },
+        error: (err) => {
+          console.error(err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Ocurrió un error',
+            life: 3000,
+          });
+        },
+      });
+  }
+
+  confirmarCambiarEstadoEncuesta(event: ToggleSwitchChangeEvent) {
+    const nuevoEstado = event.checked;
+    this.confirmationService.confirm({
+      target: event.originalEvent?.currentTarget as HTMLElement,
+      message: `<div class="confirm-delete-message"> ¿Estás seguro de que querés ${
+        nuevoEstado ? 'activar' : 'desactivar'
+      } esta encuesta? ${
+        nuevoEstado === false
+          ? 'Al desactivar no se recibirán más respuestas.'
+          : ''
+      }`,
+
+      header: `${nuevoEstado ? 'Activar' : 'Desactivar'} encuesta`,
+      closable: false,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: nuevoEstado ? 'Activar' : 'Desactivar',
+      },
+      acceptButtonStyleClass: 'confirm-btn',
+      rejectButtonStyleClass: 'reject-btn',
+      acceptIcon: PrimeIcons.CHECK,
+      accept: () => {
+        this.cambiarEstadoEncuesta();
+      },
+      reject: () => {
+        this.activa = !this.activa;
+        return;
+      },
+    });
   }
 }
