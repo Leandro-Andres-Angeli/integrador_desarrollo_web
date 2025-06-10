@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, model, OnInit } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -47,23 +47,55 @@ import {
   standalone: true,
 })
 export class ResultadosComponent implements OnInit {
-  id!: number | null;
+  id!: number;
   codigoResultado!: string | null;
   preguntas: PreguntaResultadoDto[] = [];
   respuestas: RespuestaEncuestadoDto[] = [];
   nombre: string = '';
   error: string | null = null;
-
+  prev = false;
+  next = true
+  pageNumber = model<number>(1)
   constructor(
     private resultadosService: ResultadosService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+
+    effect(() => {
+      this.resultadosService
+        .obtenerResultados(this.id, this.codigoResultado!, this.pageNumber())
+        .pipe(
+          catchError((err) => {
+            this.error = 'Error al cargar resultados';
+            throw err;
+          })
+        )
+        .subscribe({
+          next: (res) => {
+            console.log(res)
+            this.prev = res.prev
+            this.next = res.next
+            const { data } = res
+            this.nombre = data.nombre;
+            this.preguntas = data.preguntas;
+            this.respuestas = data.respuestas;
+
+            this.respuestas.sort(
+              (a: { id: number }, b: { id: number }) => a.id - b.id
+            );
+          },
+          error: (err) => {
+            console.error('Error al cargar resultados', err);
+          },
+        });
+    })
+  }
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.codigoResultado = this.route.snapshot.queryParamMap.get('codigo');
     this.resultadosService
-      .obtenerResultados(this.id, this.codigoResultado!)
+      .obtenerResultados(this.id, this.codigoResultado!, this.pageNumber())
       .pipe(
         catchError((err) => {
           this.error = 'Error al cargar resultados';
@@ -72,13 +104,16 @@ export class ResultadosComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          this.nombre = res.nombre;
-          this.preguntas = res.preguntas;
-          this.respuestas = res.respuestas;
-          this.preguntas.sort(
-            (a: { numero: number }, b: { numero: number }) =>
-              a.numero - b.numero
-          );
+          this.prev = res.prev
+          this.next = res.next
+          const { data } = res
+          this.nombre = data.nombre;
+          this.preguntas = data.preguntas;
+          this.respuestas = data.respuestas;
+          // this.preguntas.sort(
+          //   (a: { numero: number }, b: { numero: number }) =>
+          //     a.numero - b.numero
+          // );
           this.respuestas.sort(
             (a: { id: number }, b: { id: number }) => a.id - b.id
           );

@@ -3,22 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResultadosDto } from '../interfaces/resultados.dto';
 import { environment } from '../../environments/environment';
-
-@Injectable({
+export interface PaginationResult<T> {
+  data: T
+  next: boolean;
+  prev: boolean
+}@Injectable({
   providedIn: 'root',
 })
 export class ResultadosService {
   private apiUrl = `${environment.apiUrl}/encuestas/`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   obtenerResultados(
     id: number,
-    codigoResultado: string
-  ): Observable<ResultadosDto> {
+    codigoResultado: string,
+    page = 1): Observable<PaginationResult<ResultadosDto>> {
     console.log(id, codigoResultado);
-    return this.http.get<ResultadosDto>(
-      this.apiUrl + 'resultados/' + id + '?codigo=' + codigoResultado
+    return this.http.get<PaginationResult<ResultadosDto>>(
+      this.apiUrl + 'resultados/' + id + '?codigo=' + codigoResultado + "&page=" + page
     );
   }
 

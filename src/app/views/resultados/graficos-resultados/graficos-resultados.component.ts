@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import {
   PreguntaResultadoDto,
   RespuestaEncuestadoDto,
@@ -14,7 +14,8 @@ import { AngularD3CloudComponent } from 'angular-d3-cloud';
 import { MessageModule } from 'primeng/message';
 import { TabsModule } from 'primeng/tabs';
 import { OpcionDTO } from '../../../interfaces/opcion.dto';
-import { NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-graficos-resultados',
@@ -33,11 +34,16 @@ import { NgFor, NgIf } from '@angular/common';
     AngularD3CloudComponent,
     NgFor,
     NgIf,
+    ButtonModule,
+    JsonPipe
   ],
 })
 export class GraficosResultadosComponent {
   preguntas = input<PreguntaResultadoDto[]>([]);
   respuestas = input<RespuestaEncuestadoDto[]>([]);
+  pageNumber = model<number>(0)
+  prev = input.required<boolean>()
+  next = input.required<boolean>()
   opcionesGrafico: any;
 
   fontSizeMapper = (palabra: any) => palabra.value * 25;
@@ -92,5 +98,11 @@ export class GraficosResultadosComponent {
       ],
     };
     return data;
+  }
+  addPageNumber() {
+    this.pageNumber.update(val => val + 1)
+  }
+  decresePageNumber() {
+    this.pageNumber.update(val => val - 1)
   }
 }
