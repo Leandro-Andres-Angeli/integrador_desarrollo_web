@@ -1,10 +1,9 @@
 import { Component, input, model, output } from '@angular/core';
 import {
-  PreguntaResultadoDto,
-  RespuestaEncuestadoDto,
-  RespuestaOpcionDto,
-  RespuestaVerdaderoFalsoDto,
-} from '../../../interfaces/resultados.dto';
+  PreguntaResultadoGraficosDto,
+  RespuestaOpcionGraficosDto,
+  RespuestaVerdaderoFalsoGraficosDto,
+} from '../../../interfaces/resultados.graficos.dto';
 import { ChartModule } from 'primeng/chart';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { AccordionModule } from 'primeng/accordion';
@@ -35,19 +34,13 @@ import { ButtonModule } from 'primeng/button';
     NgFor,
     NgIf,
     ButtonModule,
-
   ],
-  animations: [
-
-
-  ]
+  animations: [],
 })
 export class GraficosResultadosComponent {
-  preguntas = input<PreguntaResultadoDto[]>([]);
-  respuestas = input<RespuestaEncuestadoDto[]>([]);
-  pageNumber = model<number>(0);
-  prev = input.required<boolean>();
-  next = input.required<boolean>();
+  preguntas = input<PreguntaResultadoGraficosDto[]>([]);
+  hayRespuestas = input<boolean>(false);
+
   opcionesGrafico: any;
 
   fontSizeMapper = (palabra: any) => palabra.value * 25;
@@ -66,7 +59,7 @@ export class GraficosResultadosComponent {
       },
     };
   }
-  getData(pregunta: PreguntaResultadoDto) {
+  getData(pregunta: PreguntaResultadoGraficosDto) {
     const data = {
       labels: pregunta.opciones
         .sort((a: OpcionDTO, b: OpcionDTO) => a.numero - b.numero)
@@ -76,16 +69,18 @@ export class GraficosResultadosComponent {
       datasets: [
         {
           label: 'Cantidad',
-          data: pregunta.respuestasOpciones.map((ro: RespuestaOpcionDto) => {
-            return ro.cantidad;
-          }),
+          data: pregunta.respuestasOpciones.map(
+            (ro: RespuestaOpcionGraficosDto) => {
+              return ro.cantidad;
+            }
+          ),
         },
       ],
     };
     return data;
   }
 
-  getDataVF(pregunta: PreguntaResultadoDto) {
+  getDataVF(pregunta: PreguntaResultadoGraficosDto) {
     const data = {
       labels: pregunta.opciones
         .sort((a: OpcionDTO, b: OpcionDTO) => a.numero - b.numero)
@@ -95,18 +90,14 @@ export class GraficosResultadosComponent {
       datasets: [
         {
           label: 'Cantidad',
-          data: pregunta.respuestasVF.map((rvf: RespuestaVerdaderoFalsoDto) => {
-            return rvf.cantidad;
-          }),
+          data: pregunta.respuestasVF.map(
+            (rvf: RespuestaVerdaderoFalsoGraficosDto) => {
+              return rvf.cantidad;
+            }
+          ),
         },
       ],
     };
     return data;
-  }
-  addPageNumber() {
-    this.pageNumber.update((val) => val + 1);
-  }
-  decresePageNumber() {
-    this.pageNumber.update((val) => val - 1);
   }
 }

@@ -1,4 +1,11 @@
 <div class="card">
+  <div class="flex gap-2">
+    @if(prev()){
+    <p-button styleClass="acento" (onClick)="decresePageNumber()"><</p-button>
+    } @if(next()) {
+    <p-button styleClass="acento" (onClick)="addPageNumber()">></p-button>
+    }
+  </div>
   <p-table
     [value]="tablaRespuestas"
     [tableStyle]="{ 'min-width': '50rem' }"
