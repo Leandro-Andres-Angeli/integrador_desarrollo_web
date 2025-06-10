@@ -1,6 +1,6 @@
 <ng-container *ngIf="respuestas().length > 0">
   <p-card *ngFor="let pregunta of preguntas()">
-    <p-fieldset legend="Pregunta {{ pregunta.numero + 1 }}">
+    <p-fieldset legend="Pregunta {{ pregunta.numero }}">
       <p-accordion [activeIndex]="0">
         <p-accordionTab header="{{ pregunta.texto }}">
           <div class="p-card-content">

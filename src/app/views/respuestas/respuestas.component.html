@@ -59,7 +59,7 @@
           [(ngModel)]="
             respuestas.respuestasOpciones[getOpcionSimpleIndex(i)].opcion.id
           "
-          (onClick)="guardarRespuestaOpcion(opcion.id, getOpcionSimpleIndex(i))"
+          (onClick)="guardarRespuestaOpcion(opcion.id, pregunta.id)"
           inputId="opcion-{{ i }}-{{ opcion.id }}"
         ></p-radioButton>
         <label class="ml-3" for="opcion-{{ i }}-{{ opcion.id }}">{{
