@@ -1,10 +1,7 @@
 /* Estructura principal */
 .navbar {
-  /* position: fixed; */
   top: 0;
-  /* width: 100vw;
-  z-index: 100; */
-  background-color: #1e1e1e; /* fondo neutro claro */
+  background-color: #1e1e1e;
 }
 .p-button.disabled {
   background-color: rgb(228, 238, 94) !important;
@@ -27,4 +24,22 @@
 .navbar-buttons {
   display: flex;
   align-items: center;
+}
+
+.navbar-buttons-mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+.navbar-buttons {
+    display: none;
+}
+.navbar-buttons-mobile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.5;
+    margin-top: 0.5rem;
+  }
 }

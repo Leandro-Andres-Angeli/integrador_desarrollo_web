@@ -1,10 +1,14 @@
 <header class="navbar p-4 shadow-sm">
   <div class="navbar-content">
-    <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" />
+    <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" routerLink="home"/>
 
     <div class="navbar-buttons">
         <p-button label="Salir" routerLink="home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
         <p-button label="+ Crear nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    </div>
+    <div class="navbar-buttons-mobile">
+        <p-button label="+ Crear" routerLink="/crearEncuesta" styleClass="secundario"></p-button>
+        <p-button icon="pi pi-times" routerLink="home" styleClass="p-button-rounded acento p-button-text cerrar-modal"></p-button>
     </div>
   </div>
 </header>
@@ -22,7 +26,8 @@
         </dotlottie-player>
         <h3>¿Querés crear otra encuesta?</h3>
     </div>
-    <p-button label="Nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    <br>
+    <p-button label="+ Nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
 </section>
 
 <footer class="footer-error">

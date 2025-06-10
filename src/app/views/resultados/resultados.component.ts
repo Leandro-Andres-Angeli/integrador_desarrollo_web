@@ -198,4 +198,5 @@ export class ResultadosComponent implements OnInit {
       this.nombre
     );
   }
+
 }
