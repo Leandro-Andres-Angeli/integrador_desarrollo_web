@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
@@ -26,10 +26,10 @@ interface Enlaces {
     FormsModule,
     CommonModule,
     QRDialogComponent,
-    RouterLink
   ],
   templateUrl: './enlaces.component.html',
   styleUrls: ['./enlaces.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EnlacesComponent implements OnInit {
   mostrarQR: boolean = false;
