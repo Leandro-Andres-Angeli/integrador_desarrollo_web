@@ -54,7 +54,8 @@ export class ResultadosComponent implements OnInit {
   nombre: string = '';
   error: string | null = null;
   prev = false;
-  next = true
+  next = true;
+  activa: boolean = false;
   pageNumber = model<number>(1)
   constructor(
     private resultadosService: ResultadosService,
@@ -130,5 +131,9 @@ export class ResultadosComponent implements OnInit {
       this.codigoResultado!,
       this.nombre
     );
+  }
+
+  confirmarCambiarEstadoEncuesta(event: any){
+
   }
 }

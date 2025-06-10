@@ -23,15 +23,7 @@
           (click)="salirClick.emit()"
         ></p-button>
       </ng-container>
-      <!-- <div class="navbar-buttons" *ngIf="modoVistaPrevia"> -->
-      <!-- <p-button
-        label="Finalizar"
-        styleClass="acento ml-4 px-6"
-        (click)="finalizarClick.emit()"
-      ></p-button> -->
-      <!-- </div> -->
-      <!-- [styleClass]=' !validForm ? :  acento ml-4 px-6'  -->
-      <!-- !validForm ? 'disabled' : '' -->
+  
       <p-button
         label="Finalizar"
         [disabled]="!validForm"
@@ -41,7 +33,35 @@
         [icon]="validForm ? 'pi pi-check' : 'pi pi-check'"
         (click)="finalizarClick.emit()"
       ></p-button>
-      <!-- <p class="text-white">valid {{ validForm | json }}</p> -->
     </div>
+
+    <div class="navbar-buttons-mobile">
+      <ng-container *ngIf="!modoVistaPrevia">
+        <p-button id="button-vista-previa"
+          icon="pi pi-exclamation-circle"
+          styleClass="secundario"
+          (click)="vistaPreviaClick.emit()"
+        ></p-button>
+      </ng-container>
+      <ng-container *ngIf="modoVistaPrevia">
+        <p-button id="button-regresar"
+          icon="pi pi-angle-left"
+          label="Regresar"
+          styleClass="secundario"
+          (click)="salirClick.emit()"
+        ></p-button>
+      </ng-container>
+      
+      <p-button
+        label="Finalizar"
+        [disabled]="!validForm"
+        [severity]="!validForm ? 'secondary' : 'primary'"
+        [styleClass]="!validForm ? 'disabled ml-4' : 'acento ml-4'"
+        [className]="!validForm ? 'pointer-events-none disabled' : ''"
+        [icon]="validForm ? 'pi pi-check' : 'pi pi-check'"
+        (click)="finalizarClick.emit()"
+      ></p-button>
+    </div>
+    
   </div>
 </header>

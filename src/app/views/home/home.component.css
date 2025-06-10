@@ -63,6 +63,8 @@ img.logo-cuesti-celeste {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  margin-right: 3rem;
 }
 
 .footer {
@@ -88,48 +90,3 @@ p.copyright {
   margin: 0;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
-  .wave-background-top {
-    height: 200px;
-  }
-
-  img.logo-cuesti-celeste {
-    top: 10px;
-    left: 30px;
-  }
-
-  .welcome {
-    flex-direction: column;
-    margin-left: 0;
-    align-items: center;
-    text-align: center;
-  }
-
-  .welcome-text {
-    margin-left: 0;
-    padding: 0 20px;
-  }
-
-  .welcome-text h1 {
-    font-size: 1.6rem;
-  }
-
-  .welcome-text h2 {
-    font-size: 0.9rem;
-  }
-
-  button.p-button-primario {
-    margin: 0 auto;
-    font-size: 0.75rem;
-  }
-
-  .imagen-home {
-    width: 70%;
-  }
-
-  p.copyright {
-    font-size: 0.65rem;
-    padding: 0 20px;
-  }
-}

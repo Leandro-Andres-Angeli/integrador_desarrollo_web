@@ -350,18 +350,19 @@ textarea[pInputTextarea]:focus {
   }
 
   .titulo-boton-container {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
   }
 
   .titulo-texto {
     font-size: 1.25rem;
-    text-align: left;
+    text-align: center;
     word-break: break-word;
   }
 
   .input-nombre-container input {
     width: 100%;
+    text-align: center;
   }
 
   .cabecera-pregunta {
@@ -377,7 +378,7 @@ textarea[pInputTextarea]:focus {
 
   .input-pregunta-select-container {
     flex-direction: column;
-    gap: 0.5rem;
+    display: block;
   }
 
   .input-pregunta {
@@ -389,7 +390,8 @@ textarea[pInputTextarea]:focus {
   }
 
   .acciones {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     gap: 0.5rem;
     align-items: stretch;
   }
@@ -401,7 +403,7 @@ textarea[pInputTextarea]:focus {
   }
 
   .input-opcion {
-    width: 100%;
+    width: 145%;
   }
 
   .boton-anadir-container,
@@ -430,4 +432,13 @@ textarea[pInputTextarea]:focus {
   .pregunta-item-preview {
     margin-bottom: 1.5rem;
   }
+
+  .navbar-buttons{
+    display: none;
+  }
+  .navbar-buttons-mobile {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    }
 }
