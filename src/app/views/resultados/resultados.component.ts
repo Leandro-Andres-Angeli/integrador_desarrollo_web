@@ -72,13 +72,14 @@ export class ResultadosComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          this.nombre = res.nombre;
-          this.preguntas = res.preguntas;
-          this.respuestas = res.respuestas;
-          this.preguntas.sort(
-            (a: { numero: number }, b: { numero: number }) =>
-              a.numero - b.numero
-          );
+          const { data } = res
+          this.nombre = data.nombre;
+          this.preguntas = data.preguntas;
+          this.respuestas = data.respuestas;
+          // this.preguntas.sort(
+          //   (a: { numero: number }, b: { numero: number }) =>
+          //     a.numero - b.numero
+          // );
           this.respuestas.sort(
             (a: { id: number }, b: { id: number }) => a.id - b.id
           );
