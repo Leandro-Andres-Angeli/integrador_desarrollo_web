@@ -39,14 +39,8 @@
           encuesta activa
           <p-toggleswitch />
         </label>
-        <button class="p-button-primario m-3" (click)="descargarCSV()">
-          <img
-            src="../../../assets/icons/csv.svg"
-            alt="Descargar"
-            width="40"
-            height="40"
-          />
-        </button>
+        <p-button icon="pi pi-download" aria-label="Descargar CSV" label="CSV" styleClass="acento m-3" (click)="descargarCSV()">
+        </p-button>
       </p-tablist>
       <p-tabpanels>
         <p-tabpanel value="0">
@@ -80,6 +74,6 @@
   <p class="copyright">
     © Qüesti | Todos los derechos reservados <br />
     Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR" />para
-    el 🌎
+    el mundo.
   </p>
 </footer>
