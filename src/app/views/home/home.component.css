@@ -3,6 +3,7 @@
   display: grid;
   grid-template-rows: 25vh 0 auto 16vh;
 }
+
 .wave-background-top {
   position: relative;
   width: 100%;
@@ -64,15 +65,10 @@ img.logo-cuesti-celeste {
   align-items: center;
 }
 
-.imagen-home {
-  width: 100%;
-  max-width: 500px;
-}
-
 .footer {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 250px;
   background-image: url("/assets/images/home/Vector-button.svg");
   background-repeat: no-repeat;
   background-position: center;

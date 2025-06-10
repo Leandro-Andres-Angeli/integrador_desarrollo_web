@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -23,10 +24,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true,
 })
 export class HomeComponent {
-  // para testear los resultados
-  codigo: string = '';
-  id: string = '';
 }

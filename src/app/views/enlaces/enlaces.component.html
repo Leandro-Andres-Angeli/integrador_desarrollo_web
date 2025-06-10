@@ -1,29 +1,41 @@
 <header class="navbar p-4 shadow-sm">
   <div class="navbar-content">
-    <img
-      src="assets/images/logos/logos=logo-Violeta.svg"
-      alt="Logo violeta"
-      class="navbar-logo"
-    />
+    <a (click)="irHomeEnlaces($event)">
+      <img
+        src="assets/images/logos/logos=logo-Violeta.svg"
+        alt="Logo violeta"
+        class="navbar-logo"
+      />
+    </a>
 
     <div class="navbar-buttons">
-      <a routerLink="/crearEncuesta" styleClass="acento" class="p-button acento"
-        >+ Crear nueva encuesta</a
-      >
+      <p-button
+        label="Salir"
+        (onClick)="salirEnlaces($event)"
+        styleClass="neutral-blanco-borde-negro"
+        class="mr-4"
+      ></p-button>
+      <p-button
+        label="+ Crear nueva encuesta"
+        (onClick)="crearEncuestaEnlaces($event)"
+        styleClass="acento"
+      ></p-button>
     </div>
   </div>
 </header>
 
 <section class="content">
   <div class="encuesta-container">
-    <h1 class="titulo-principal">Links de tu encuesta</h1>
+    <div class="titulo-principal-enlaces">
+      <h1 class="titulo-principal">Links de tu encuesta</h1>
+    </div>
 
     <!-- BLOQUE: Link de participación -->
     <div class="bloque-link">
-      <h2>Link de participación</h2>
+      <h2>Link de la encuesta</h2>
       <p>
         Usá este link para compartir tu encuesta y que otras personas puedan
-        rellenarla.
+        responderla.
       </p>
 
       <div class="link-card">

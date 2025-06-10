@@ -253,7 +253,7 @@ export class CrearEncuestaComponent {
     this.preguntas.clear();
     this.tituloEditando = true;
 
-    console.log('Encuesta eliminada');
+    console.log('Encuesta eliminada.');
   }
 
   getPresentacionTipo(tipo: string): string {
