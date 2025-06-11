@@ -251,4 +251,12 @@ export class RespuestasComponent implements OnInit {
             },
         });
 }
+// ✅ NUEVOS MÉTODOS PARA MULTIMEDIA
+isImage(url: string): boolean {
+    return /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i.test(url);
+  }
+
+  isVideo(url: string): boolean {
+    return /\.(mp4|webm|ogg)$/i.test(url);
+  }
 }

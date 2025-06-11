@@ -1,6 +1,20 @@
+import { OpcionDTO } from './opcion.dto';
+
+export interface RespuestaOpcionDto {
+  id: number;
+  opcionId: number;
+  cantidad: number;
+}
+
 export interface RespuestaVerdaderoFalsoDto {
   id: number;
   valor: boolean;
+  cantidad: number;
+}
+
+interface RespuestaAbiertaDto {
+  id: number;
+  texto: string;
 }
 
 export interface PreguntaResultadoDto {
@@ -8,6 +22,11 @@ export interface PreguntaResultadoDto {
   numero: number;
   texto: string;
   tipo: string;
+  opciones: OpcionDTO[];
+  respuestasOpciones: RespuestaOpcionDto[];
+  respuestasAbiertas: RespuestaAbiertaDto[];
+  respuestasVF: RespuestaVerdaderoFalsoDto[];
+  frecuenciaPalabras: PalabraFrecuenciaDto[];
 }
 
 export interface RespuestasDto {
@@ -26,4 +45,8 @@ export interface ResultadosDto {
   preguntas: PreguntaResultadoDto[];
   respuestas: RespuestaEncuestadoDto[];
   codigoRespuesta: string;
+}
+export interface PalabraFrecuenciaDto {
+  text: string;
+  value: number;
 }

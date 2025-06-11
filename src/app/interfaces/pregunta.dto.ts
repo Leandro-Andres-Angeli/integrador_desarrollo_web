@@ -10,5 +10,10 @@ export interface PreguntaDTO {
 
     tipo: TiposRespuestaEnum;
 
-    opciones?: OpcionDTO[]; 
+    opciones?: OpcionDTO[];
+    
+    multimedia?: {
+        url: string;
+        tipo: string;
+    };
 }
