@@ -28,6 +28,7 @@ import {
 import { EncuestasService } from '../../services/encuestas.service';
 
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
+import { PreguntaResultadoGraficosDto } from '../../interfaces/resultados.graficos.dto';
 import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
@@ -57,6 +58,7 @@ import { FooterComponent } from "../../components/footer/footer.component";
 export class ResultadosComponent implements OnInit {
   id!: number;
   codigoResultado!: string | null;
+  preguntasGraficos: PreguntaResultadoGraficosDto[] = [];
   preguntas: PreguntaResultadoDto[] = [];
   respuestas: RespuestaEncuestadoDto[] = [];
   nombre: string = '';
@@ -65,6 +67,7 @@ export class ResultadosComponent implements OnInit {
   prev = false;
   next = true;
   pageNumber = model<number>(1);
+
   constructor(
     private resultadosService: ResultadosService,
     private encuestasService: EncuestasService,
@@ -73,6 +76,7 @@ export class ResultadosComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     effect(() => {
+      /// *** TABLA ***
       this.resultadosService
         .obtenerResultados(this.id, this.codigoResultado!, this.pageNumber())
         .pipe(
@@ -87,10 +91,31 @@ export class ResultadosComponent implements OnInit {
             this.prev = res.prev;
             this.next = res.next;
             const { data } = res;
-            this.nombre = data.nombre;
             this.preguntas = data.preguntas;
             this.respuestas = data.respuestas;
-            this.activa = data.activa;
+            this.respuestas.sort(
+              (a: { id: number }, b: { id: number }) => a.id - b.id
+            );
+          },
+          error: (err) => {
+            console.error('Error al cargar resultados', err);
+          },
+        });
+
+      /// *** GRAFICOS ***
+      this.resultadosService
+        .obtenerResultadosGraficos(this.id, this.codigoResultado!)
+        .pipe(
+          catchError((err) => {
+            this.error = 'Error al cargar resultados gráficos';
+            throw err;
+          })
+        )
+        .subscribe({
+          next: (res) => {
+            this.nombre = res.nombre;
+            this.preguntasGraficos = res.preguntas;
+            this.activa = res.activa;
             this.respuestas.sort(
               (a: { id: number }, b: { id: number }) => a.id - b.id
             );
