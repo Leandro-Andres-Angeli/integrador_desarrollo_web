@@ -35,7 +35,7 @@
     </div>
   </div>
 </header>
-  
+
 @if(error){
 <div class="container">
   <p-message severity="warn">{{ error }}</p-message>
@@ -72,19 +72,18 @@
           <app-tabla-resultados
             [preguntas]="preguntas"
             [respuestas]="respuestas"
+            [(pageNumber)]="pageNumber"
+            [prev]="prev"
+            [next]="next"
           ></app-tabla-resultados>
         </p-tabpanel>
         <p-tabpanel value="1">
           <app-graficos-resultados
             class="full-flex-width"
-            [preguntas]="preguntas"
-            [respuestas]="respuestas"
-           [(pageNumber)]="pageNumber"
-           [prev]="prev"
-           [next]="next"
+            [preguntas]="preguntasGraficos"
+            [hayRespuestas]="respuestas.length > 0"
           >
-        
-        </app-graficos-resultados>
+          </app-graficos-resultados>
         </p-tabpanel>
       </p-tabpanels>
       <div *ngIf="respuestas?.length === 0" class="p-4 text-center">

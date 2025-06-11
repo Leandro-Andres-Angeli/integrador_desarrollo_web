@@ -1,13 +1,4 @@
-<ng-container *ngIf="respuestas().length > 0">
-  <div class="flex justify-content-end gap-2">
-        
-         @if(prev()){
-         <p-button styleClass="acento"  (onClick)="decresePageNumber()"><</p-button>
-       }
-       @if(next()) {
-         <p-button styleClass="acento" (onClick)="addPageNumber()" >></p-button>
-         }
-  </div>
+<ng-container *ngIf="hayRespuestas">
   <p-card *ngFor="let pregunta of preguntas()">
     <p-fieldset legend="Pregunta {{ pregunta.numero }}">
       <p-accordion [activeIndex]="0">
@@ -78,6 +69,4 @@
       </p-accordion>
     </p-fieldset>
   </p-card>
-
-  
 </ng-container>
