@@ -53,7 +53,7 @@ export class TablaResultadosComponent {
     this.pageNumber.update((val) => val + 1);
     this.debounce.set(true)
   }
-  decresePageNumber() {
+  decreasePageNumber() {
     if (this.pageNumber() < 1) {
       return
     }
