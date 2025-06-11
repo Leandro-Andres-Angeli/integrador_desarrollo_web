@@ -24,11 +24,12 @@ export class TablaResultadosComponent {
   debounce = model<boolean>(false)
   constructor() {
     effect(() => {
+
       if (this.debounce()) {
 
         setTimeout(() => {
           this.debounce.set(false)
-        }, 700)
+        }, 800)
 
       }
 
@@ -50,18 +51,29 @@ export class TablaResultadosComponent {
     if (this.debounce()) {
       return
     }
-    this.pageNumber.update((val) => val + 1);
-    this.debounce.set(true)
+    else {
+
+      this.pageNumber.update((val) => val + 1);
+      this.debounce.set(true)
+    }
+
+
   }
   decreasePageNumber() {
+
     if (this.pageNumber() < 1) {
       return
     }
     if (this.debounce()) {
       return
     }
-    this.pageNumber.update((val) => val - 1);
-    this.debounce.set(true)
+    else {
+
+      this.pageNumber.update((val) => val - 1);
+      this.debounce.set(true)
+    }
+
+
   }
 }
 

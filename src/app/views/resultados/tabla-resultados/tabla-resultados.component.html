@@ -2,9 +2,9 @@
   
   <div class="flex gap-2">
     @if(prev()){
-    <p-button styleClass="acento"  class="hover:cursor-default"     (onClick)="decreasePageNumber()"><</p-button>
+    <p-button styleClass="acento"  class="hover:cursor-default" [classList]="debounce()? 'debounce' : ''"     (onClick)="decreasePageNumber()"><</p-button>
     } @if(next()) {
-    <p-button styleClass="acento"  class="hover:cursor-default"    (onClick)="addPageNumber()">></p-button>
+    <p-button styleClass="acento"  class="hover:cursor-default"  [classList]="debounce()? 'debounce' : ''"   (onClick)="addPageNumber()">></p-button>
     }
   </div>
   <p-table
