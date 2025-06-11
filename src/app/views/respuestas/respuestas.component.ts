@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { EncuestaDTO } from '../../interfaces/encuesta.dto';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { ConfirmationService } from 'primeng/api';
 @Component({
     selector: 'app-respuestas',
     imports: [ButtonModule, CommonModule, FormsModule, RadioButtonModule, CheckboxModule, RouterLink],
@@ -33,7 +33,8 @@ export class RespuestasComponent implements OnInit {
     constructor(
         private respuestasService: RespuestasService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private confirmationService: ConfirmationService
     ) { }
 
     ngOnInit(): void {
@@ -218,4 +219,36 @@ export class RespuestasComponent implements OnInit {
     paginateBackwards() {
         this.pageNumber.update((prev) => prev - 1)
     }
+    
+    salir(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: `
+            <div class="confirm-delete-message">
+                <strong>¿Estás seguro de que deseás salir?</strong> 
+                <br>
+                Al salir se borraran las respuestas cargadas hasta el momento.
+            </div>
+            `,
+            header: 'Salir',
+            closable: false,
+            closeOnEscape: true,
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+            label: 'Cancelar',
+            outlined: true,
+            },
+            acceptButtonProps: {
+            label: 'Salir',
+            },
+            acceptButtonStyleClass: 'confirm-btn',
+            rejectButtonStyleClass: 'reject-btn',
+            accept: () => {
+            this.router.navigate(['/']);
+            },
+            reject: () => {
+            return;
+            },
+        });
+}
 }

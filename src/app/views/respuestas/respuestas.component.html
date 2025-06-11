@@ -9,14 +9,31 @@
     </a>
 
     <div class="navbar-buttons">
-      <a routerLink="" class="p-button neutral-blanco-borde-negro mr-4"
-        >Cancelar</a>
       <p-button
-        label="Enviar"
+        label="Salir"
+        styleClass="secundario mr-4"
+        (onClick)="salir($event)"
+      ></p-button>
+      <p-button
+        label="Enviar encuesta"
         styleClass="acento"
         (onClick)="enviarRespuestas()"
       ></p-button>
     </div>
+    <div class="navbar-buttons-mobile">
+      <p-button id="button-crear-encuesta-enlaces"
+        label="Enviar"
+        styleClass="secundario"
+        class=""
+        (onClick)="enviarRespuestas()"
+      ></p-button>
+      <p-button id="button-salir-encuesta-enlaces"
+        icon="pi pi-times"
+        styleClass="p-button-rounded acento p-button-text cerrar-modal"
+        aria-label="Salir"
+        (onClick)="salir($event)"
+      ></p-button>
+      </div>
   </div>
 </header>
 
