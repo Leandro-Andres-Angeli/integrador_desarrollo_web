@@ -1,4 +1,5 @@
 import { OpcionDTO } from './opcion.dto';
+import { CloudData } from 'angular-tag-cloud-module';
 
 export interface RespuestaOpcionGraficosDto {
   id: number;
@@ -26,7 +27,7 @@ export interface PreguntaResultadoGraficosDto {
   respuestasOpciones: RespuestaOpcionGraficosDto[];
   respuestasAbiertas: RespuestaAbiertaDto[];
   respuestasVF: RespuestaVerdaderoFalsoGraficosDto[];
-  frecuenciaPalabras: PalabraFrecuenciaDto[];
+  frecuenciaPalabras: CloudData[];
 }
 
 export interface RespuestasDto {
@@ -40,9 +41,4 @@ export interface ResultadosGraficosDto {
   preguntas: PreguntaResultadoGraficosDto[];
   codigoRespuesta: string;
   activa: boolean;
-}
-
-export interface PalabraFrecuenciaDto {
-  text: string;
-  value: number;
 }

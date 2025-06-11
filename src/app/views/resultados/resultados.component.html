@@ -21,17 +21,18 @@
       ></p-button>
     </div>
     <div class="navbar-buttons-mobile">
-      <p-button 
-      label="+ Crear" 
-      routerLink="/crearEncuesta" 
-      styleClass="secundario">
+      <p-button
+        label="+ Crear"
+        routerLink="/crearEncuesta"
+        styleClass="secundario"
+      >
       </p-button>
-      <p-button 
-        icon="pi pi-times" 
-        routerLink="home" 
-        styleClass="p-button-rounded acento p-button-text cerrar-modal">
+      <p-button
+        icon="pi pi-times"
+        routerLink="home"
+        styleClass="p-button-rounded acento p-button-text cerrar-modal"
+      >
       </p-button>
-     
     </div>
   </div>
 </header>
@@ -53,10 +54,10 @@
         />
       </label>
     </div>
-    <p-tabs value="0">
+    <p-tabs [(value)]="activeTab">
       <p-tablist class="tabs-bar">
-        <p-tab value="0">Tablas</p-tab>
-        <p-tab value="1">Gráficos</p-tab>
+        <p-tab [value]="0">Tablas</p-tab>
+        <p-tab [value]="1">Gráficos</p-tab>
         <p-button
           icon="pi pi-download"
           aria-label="Descargar CSV"
@@ -68,7 +69,7 @@
         </p-button>
       </p-tablist>
       <p-tabpanels>
-        <p-tabpanel value="0">
+        <p-tabpanel [value]="0">
           <app-tabla-resultados
             [preguntas]="preguntas"
             [respuestas]="respuestas"
@@ -77,11 +78,12 @@
             [next]="next"
           ></app-tabla-resultados>
         </p-tabpanel>
-        <p-tabpanel value="1">
+        <p-tabpanel [value]="1">
           <app-graficos-resultados
             class="full-flex-width"
             [preguntas]="preguntasGraficos"
             [hayRespuestas]="respuestas.length > 0"
+            [activeTab]="activeTab"
           >
           </app-graficos-resultados>
         </p-tabpanel>
