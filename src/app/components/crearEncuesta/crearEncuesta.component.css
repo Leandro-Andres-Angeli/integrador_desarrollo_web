@@ -17,7 +17,7 @@
   color: #000;
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   font-family: montserrat, sans-serif;
 }
 
@@ -62,7 +62,6 @@
 .p-floatlabel {
   width: 100%;
   max-width: 800px;
-  /*border: #000 solid 1px;*/
   border-radius: 8px;
 }
 
@@ -249,7 +248,7 @@
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   font-family: montserrat, sans-serif;
   margin-left: 2rem;
   margin-right: 2rem;
