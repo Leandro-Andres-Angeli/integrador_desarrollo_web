@@ -89,7 +89,7 @@ export class GraficosResultadosComponent {
               return ro.cantidad;
             }
           ),
-          backgroundColor: ['#D1A2F3', '#BAECEB'],
+          backgroundColor: ['#D1A2F3', '#BAECEB', '#DEFFDB','#FFEDEC'],
         },
       ],
     };
@@ -111,7 +111,7 @@ export class GraficosResultadosComponent {
               return rvf.cantidad;
             }
           ),
-          backgroundColor: ['#A663CC', '#B9FAF8']
+          backgroundColor: ['#D1A2F3', '#BAECEB']
         },
       ],
     };

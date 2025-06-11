@@ -3,8 +3,8 @@
 
 :root {
   --color-primario: #010101;
-  --color-acento: #a663cc;
-  --color-secundario: #b9faf8;
+  --color-acento: #D1A2F3;
+  --color-secundario: #BAECEB;
   --color-fondo-claro: #fffcfc;
   --color-blanco: #fff;
   --color-gris: #555555;
@@ -132,7 +132,7 @@ button.p-button-primario:hover {
 
 .p-button.acento:hover,
 .a.acento:hover {
-  background-color: #b9faf8 !important;
+  background-color: #BAECEB !important;
   color: var(--color-negro) !important;
   font-weight: bold !important;
   border: none !important;
@@ -140,7 +140,7 @@ button.p-button-primario:hover {
 
 .p-button.secundario,
 a.secundario {
-  background-color: #b9faf8 !important;
+  background-color: #BAECEB !important;
   color: var(--color-negro) !important;
   border: none !important;
 }
