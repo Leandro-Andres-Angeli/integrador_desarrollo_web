@@ -67,28 +67,6 @@ h1 {
     margin-bottom: 50px;
 }
 
-.footer-error {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  background-image: url("/assets/images/footer/Footer-Efect.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 30px;
-  z-index: 1;
-}
-
-p.copyright {
-  text-align: center;
-  color: #555555;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin: 0;
-}
 
 @media (max-width: 480px) {
   .navbar-buttons {

@@ -28,6 +28,7 @@ import {
 import { EncuestasService } from '../../services/encuestas.service';
 
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-resultados',
@@ -49,7 +50,8 @@ import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
     TablaResultadosComponent,
     GraficosResultadosComponent,
     ToggleSwitchModule,
-  ],
+    FooterComponent
+],
   standalone: true,
 })
 export class ResultadosComponent implements OnInit {
