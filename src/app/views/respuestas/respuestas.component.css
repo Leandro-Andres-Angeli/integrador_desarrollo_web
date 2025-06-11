@@ -1,0 +1,241 @@
+/* Estructura principal */
+:host{
+  display: grid;
+  min-height: 100vh;
+}
+.navbar {
+  top: 0;
+  background-color: #1e1e1e;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+.navbar-buttons-mobile {
+  display: none;
+}
+
+.respuestas-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fffcfc;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-family: montserrat, sans-serif;
+}
+
+.titulo-respuestas {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #000;
+}
+
+.titulo-respuestas h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.pregunta-respuesta {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  color: #000;
+  font-family: montserrat, sans-serif;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
+}
+
+.pregunta-respuesta:hover {
+  border: 1px solid #8e7ca8;
+}
+
+.pregunta-respuesta:hover:has(input:focus),
+.pregunta-respuesta:hover:has(textarea:focus) {
+  background-color: #fff !important;
+  border: 1px solid #000 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+
+.cabecera-pregunta {
+  margin-bottom: 1rem;
+}
+
+.numero-pregunta {
+  font-weight: 600;
+  color: #a663cc;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.texto-pregunta {
+  font-size: 1.25rem;
+  color: #000;
+  margin: 0;
+}
+
+.respuesta-abierta {
+  background-color: #f9f9f9;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: #000;
+  font-style: normal;
+}
+
+.respuesta-multiple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: #000;
+  background-color: #fff;
+}
+
+.chip {
+  background-color: #b9faf8;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+
+.respuesta-vf {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #000;
+}
+
+/* Estilo general para el textarea de PrimeNG */
+textarea[pInputTextarea] {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 90%;
+  font-family: montserrat, sans-serif;
+}
+textarea[pInputTextarea]:hover {
+  background: #fff;
+  color: #000;
+  border-color: #8e7ca8;
+  outline: none;
+}
+textarea[pInputTextarea]:focus {
+  background: #fff;
+  color: #000;
+  border-color: #8e7ca8;
+  outline: none;
+}
+
+/* Personalización de input radio nativo usando variables */
+input[type="radio"] {
+  background-color: rgb(0, 0, 0);
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: relative;
+}
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: #0c0c0c;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+
+input[type="radio"]:checked {
+  background-color: #b9faf8;
+  border-color: #000;
+}
+
+input[type="radio"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .navbar-buttons {
+    display: none;
+  }
+
+  .navbar-buttons-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap:1.6rem;
+    margin-right: 0.5rem;
+  }
+
+  .respuestas-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .titulo-respuestas h2 {
+    font-size: 1.5rem;
+  }
+
+  .pregunta-respuesta {
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+
+  .texto-pregunta {
+    font-size: 1.1rem;
+  }
+
+  .respuesta-multiple {
+    flex-direction: column;
+  }
+
+  textarea[pInputTextarea] {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .flex.gap-4.mt-2 {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ml-3 {
+    margin-left: 0.5rem;
+  }
+
+  .text-center.mt-6 {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+   

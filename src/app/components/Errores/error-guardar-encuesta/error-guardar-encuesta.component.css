@@ -1,0 +1,58 @@
+/* Estructura principal */
+html,
+body {
+  height: 100%;
+}
+
+.navbar {
+  background-color: #1e1e1e; /* fondo neutro claro */
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Contenedor central centrado */
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+/* Contenido centrado */
+.contenido {
+  text-align: center;
+}
+
+.boton-regresar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.contenido .logo-simple {
+  width: 30%;
+}
+
+h5,
+h1 {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 50px;
+}
+

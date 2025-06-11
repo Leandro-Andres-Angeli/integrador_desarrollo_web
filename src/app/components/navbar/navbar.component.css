@@ -1,0 +1,45 @@
+/* Estructura principal */
+.navbar {
+  top: 0;
+  background-color: #1e1e1e;
+}
+.p-button.disabled {
+  background-color: rgb(228, 238, 94) !important;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-buttons-mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+.navbar-buttons {
+    display: none;
+}
+.navbar-buttons-mobile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.5;
+    margin-top: 0.5rem;
+  }
+}

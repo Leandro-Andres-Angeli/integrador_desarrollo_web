@@ -1,158 +1,160 @@
-  .wave-background-top {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    background-image: url('/assets/images/home/ondas-home.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    margin: -30px 0 0;
-    z-index: -1;
+.navbar-home {
+  max-width: 100%;
+  height: 230px;
+  background-color: none;
+  background-image: url(/assets/images/home/ondas-home.svg);
+  background-repeat: no-repeat;
+  margin: -30px 0 0;
+  background-size: cover;
+}
+
+.container {
+  max-width: 800px;
+}
+
+img.logo-cuesti-celeste {
+  width: 20%;
+  height: 80px;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  z-index: 1;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-left: 60px;
+}
+
+.welcome-text {
+  flex: 1;
+  text-align: left;
+  margin-left: 60px;
+  padding-right: 30px;
+}
+
+.welcome-text h1 {
+  font-family: "Indie Flower", cursive;
+  font-size: 3.5rem;
+  margin: 0 0 10px 0;
+}
+
+.welcome-text h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0 0 20px 0;
+  color: #010101;
+}
+
+.welcome-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin-right: 3rem;
+}
+
+.footer {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background-image: url("/assets/images/home/Vector-button.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 30px;
+  z-index: 1;
+}
+
+p.copyright {
+  text-align: center;
+  color: #555555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .navbar-home {
+    grid-template-rows: auto auto auto auto;
   }
 
   .container {
-    max-width: 800px;
+    padding: 20px;
   }
 
   img.logo-cuesti-celeste {
-    width: 20%;
-    height: 80px;
-    position: absolute;
-    top: 50px;
-    left: 20px;
-    z-index: 1;
+    width: 40%;
+    height: auto;
+    top: 20px;
+    left: 10px;
   }
 
   .welcome {
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    margin: 0 50px;
+    margin-top: 50px;
     gap: 10px;
+    
   }
 
   .welcome-text {
-    flex: 1;
-    text-align: left;
-    margin-left: 60px;
-    padding-right: 30px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
   }
 
   .welcome-text h1 {
-    font-family: 'Indie Flower', cursive;
-    font-size: 3.5rem;
-    margin: 0 0 10px 0;
+    font-size: 2.2rem;
   }
 
   .welcome-text h2 {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0 0 20px 0;
-    color: #010101;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .welcome-text button {
+    width: 100%;
+    
   }
 
   .welcome-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .imagen-home {
+    margin: 0;
+    padding: 1rem;
     width: 100%;
-    max-width: 500px;
   }
 
-  button.p-button-primario {
-    background-color: #010101;
-    color: #FFFCFC;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    text-transform: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-  }
-
-  button.p-button-primario:hover {
-    background-color: #A663CC;
-    color: #010101;
+  .welcome-image dotlottie-player {
+    width: 100%;
+    height: auto;
+    padding:0px;
   }
 
   .footer {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    background-image: url('/assets/images/home/Vector-button.svg');
-    background-repeat: no-repeat;
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 30px;
-    z-index: 1;
+    height: 250px;
   }
 
   p.copyright {
-    text-align: center;
-    color: #555555;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin: 0;
+    font-size: 0.8rem;
+    padding: 0 10px;
   }
 
-  /* Responsive */
-  @media screen and (max-width: 768px) {
-    .wave-background-top {
-      height: 200px;
-    }
-
-    img.logo-cuesti-celeste {
-      top: 10px;
-      left: 30px;
-    }
-
-    .welcome {
-      flex-direction: column;
-      margin-left: 0;
-      align-items: center;
-      text-align: center;
-    }
-
-    .welcome-text {
-      margin-left: 0;
-      padding: 0 20px;
-    }
-
-    .welcome-text h1 {
-      font-size: 1.6rem;
-    }
-
-    .welcome-text h2 {
-      font-size: 0.9rem;
-    }
-
-    button.p-button-primario {
-      margin: 0 auto;
-      font-size: 0.75rem;
-    }
-
-    .imagen-home {
-      width: 70%;
-    }
-
-    .footer {
-      height: 160px;
-      padding-bottom: 20px;
-    }
-
-    p.copyright {
-      font-size: 0.65rem;
-      padding: 0 20px;
-    }
+  p.copyright img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
   }
+}

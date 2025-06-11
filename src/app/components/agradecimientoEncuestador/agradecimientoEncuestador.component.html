@@ -1,0 +1,33 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" routerLink="home"/>
+
+    <div class="navbar-buttons">
+        <p-button label="Salir" routerLink="home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
+        <p-button label="+ Crear nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    </div>
+    <div class="navbar-buttons-mobile">
+        <p-button label="+ Crear" routerLink="/crearEncuesta" styleClass="secundario"></p-button>
+        <p-button icon="pi pi-times" routerLink="home" styleClass="p-button-rounded acento p-button-text cerrar-modal"></p-button>
+    </div>
+  </div>
+</header>
+
+<section class="contenedor">
+    <div class="contenido">
+        <h2>¡Muchas gracias por confiar en Qüesti!</h2>
+        <dotlottie-player
+          src="https://lottie.host/65aa34b7-cdcc-4b86-bde8-aac147fc5ad5/AD35zDL66L.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 274px; height: 274px; margin: 0 auto;"
+          loop
+          autoplay>
+        </dotlottie-player>
+        <h3>¿Querés crear otra encuesta?</h3>
+    </div>
+    <br>
+    <p-button label="+ Nueva encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+</section>
+
+<app-footer class="footer-error"></app-footer>

@@ -1,31 +1,312 @@
-<header class="navbar p-4 shadow-sm">
-    <div class="navbar-content">
-        <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo">
+<!-- NAVBAR -->
+<app-navbar
+  [modoVistaPrevia]="modoVistaPrevia"
+  (vistaPreviaClick)="activarVistaPrevia()"
+  (salirClick)="salirVistaPrevia()"
+  (finalizarClick)="confirmSaveEncuesta()"
+  [validForm]="encuestaForm.valid"
+></app-navbar>
 
-        <div class="navbar-buttons">
+<!-- MODO EDICIÓN -->
+<div
+  *ngIf="!modoVistaPrevia"
+  [formGroup]="encuestaForm"
+  class="encuesta-container"
+>
+  <!-- TÍTULO -->
+  <div class="titulo-container">
+    <div class="titulo-boton-container">
+      <ng-container *ngIf="tituloEditando; else verTitulo">
+      <div class="input-nombre-container">
+        <p-floatlabel>
+          <input
+            id="input-nombre"
+            pInputText
+            formControlName="nombre"
+            autocomplete="off"
+            name="nombre"
+            aria-describedby="nombre-text-helper"
+            style="background: #fff; color: #09090b"
+          />
+          <label for="input-nombre">Escribir título...</label>
+        </p-floatlabel>
+      </div>
+      <p-button
+        label="Listo"
+        icon="pi pi-check"
+        styleClass="neutral"
+        (click)="guardarTitulo()"
+        [disabled]="tituloControl.invalid"
+      >
+      </p-button>
+      </ng-container>
 
-            <!-- Botón secundario: Celeste -->
-            <p-button label="Vista previa" styleClass="secondary "></p-button>
-
-            <!-- Botón acento: Violeta -->
-            <p-button label="Finalizar" styleClass="accent ml-4 px-6"></p-button>
-        </div>
+      <ng-template #verTitulo>
+        <h2 (click)="editarTitulo()" class="titulo-texto">
+          {{ tituloControl.value || "Haz clic para agregar un título" }}
+        </h2>
+      <button
+        pButton
+        icon="pi pi-pencil"
+        class="p-button-rounded p-button-text"
+        (click)="editarTitulo()"
+      ></button>
+      </ng-template>
     </div>
-</header>
+    @if ( encuestaForm.controls["nombre"].dirty &&
+    encuestaForm.controls["nombre"].invalid ) {
+    <div id="nombre-text-helper" class="text-helper-nombre">
+      <i class="pi pi-exclamation-circle mr-2"></i>
+      Campo requerido.
+    </div>
+    }
+  </div>
+  <br />
+  <!-- PREGUNTAS -->
+  <div
+    *ngFor="let pregunta of preguntasFormGroups; let i = index"
+    [formGroup]="pregunta"
+    class="pregunta-item">
+    <div class="cabecera-pregunta">
+      <span class="numero-pregunta-edit">P.{{ i + 1 }}</span>
+    </div>
+    <ng-container *ngIf="pregunta.get('editando')?.value; else preguntaVista">
+      <div class="input-pregunta-select-container">
+        <input
+          type="text"
+          pInputText
+          formControlName="texto"
+          placeholder="Escribir pregunta..."
+          class="input-pregunta"
+        />
+        <p-select
+          [options]="tiposRespuesta"
+          (onChange)="handleTipoRespuestaChange(pregunta)"
+          formControlName="tipo"
+          class="dropdown-estilizado p-select"
+          inputId="tipo-pregunta-{{ i }}"
+          aria-label="Tipo de respuesta"
+          [autocapitalize]="true"
+        >
+        </p-select>
+      </div>
+      @if( pregunta.controls["texto"].invalid){
+      <div id="nombre-text-helper" class="text-helper">
+        <i class="pi pi-exclamation-circle"></i>
+        Campo requerido.
+      </div>
+      }
+      <br />
 
-<div class="encuesta-formulario">
-  <div class="encuesta-formulario-contenido">
-    <input type="text" placeholder="Escribir título" pInputText formControlName="text" class="input-titulo" />
-    <p-button label="Listo" icon="pi pi-check" styleClass="neutral btn-listo"></p-button>
+      <!-- Opciones -->
+      <div
+        *ngIf="
+          pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE' ||
+          pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'
+        "
+        formArrayName="opciones"
+        class="mt-4"
+        aria-label="Opciones de respuesta"
+      >
+        @if(pregunta.controls["opciones"].invalid){
+        <div id="nombre-text-helper" class="text-helper">
+          <i class="pi pi-exclamation-circle"></i>
+          Añadir al menos dos posibles respuestas a la pregunta.
+        </div>
+        }
+        <div *ngFor="
+            let opcionCtrl of getOpciones(pregunta).controls;
+            let j = index
+          ">
+        <div class="flex items-center gap-2 mb-2">
+          <div>
+            <input
+              type="text"
+              [formControlName]="j"
+              pInputText
+              [attr.aria-label]="'Opción ' + (j + 1)"
+              placeholder="Opción  {{ j + 1 }}"
+              class="input-opcion"
+            />
+          </div>
+          <button
+            *ngIf="getOpciones(pregunta).length > 1"
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="eliminarOpcion(pregunta, j)"
+            [attr.aria-label]="'Eliminar opción ' + (j + 1)"
+          ></button>
+        </div>
+          @if(getOpciones(pregunta).controls[j].invalid){
+            <div id="nombre-text-helper" class="text-helper">
+              <i class="pi pi-exclamation-circle"></i>
+              El campo opción no debe estar vacío.
+            </div>
+            }
+      </div>
+      <br>
+        <button
+          pButton
+          type="button"
+          (click)="anadirOpcion(pregunta)"
+          label="+ Añadir opción"
+          class="p-button primario mt-2"
+          aria-label="Añadir opción"
+        ></button>
+      </div>
+
+      <!-- Verdadero o falso -->
+      <div
+        *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'"
+        class="mt-4"
+      ></div>
+
+      <div class="acciones">
+        <p-button
+          icon="pi pi-times"
+          label="Cancelar"
+          styleClass="neutral-blanco-borde-negro mr-2 text-12"
+          (click)="cancelarEdicion(pregunta)"
+        ></p-button>
+        <p-button
+          icon="pi pi-check"
+          label="Listo"
+          styleClass="primario text-12"
+          (click)="guardarPregunta(pregunta)"
+        ></p-button>
+      </div>
+    </ng-container>
+
+    <!-- Vista reducida -->
+    <ng-template #preguntaVista>
+      <div class="pregunta-vista">
+        <span>
+          {{ pregunta.get("texto")?.value }} ({{
+            getPresentacionTipo(pregunta.get("tipo")?.value)
+          }})
+        </span>
+        <div class="acciones">
+          <p-button
+            label="Editar"
+            icon="pi pi-pencil"
+            styleClass="primario text-12"
+            (click)="editarPregunta(pregunta)"
+          ></p-button>
+          <p-button
+            label="Borrar"
+            icon="pi pi-trash"
+            styleClass="primario text-12"
+            (click)="eliminarPregunta(i)"
+          ></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- BOTONES -->
+  <div class="boton-anadir-container">
+    <div class="boton-centro">
+      <button
+        pButton
+        type="button"
+        (click)="anadirPregunta()"
+        label="+ Añadir pregunta"
+        class="p-button primario"
+      ></button>
+    </div>
+  </div>
+  <div class="boton-eliminar-container">
+    <div class="boton-eliminar">
+      <p-button
+        label="Eliminar"
+        icon="pi pi-trash"
+        styleClass="neutral-blanco-borde-negro font-semibold px-4 py-2 md"
+        (click)="confirmClearEncuesta($event)"
+      ></p-button>
+    </div>
   </div>
 </div>
 
-<div class="acciones-encuesta">
-  <p-button label="+ Añadir pregunta" styleClass="primary text-white font-semibold px-4 py-2 rounded-md"></p-button>
+<!-- MODO VISTA PREVIA -->
+<div *ngIf="modoVistaPrevia" class="encuesta-container">
+  <div class="titulo-preview">
+    <h2 class="titulo-texto">{{ tituloControl.value }}</h2>
+  </div>
+
+  <div *ngFor="let pregunta of preguntasFormGroups; let i = index" class="pregunta-item-preview">
+    <div class="cabecera-pregunta">
+      <span class="numero-pregunta">Pregunta {{ i + 1 }}</span>
+      <h4 class="texto-pregunta">{{ pregunta.get('texto')?.value }}</h4>
+    </div>
+
+    <!-- Abierta -->
+    <div *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'">
+      <textarea 
+        pInputTextarea
+        placeholder="Escribir respuesta..."
+        rows="4"
+        cols="50"
+        name="abierta-{{ i }}"
+      ></textarea>
+    </div>
+
+    <!-- Opción múltiple selección simple -->
+    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
+      <div *ngFor="let opcion of pregunta.get('opciones')?.value; let j = index" class="mb-1">
+        <p-radioButton
+          name="opcion-prev-{{ i }}"
+          [value]="opcion"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaSimple"
+          inputId="opcion-prev-{{ i }}-{{ j }}"
+        ></p-radioButton>
+        <label class="ml-3" for="opcion-prev-{{ i }}-{{ j }}">{{ opcion }}</label>
+      </div>
+    </div>
+
+    <!-- Opción múltiple selección múltiple -->
+    <div *ngIf="pregunta.get('tipo')?.value === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'">
+      <div *ngFor="let opcion of pregunta.get('opciones')?.value; let j = index" class="mb-1">
+        <p-checkbox
+          [inputId]="'opcion-prev-' + i + '-' + j"
+          [value]="opcion"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaMultiple"
+          name="multiple-{{ i }}"
+          binary="false"
+        ></p-checkbox>
+        <label class="ml-3" [for]="'opcion-prev-' + i + '-' + j">{{ opcion }}</label>
+      </div>
+    </div>
+
+    <!-- Verdadero o falso -->
+    <div *ngIf="pregunta.get('tipo')?.value === 'VERDADERO_FALSO'" class="flex gap-4 mt-2">
+      <div class="flex items-center">
+        <input
+          type="radio"
+          name="vf-prev-{{ i }}"
+          [value]="true"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaVF"
+        />
+        <label class="ml-2">Verdadero</label>
+      </div>
+      <div class="flex items-center">
+        <input
+          type="radio"
+          name="vf-prev-{{ i }}"
+          [value]="false"
+          [(ngModel)]="vistaPreviaRespuestas[i].respuestaVF"
+        />
+        <label class="ml-2">Falso</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-6">
+    <p-button
+      label="Enviar"
+      styleClass="acento"
+      [disabled]="true"
+    ></p-button>
+  </div>
 </div>
-
-<div class="boton-eliminar">
-  <p-button label="Eliminar" icon="pi pi-trash" styleClass="neutral-blanco-borde-negro"></p-button>
-</div>
-
-

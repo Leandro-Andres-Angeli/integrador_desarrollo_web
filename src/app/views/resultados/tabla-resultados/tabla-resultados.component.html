@@ -1,0 +1,38 @@
+<div class="card">
+  
+  <div class="flex gap-2">
+    @if(prev()){
+    <p-button styleClass="acento"  class="hover:cursor-default" [classList]="debounce()? 'debounce' : ''"     (onClick)="decreasePageNumber()" icon="pi pi-chevron-left"></p-button>
+    } @if(next()) {
+    <p-button styleClass="acento"  class="hover:cursor-default"  [classList]="debounce()? 'debounce' : ''"   (onClick)="addPageNumber()"  icon="pi pi-chevron-right"></p-button>
+    }
+  </div>
+  <p-table
+    [value]="tablaRespuestas"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    stripedRows
+    class="transition-opacity ease-initial  "
+    [class]="debounce() ? 'opacity-0' : 'opacity-100'"
+  >
+    <ng-template #header>
+      <tr>
+        <th>#</th>
+        <th
+          *ngFor="let pregunta of preguntas()"
+          [style]="{ 'min-width': '15rem' }"
+        >
+          {{ pregunta.texto }}
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-respuesta let-indice="rowIndex">
+      <tr>
+        <td>{{ ((pageNumber() - 1) * 4) +  indice  + 1 }}</td>
+        <td *ngFor="let p of preguntas()">
+          {{ respuesta[p.id] || "-" }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

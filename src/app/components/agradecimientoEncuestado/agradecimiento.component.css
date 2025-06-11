@@ -1,0 +1,124 @@
+/* Estructura principal */
+.navbar {
+  top: 0;
+  background-color: #1e1e1e;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-buttons-mobile {
+  display: none;
+}
+
+/* Contenedor central centrado */
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+/* Contenido centrado */
+.contenido {
+  text-align: center;
+}
+
+.boton-crear-salir {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+h4 {
+  font-size: 1rem;
+  color: #010101;
+  margin: 1.2rem;
+}
+
+.contenido .logo-simple {
+  width: 80%;
+}
+
+h5, h1 {
+  text-align: center;
+}
+
+h1 {
+    margin-bottom: 50px;
+}
+
+
+@media (max-width: 480px) {
+  .navbar-buttons {
+    display: none;
+  }
+  .navbar-buttons-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    margin-right: 0.4rem;
+  }
+
+  .contenedor {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .contenido h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .contenido h3 {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+
+  dotlottie-player {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 300px;
+  }
+
+  .footer-error {
+    height: 120px;
+    background-position: bottom;
+    background-size: cover;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  p.copyright {
+    font-size: 0.8rem;
+    padding: 0 10px;
+  }
+
+  p.copyright img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
+  }
+}
+

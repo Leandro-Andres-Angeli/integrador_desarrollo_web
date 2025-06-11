@@ -1,0 +1,34 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <img src="assets/images/logos/logos=logo-Violeta.svg" alt="Logo violeta" class="navbar-logo" routerLink="home"/>
+
+    <div class="navbar-buttons">
+        <p-button label="Salir" routerLink="home" styleClass="neutral-blanco-borde-negro mr-4"></p-button>
+        <p-button label="+ Crear encuesta" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    </div>
+    <div class="navbar-buttons-mobile">
+        <p-button label="+ Crear" routerLink="/crearEncuesta" styleClass="secundario"></p-button>
+        <p-button icon="pi pi-times" routerLink="home" styleClass="p-button-rounded acento p-button-text cerrar-modal"></p-button>
+    </div>
+  </div>
+</header>
+
+<section class="contenedor">
+    <div class="contenido">
+        <h2>¡Gracias por responder la encuesta!</h2>
+        <br>
+        <dotlottie-player
+          src="https://lottie.host/8be736c2-6c42-484e-9b5a-0de10087b50c/wqkWj268i9.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 330px; height: 310px; margin: 0 auto;"
+          loop
+          autoplay>
+        </dotlottie-player>
+        <h3>Te invitamos a crear tu propia encuesta.</h3>
+        <br>
+        <p-button label="+ Crear" routerLink="/crearEncuesta" styleClass="acento"></p-button>
+    </div>
+</section>
+
+<app-footer class="footer-error"></app-footer>

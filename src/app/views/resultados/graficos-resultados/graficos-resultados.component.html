@@ -1,0 +1,62 @@
+<ng-container *ngIf="hayRespuestas">
+  <p-card *ngFor="let pregunta of preguntas()">
+    <p-fieldset legend="Pregunta {{ pregunta.numero }}">
+      <p-accordion value="0">
+        <p-accordion-panel value="0">
+          <p-accordion-header>{{ pregunta.texto }}</p-accordion-header>
+          <p-accordion-content>
+            <div class="p-card-content">
+              <!-- Pregunta abierta -->
+              <div
+                *ngIf="
+                  pregunta.tipo === 'ABIERTA' &&
+                  pregunta.frecuenciaPalabras.length > 0
+                "
+              >
+                <angular-tag-cloud
+                  *ngIf="showTagCloud"
+                  [data]="pregunta.frecuenciaPalabras"
+                  [config]="opcionesNubePalabras"
+                  class="center"
+                >
+                </angular-tag-cloud>
+              </div>
+              <!-- Selección simple -->
+              <div *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
+                <div class="flex justify-content-center">
+                  <p-chart
+                    type="doughnut"
+                    [data]="getData(pregunta)"
+                    [options]="opcionesGrafico"
+                  />
+                </div>
+              </div>
+
+              <!-- Selección múltiple -->
+              <div
+                *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'"
+              >
+                <p-chart
+                  type="bar"
+                  [data]="getData(pregunta)"
+                  [options]="opcionesGrafico"
+                />
+              </div>
+
+              <!-- Verdadero o Falso -->
+              <div *ngIf="pregunta.tipo === 'VERDADERO_FALSO'">
+                <div class="flex justify-content-center">
+                  <p-chart
+                    type="doughnut"
+                    [data]="getDataVF(pregunta)"
+                    [options]="opcionesGrafico"
+                  />
+                </div>
+              </div>
+            </div>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
+    </p-fieldset>
+  </p-card>
+</ng-container>

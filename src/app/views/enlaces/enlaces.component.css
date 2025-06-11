@@ -1,0 +1,261 @@
+/* Estructura principal */
+.navbar {
+  top: 0;
+  background-color: #1e1e1e;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 60px;
+}
+
+/* Botones alineados */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+}
+.navbar-buttons-mobile {
+  display: none;
+}
+
+/* TITULO PRINCIPAL */
+.titulo-principal-enlaces {
+  padding-top: 3rem;
+}
+.titulo-principal {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  padding:1rem;
+  padding-bottom: auto;
+  margin: auto;
+  height: 60px;
+}
+
+/* BLOQUES DE LINK */
+.bloque-link {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.bloque-link h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.bloque-link p {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* CONTENEDOR INPUT + BOTONES */
+.link-card {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+  gap: 1rem;
+  background-color: white;
+}
+
+.link-card input {
+  flex: 1;
+  border: none;
+  font-size: 0.95rem;
+  padding: 0.25rem;
+  background: transparent;
+  color: #333;
+}
+
+.link-card input:focus {
+  outline: none;
+}
+
+/* BOTONES DENTRO DEL LINK */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+p-button.copiar {
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+p-button.icono-opciones ::ng-deep button {
+  color: #333;
+}
+
+/* CHECKBOX + LABEL */
+.opciones-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* MENSAJE DE ADVERTENCIA */
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.alerta i {
+  color: #ff9800;
+}
+
+
+/*Modal QR */
+.modal-qr {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-qr-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.cerrar-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+.qr-url {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  word-break: break-all;
+}
+
+
+/* Contenedor del QR + logo */
+.qr-wrapper {
+  position: relative;
+  width: 256px;
+  height: 256px;
+  margin: 0 auto;
+}
+
+.qr-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;       
+  pointer-events: none;
+  object-fit: contain;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+@media (max-width: 480px) {
+  .navbar-buttons {
+    display: none;
+  }
+  .navbar-buttons-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    margin-right: 0.4rem;
+  }
+
+  .titulo-principal-enlaces {
+    padding-top: 1.5rem;
+  }
+
+  .titulo-principal {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    height: auto;
+  }
+
+  .bloque-link {
+    padding: 1rem;
+    margin: 1rem 0.5rem;
+  }
+
+  .link-card {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .link-card input {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .acciones {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .opciones-link {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .alerta {
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: 0.8rem;
+  }
+
+  .footer-enlaces {
+    height: auto;
+    padding: 2rem 1rem 0rem;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .modal-qr-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .qr-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+
+
+

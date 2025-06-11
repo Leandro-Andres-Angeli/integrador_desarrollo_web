@@ -1,0 +1,104 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <a routerLink="/">
+      <img
+        src="assets/images/logos/logos=logo-Violeta.svg"
+        alt="Logo violeta"
+        class="navbar-logo"
+      />
+    </a>
+
+    <div class="navbar-buttons">
+      <p-button
+        label="Salir"
+        routerLink="/home"
+        styleClass="neutral-blanco-borde-negro mr-4"
+      ></p-button>
+      <p-button
+        label="+ Crear nueva encuesta"
+        routerLink="/crearEncuesta"
+        styleClass="acento"
+      ></p-button>
+    </div>
+    <div class="navbar-buttons-mobile">
+      <p-button
+        label="+ Crear"
+        routerLink="/crearEncuesta"
+        styleClass="secundario"
+      >
+      </p-button>
+      <p-button
+        icon="pi pi-times"
+        routerLink="home"
+        styleClass="p-button-rounded acento p-button-text cerrar-modal"
+      >
+      </p-button>
+    </div>
+  </div>
+</header>
+
+@if(error){
+<div class="container">
+  <p-message severity="warn">{{ error }}</p-message>
+</div>
+} @else {
+<div class="resultados">
+  <div class="card">
+    <div class="flex">
+      <h1 *ngIf="nombre">{{ nombre }}</h1>
+      <label class="flex justify-center gap-2 ml-auto m-2">
+        {{ activa ? "Desactivar encuesta" : "Activar encuesta" }}
+        <p-toggleSwitch
+          [(ngModel)]="activa"
+          (onChange)="confirmarCambiarEstadoEncuesta($event)"
+        />
+      </label>
+    </div>
+    <p-tabs [(value)]="activeTab">
+      <p-tablist class="tabs-bar">
+        <p-tab [value]="0">Tablas</p-tab>
+        <p-tab [value]="1">Gráficos</p-tab>
+        <p-button
+          icon="pi pi-download"
+          aria-label="Descargar CSV"
+          label="CSV"
+          styleClass="primario m-3"
+          class="flex gap-2 align-items-center ml-auto mr-2"
+          (click)="descargarCSV()"
+        >
+        </p-button>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel [value]="0">
+          <app-tabla-resultados
+            [preguntas]="preguntas"
+            [respuestas]="respuestas"
+            [(pageNumber)]="pageNumber"
+            [prev]="prev"
+            [next]="next"
+          ></app-tabla-resultados>
+        </p-tabpanel>
+        <p-tabpanel [value]="1">
+          <app-graficos-resultados
+            class="full-flex-width"
+            [preguntas]="preguntasGraficos"
+            [hayRespuestas]="respuestas.length > 0"
+            [activeTab]="activeTab"
+          >
+          </app-graficos-resultados>
+        </p-tabpanel>
+      </p-tabpanels>
+      <div *ngIf="respuestas?.length === 0" class="p-4 text-center">
+        <p-message
+          severity="info"
+          text="Esta encuesta no tiene resultados aún."
+        ></p-message>
+      </div>
+    </p-tabs>
+  </div>
+</div>
+
+}
+
+<!--FOOTER-->
+<app-footer class="footer-error"></app-footer>

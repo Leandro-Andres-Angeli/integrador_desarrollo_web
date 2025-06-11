@@ -1,0 +1,136 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <a routerLink="/">
+      <img
+        src="assets/images/logos/logos=logo-Violeta.svg"
+        alt="Logo violeta"
+        class="navbar-logo"
+      />
+    </a>
+
+    <div class="navbar-buttons">
+      <p-button
+        label="Salir"
+        styleClass="secundario mr-4"
+        (onClick)="salir($event)"
+      ></p-button>
+      <p-button
+        label="Enviar encuesta"
+        styleClass="acento"
+        (onClick)="enviarRespuestas()"
+      ></p-button>
+    </div>
+    <div class="navbar-buttons-mobile">
+      <p-button id="button-crear-encuesta-enlaces"
+        label="Enviar"
+        styleClass="secundario"
+        class=""
+        (onClick)="enviarRespuestas()"
+      ></p-button>
+      <p-button id="button-salir-encuesta-enlaces"
+        icon="pi pi-times"
+        styleClass="p-button-rounded acento p-button-text cerrar-modal"
+        aria-label="Salir"
+        (onClick)="salir($event)"
+      ></p-button>
+      </div>
+  </div>
+</header>
+
+<div class="respuestas-container" *ngIf="encuesta">
+  <div class="titulo-respuestas">
+    <h2>{{ encuesta.nombre }}</h2>
+  </div>
+  <div *ngIf="encuesta.activa; else desactivada">
+    <div
+      *ngFor="let pregunta of encuesta.preguntas; let i = index"
+      class="pregunta-respuesta"
+    >
+      <div class="cabecera-pregunta">
+        <span class="numero-pregunta">Pregunta {{ i + 1 }}</span>
+        <h4 class="texto-pregunta">{{ pregunta.texto }}</h4>
+      </div>
+
+      <!-- Pregunta ABIERTA -->
+      <div *ngIf="pregunta.tipo === 'ABIERTA'">
+        <textarea
+          style="resize: none"
+          pInputTextarea
+          [(ngModel)]="respuestas.respuestasAbiertas[getAbiertaIndex(i)].texto"
+          (ngModelChange)="guardarRespuestaAbierta($event, getAbiertaIndex(i))"
+          placeholder="Escribir respuesta..."
+          rows="4"
+          cols="50"
+          class="resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Pregunta OPCIÓN MÚLTIPLE SELECCIÓN SIMPLE -->
+      <div *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
+        <div *ngFor="let opcion of pregunta.opciones" class="mb-1">
+          <p-radioButton
+            name="opcion-{{ i }}"
+            [value]="opcion.id"
+            [(ngModel)]="
+              respuestas.respuestasOpciones[getOpcionSimpleIndex(i)].opcion.id
+            "
+            (onClick)="guardarRespuestaOpcion(opcion.id, pregunta.id)"
+            inputId="opcion-{{ i }}-{{ opcion.id }}"
+          ></p-radioButton>
+          <label class="ml-3" for="opcion-{{ i }}-{{ opcion.id }}">{{
+            opcion.texto
+          }}</label>
+        </div>
+      </div>
+
+      <!-- Pregunta OPCIÓN MÚLTIPLE SELECCIÓN MULTIPLE -->
+      <div *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'">
+        <div *ngFor="let opcion of pregunta.opciones" class="mb-1">
+          <p-checkbox
+            [inputId]="'opcion-' + i + '-' + opcion.id"
+            [value]="opcion.id"
+            [(ngModel)]="opcionesSeleccionadas[pregunta.id]"
+            (ngModelChange)="guardarRespuestaMultiple($event, pregunta.id)"
+            binary="false"
+          ></p-checkbox>
+          <label class="ml-3" [for]="'opcion-' + i + '-' + opcion.id">{{
+            opcion.texto
+          }}</label>
+        </div>
+      </div>
+
+      <!-- Pregunta VERDADERO O FALSO -->
+      <div *ngIf="pregunta.tipo === 'VERDADERO_FALSO'" class="flex gap-4 mt-2">
+        <div class="flex items-center">
+          <input
+            type="radio"
+            name="vf-{{ i }}"
+            [checked]="getValorVerdaderoFalso(i) === true"
+            (change)="guardarRespuestaVerdaderoFalso(true, getVFIndex(i))"
+          />
+          <label class="ml-2">Verdadero</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="radio"
+            name="vf-{{ i }}"
+            [checked]="getValorVerdaderoFalso(i) === false"
+            (change)="guardarRespuestaVerdaderoFalso(false, getVFIndex(i))"
+          />
+          <label class="ml-2">Falso</label>
+        </div>
+      </div>
+    </div>
+   
+    <div class="text-center mt-6">
+      <p-button
+        label="Enviar"
+        styleClass="acento"
+        (onClick)="enviarRespuestas()"
+      ></p-button>
+    </div>
+  </div>
+  <ng-template #desactivada>
+    Lo sentimos encuesta está desactivada.
+  </ng-template>
+</div>

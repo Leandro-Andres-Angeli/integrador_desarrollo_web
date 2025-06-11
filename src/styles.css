@@ -1,12 +1,48 @@
 @import "primeflex/primeflex.css";
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:wght@400;500;700&display=swap");
+
+:root {
+  --color-primario: #010101;
+  --color-acento: #a663cc;
+  --color-secundario: #b9faf8;
+  --color-fondo-claro: #fffcfc;
+  --color-blanco: #fff;
+  --color-gris: #555555;
+  --color-gris-claro: #c5c4c4;
+  --color-negro: #000;
+
+  --p-radiobutton-background: var(--color-blanco) !important;
+  --p-radiobutton-border-color: var(--color-negro) !important;
+  --p-radiobutton-checked-background: var(--color-negro) !important;
+  --p-radiobutton-checked-hover-background: #8e7ca8 !important;
+  --p-radiobutton-checked-border-color: var(--color-negro) !important;
+  --p-radiobutton-checked-hover-border-color: #8e7ca8 !important;
+  --p-radiobutton-checked-focus-border-color: var(--color-negro) !important;
+  --p-radiobutton-focus-ring-color: var(--color-negro) !important;
+  --p-radiobutton-icon-checked-color: var(--color-blanco) !important;
+  --p-radiobutton-icon-checked-hover-color: var(--color-blanco) !important;
+  --p-radiobutton-hover-border-color: #8e7ca8 !important;
+
+  --p-checkbox-background: var(--color-blanco) !important;
+  --p-checkbox-border-color: var(--color-negro) !important;
+  --p-checkbox-checked-background: var(--color-negro) !important;
+  --p-checkbox-checked-border-color: var(--color-negro) !important;
+  --p-checkbox-checked-hover-background: #8e7ca8 !important;
+  --p-checkbox-checked-hover-border-color: #8e7ca8 !important;
+  --p-checkbox-checked-focus-border-color: var(--color-negro) !important;
+
+  --p-toggleswitch-background: #bdb6c9 !important;
+  --p-toggleswitch-checked-background:#65558F !important;
+  --p-toggleswitch-checked-hover-background: #a663cc !important;
+  --p-toggleswitch-handle-checked-background: #fff !important;
+}
 
 /* Reset básico */
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   color: #010101;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -16,41 +52,77 @@ body {
   box-sizing: content-box;
 }
 
+/* Estilo para centrar botones con iconos */
+.boton-centro {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem 1.5rem;
+  gap: 0.5rem !important; /* espacio entre ícono y texto */
+  font-weight: 500;
+  font-size: 1rem;
+}
+
 /* Estilos bottones */
-.p-button.accent {
-  background-color: #A663CC !important;
-  color: #000000 !important;
+
+button.p-button-primario {
+  background-color: #010101;
+  color: #fffcfc !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  text-transform: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+button.p-button-primario:hover {
+  background-color: #a663cc;
+  color: #010101;
+}
+
+.p-button.acento,
+.a.acento {
+  background-color: var(--color-acento) !important;
+  color: var(--color-negro) !important;
+  font-weight: 700 !important;
+  border: none !important;
+}
+
+.p-button.acento:hover,
+.a.acento:hover {
+  background-color: #b9faf8 !important;
+  color: var(--color-negro) !important;
   font-weight: bold !important;
   border: none !important;
 }
 
-.p-button.accent:hover {
-  background-color: #B9FAF8 !important;
-  color: #000000 !important;
-  font-weight: bold !important;
+.p-button.secundario,
+a.secundario {
+  background-color: #b9faf8 !important;
+  color: var(--color-negro) !important;
   border: none !important;
 }
 
-.p-button.secondary {
-  background-color: #B9FAF8 !important;
-  color: #000 !important;
-  border: none !important;
-}
-
-.p-button.secondary:hover {
+.p-button.secundario:hover,
+a.secundario:hover {
   background-color: #d5a2f3 !important;
-  color: #000 !important;
+  color: var(--color-negro) !important;
   border: none !important;
 }
 
-.p-button.primary {
-  background-color: #010101 !important;
+.p-button.primario {
+  background-color: var(--color-primario) !important;
   color: #ffffff !important;
   border: none !important;
 }
 
-.p-button.primary:hover {
-  background-color: #A663CC !important;
+.p-button.primario:hover {
+  background-color: #a663cc !important;
   color: #ffffff !important;
   border: none !important;
 }
@@ -62,17 +134,111 @@ body {
 }
 
 .p-button.neutral-blanco-borde-negro {
-  background-color: #FFFCFC !important;
-  color: #010101 !important;
-  border: 1px solid #010101 !important;
+  background-color: #fffcfc !important;
+  color: var(--color-primario) !important;
+  border: 1px solid var(--color-primario) !important;
 }
 
 .p-button.neutral:hover {
-  background-color: #010101 !important;
+  background-color: var(--color-primario) !important;
 }
 
 .p-button.neutral-blanco-borde-negro:hover {
   background-color: #c5c4c4 !important;
-  color: #010101 !important;
+  color: var(--color-primario) !important;
   border: none !important;
+}
+
+/* .p-toggleswitch .p-toggleswitch-slider {
+  background: #b9faf8 !important;  
+  border-radius: 20px !important;
+  transition: background 0.2s;
+} */
+.p-toggleswitch.p-highlight .p-toggleswitch-slider {
+  background: #a663cc !important; /* activado: color acento */
+}
+.p-toggleswitch .p-toggleswitch-slider:before,
+.p-toggleswitch.p-highlight .p-toggleswitch-slider:before {
+  background: #fff !important;
+}
+
+.p-dropdown-panel {
+  background: #fff !important;
+  color: #222 !important;
+}
+.p-dropdown-item {
+  background: #fff !important;
+  color: #222 !important;
+}
+.p-dropdown-item.p-highlight {
+  background: #b9faf8 !important; /* color secundario */
+  color: #010101 !important; /* color primario */
+}
+
+@media (prefers-color-scheme: light) {
+  .p-confirmdialog-accept-button.confirm-btn {
+    background-color: black;
+    border-color: black;
+  }
+  button.p-confirmdialog-accept-button.confirm-btn:hover {
+    background-color: black;
+  }
+  button.p-confirmdialog-reject-button.reject-btn {
+    background-color: white;
+    color: black;
+    border-color: black;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  button.p-confirmdialog-reject-button.reject-btn:hover {
+    background-color: rgba(69, 68, 68, 0.07);
+    color: black;
+    border-color: black;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .p-dialog-content {
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.847);
+    * {
+      color: black;
+    }
+    .p-ripple.p-button.p-component.p-confirmdialog-accept-button.confirm-btn {
+      color: white;
+      border: 2px solid white;
+    }
+  }
+}
+
+.p-dialog-title {
+      padding-top: 1rem;
+      padding-left: 1rem;
+      padding-bottom: 0rem;
+    }
+
+.p-confirmdialog-reject-button {
+  padding-left: 5rem;
+}
+
+.p-dialog-content:has(span > .confirm-delete-message),
+.p-dialog-content:has(span > .confirm-save-encuesta) {
+  background-color: #f1fefe;
+  margin: 1rem 2rem;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+}
+
+.text-helper {
+  font-size: 14px;
+  display: flex;
+  padding: 5px 0;
+  gap: 10px;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+body {
+  min-height: 100dvh;
 }

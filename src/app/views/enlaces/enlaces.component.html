@@ -1,0 +1,150 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <a (click)="irHomeEnlaces($event)">
+      <img
+        src="assets/images/logos/logos=logo-Violeta.svg"
+        alt="Logo violeta"
+        class="navbar-logo"
+      />
+    </a>
+
+    <div class="navbar-buttons">
+      <p-button
+        label="Salir"
+        (onClick)="salirEnlaces($event)"
+        styleClass="neutral-blanco-borde-negro"
+        class="mr-4"
+      ></p-button>
+      <p-button
+        label="+ Crear nueva encuesta"
+        (onClick)="crearEncuestaEnlaces($event)"
+        styleClass="acento"
+      ></p-button>
+    </div>
+
+    <div class="navbar-buttons-mobile">
+      <p-button id="button-crear-encuesta-enlaces"
+        label="+ Crear"
+        (onClick)="crearEncuestaEnlaces($event)"
+        styleClass="secundario"
+        class=""
+      ></p-button>
+      <p-button id="button-salir-encuesta-enlaces"
+        icon="pi pi-times"
+        styleClass="p-button-rounded acento p-button-text cerrar-modal"
+        (onClick)="salirEnlaces($event)"
+        aria-label="Salir"
+      ></p-button>
+    </div>
+
+
+  </div>
+</header>
+
+<section class="content">
+  <div class="encuesta-container">
+    <div class="titulo-principal-enlaces">
+      <h1 class="titulo-principal">Links de tu encuesta</h1>
+    </div>
+
+    <!-- BLOQUE: Link de participación -->
+    <div class="bloque-link">
+      <h2>Link de la encuesta</h2>
+      <p>
+        Usá este link para compartir tu encuesta y que otras personas puedan
+        responderla.
+      </p>
+
+      <div class="link-card">
+        <input type="text" readonly [value]="obtenerUrlParticipacion()" />
+        <div class="acciones">
+          <p-button
+            icon="pi pi-copy"
+            label="Copiar"
+            styleClass="copiar primario"
+            (onClick)="copiarTexto(obtenerUrlParticipacion())"
+          ></p-button>
+          <p-button
+            icon="pi pi-qrcode"
+            styleClass="neutral-blanco-borde-negro"
+            text
+            (onClick)="mostrarQRParticipacion()"
+          ></p-button>
+        </div>
+      </div>
+
+      <div class="opciones-link">
+        <p-checkbox
+          binary="true"
+          inputId="check1"
+          [(ngModel)]="acortarParticipacion"
+          styleClass="p-checkbox-box"
+        ></p-checkbox>
+        <label for="check1">Acortar URL</label>
+      </div>
+
+      <div class="alerta">
+        <i class="pi pi-exclamation-triangle"></i>
+        <span
+          >No olvides <strong>copiar</strong> y <strong>guardar</strong> este
+          link para poder compartirlo todas las veces que necesites.</span
+        >
+      </div>
+    </div>
+
+    <!-- BLOQUE: Link de consulta -->
+    <div class="bloque-link">
+      <h2>Link de consulta</h2>
+      <p>Usá este link para consultar los resultados de tu encuesta.</p>
+
+      <div class="link-card">
+        <input type="text" readonly [value]="obtenerUrlConsulta()" />
+        <div class="acciones">
+          <p-button
+            icon="pi pi-copy"
+            label="Copiar"
+            styleClass="copiar primario"
+            (onClick)="copiarTexto(obtenerUrlConsulta())"
+          ></p-button>
+          <p-button
+            icon="pi pi-qrcode"
+            styleClass="neutral-blanco-borde-negro"
+            text
+            (onClick)="mostrarQRConsulta()"
+          ></p-button>
+        </div>
+      </div>
+
+      <div class="opciones-link">
+        <p-checkbox
+          binary="true"
+          inputId="check2"
+          [(ngModel)]="acortarConsulta"
+        ></p-checkbox>
+        <label for="check2">Acortar URL</label>
+      </div>
+
+      <div class="alerta">
+        <i class="pi pi-exclamation-triangle"></i>
+        <span
+          >No olvides <strong>copiar</strong> y <strong>guardar</strong> este
+          link para poder acceder a los resultados todas las veces que
+          necesites.</span
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<p-toast position="top-center"></p-toast>
+
+<!-- Modal QR -->
+<app-qrdialog
+  [mostrar]="mostrarQR"
+  [qrUrl]="qrUrl"
+  [tipoQR]="tipoQR"
+  (cerrar)="cerrarQR()"
+></app-qrdialog>
+
+<!--FOOTER-->
+<app-footer class="footer-error"></app-footer>

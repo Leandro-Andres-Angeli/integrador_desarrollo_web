@@ -1,0 +1,44 @@
+<header class="navbar p-4 shadow-sm">
+  <div class="navbar-content">
+    <a routerLink="">
+      <img
+        src="assets/images/logos/logos=logo-Violeta.svg"
+        alt="Logo violeta"
+        class="navbar-logo"
+      />
+    </a>
+    <div class="navbar-buttons">
+      <!-- Botón acento: Violeta -->
+      <a
+        routerLink="../crearEncuesta"
+        pButton
+        class="acento ml-4 px-2"
+        icon="pi pi-angle-left"
+        >Regresar</a
+      >
+    </div>
+  </div>
+</header>
+
+<section class="contenedor">
+  <div class="contenido">
+    <h2>Ha ocurrido un error al guardar la encuesta</h2>
+    <img
+      src="/assets/images/error/error-mi-pana.svg"
+      alt="Logo simple"
+      class="logo-simple"
+    />
+    <h3>Por favor intente nuevamente, más tarde.</h3>
+  </div>
+  <div class="boton-regresar">
+    <a
+      routerLink="../crearEncuesta"
+      pButton
+      class="p-button acento"
+      icon="pi pi-angle-left"
+      ></a
+    >
+  </div>
+</section>
+
+<app-footer class="footer-error"></app-footer>
