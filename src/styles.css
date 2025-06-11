@@ -35,6 +35,43 @@
   --p-toggleswitch-checked-background:#65558F !important;
   --p-toggleswitch-checked-hover-background: #a663cc !important;
   --p-toggleswitch-handle-checked-background: #fff !important;
+
+  .p-tab-active {
+  color: #A663CC !important;
+  }
+  .p-tablist-active-bar {
+  background: #A663CC !important;
+  }
+
+  .p-tabpanels {
+    border-radius: 0 0 10px 10px;
+  }
+
+  .p-tablist-tab-list {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd){
+    background: #f4ecf8;
+  }
+
+  [_nghost-ng-c3650581864] {
+      font-family:  "Montserrat", sans-serif;
+      font-weight: 500;
+  }
+
+  a[_ngcontent-ng-c3650581864]:hover, span.w10[_ngcontent-ng-c3650581864], span.w9[_ngcontent-ng-c3650581864], span.w8[_ngcontent-ng-c3650581864] {
+    color: #bb80dc;
+  }
+
+  span.w6[_ngcontent-ng-c3650581864] {
+    color: #BAECEB;
+  }
+
+  span.w1[_ngcontent-ng-c3650581864] {
+    color: #b2aeb2;
+  } 
+
 }
 
 /* Reset básico */
