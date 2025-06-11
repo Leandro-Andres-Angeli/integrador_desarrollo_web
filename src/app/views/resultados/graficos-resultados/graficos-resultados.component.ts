@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, HostListener, input } from '@angular/core';
 import {
   PreguntaResultadoGraficosDto,
   RespuestaOpcionGraficosDto,
@@ -14,7 +14,7 @@ import { TabsModule } from 'primeng/tabs';
 import { OpcionDTO } from '../../../interfaces/opcion.dto';
 import { NgFor, NgIf } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { CloudOptions } from 'angular-tag-cloud-module';
+import { CloudOptions, ZoomOnHoverOptions } from 'angular-tag-cloud-module';
 import { TagCloudComponent } from 'angular-tag-cloud-module';
 
 @Component({
@@ -51,6 +51,18 @@ export class GraficosResultadosComponent {
     overflow: false,
     realignOnResize: true,
   };
+  opcionesZoom: ZoomOnHoverOptions = {
+    scale: 1.1,
+    transitionTime: 0.5,
+    delay: 0.2,
+  };
+
+  containerWidth = window.innerWidth * 0.7;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.containerWidth = window.innerWidth * 0.7;
+  }
 
   ngOnChanges() {
     this.showTagCloud = false;
@@ -71,6 +83,8 @@ export class GraficosResultadosComponent {
           },
         },
       },
+      responsive: true,
+      maintainAspectRatio: true,
     };
   }
 
@@ -89,6 +103,7 @@ export class GraficosResultadosComponent {
               return ro.cantidad;
             }
           ),
+          backgroundColor: ['#D1A2F3', '#BAECEB', '#DEFFDB','#FFEDEC'],
         },
       ],
     };
