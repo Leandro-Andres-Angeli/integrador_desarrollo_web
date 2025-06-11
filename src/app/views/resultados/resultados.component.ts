@@ -1,4 +1,4 @@
-import { Component, effect, model, OnInit } from '@angular/core';
+import { Component, effect, model, OnInit, ViewChild } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -29,7 +29,7 @@ import { EncuestasService } from '../../services/encuestas.service';
 
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
 import { PreguntaResultadoGraficosDto } from '../../interfaces/resultados.graficos.dto';
-import { FooterComponent } from "../../components/footer/footer.component";
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-resultados',
@@ -51,8 +51,8 @@ import { FooterComponent } from "../../components/footer/footer.component";
     TablaResultadosComponent,
     GraficosResultadosComponent,
     ToggleSwitchModule,
-    FooterComponent
-],
+    FooterComponent,
+  ],
   standalone: true,
 })
 export class ResultadosComponent implements OnInit {
@@ -67,6 +67,8 @@ export class ResultadosComponent implements OnInit {
   prev = false;
   next = true;
   pageNumber = model<number>(1);
+
+  activeTab = 0;
 
   constructor(
     private resultadosService: ResultadosService,
@@ -125,6 +127,16 @@ export class ResultadosComponent implements OnInit {
           },
         });
     });
+  }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.activeTab = 0;
+    }, 50);
+  }
+  ngOnChanges() {
+    setTimeout(() => {
+      this.activeTab = 0;
+    }, 50);
   }
 
   ngOnInit(): void {
@@ -225,5 +237,4 @@ export class ResultadosComponent implements OnInit {
       this.nombre
     );
   }
-
 }

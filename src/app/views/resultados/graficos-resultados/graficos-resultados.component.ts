@@ -1,4 +1,4 @@
-import { Component, input, model, output } from '@angular/core';
+import { Component, input } from '@angular/core';
 import {
   PreguntaResultadoGraficosDto,
   RespuestaOpcionGraficosDto,
@@ -9,12 +9,13 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { AccordionModule } from 'primeng/accordion';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CardModule } from 'primeng/card';
-import { AngularD3CloudComponent } from 'angular-d3-cloud';
 import { MessageModule } from 'primeng/message';
 import { TabsModule } from 'primeng/tabs';
 import { OpcionDTO } from '../../../interfaces/opcion.dto';
 import { NgFor, NgIf } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { CloudOptions } from 'angular-tag-cloud-module';
+import { TagCloudComponent } from 'angular-tag-cloud-module';
 
 @Component({
   selector: 'app-graficos-resultados',
@@ -25,15 +26,14 @@ import { ButtonModule } from 'primeng/button';
     ChartModule,
     ScrollPanelModule,
     AccordionModule,
-    AccordionModule,
     FieldsetModule,
     CardModule,
     MessageModule,
     TabsModule,
-    AngularD3CloudComponent,
     NgFor,
     NgIf,
     ButtonModule,
+    TagCloudComponent,
   ],
   animations: [],
 })
@@ -41,10 +41,24 @@ export class GraficosResultadosComponent {
   preguntas = input<PreguntaResultadoGraficosDto[]>([]);
   hayRespuestas = input<boolean>(false);
 
-  opcionesGrafico: any;
+  activeTab = input<number>(0);
+  showTagCloud = true;
 
-  fontSizeMapper = (palabra: any) => palabra.value * 25;
-  rotate = () => ~~(Math.random() * 2) * 90;
+  opcionesGrafico: any;
+  opcionesNubePalabras: CloudOptions = {
+    width: 600,
+    height: 200,
+    overflow: false,
+    realignOnResize: true,
+  };
+
+  ngOnChanges() {
+    this.showTagCloud = false;
+    setTimeout(() => {
+      this.showTagCloud = true;
+    }, 50);
+  }
+
   ngOnInit(): void {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -59,6 +73,7 @@ export class GraficosResultadosComponent {
       },
     };
   }
+
   getData(pregunta: PreguntaResultadoGraficosDto) {
     const data = {
       labels: pregunta.opciones
