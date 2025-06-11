@@ -178,7 +178,7 @@ export class RespuestasComponent implements OnInit {
 
         // Validación de campos vacíos
         if (this.validarRespuestas()) {
-            alert('⚠️ Por favor, completa todas las respuestas antes de enviar la encuesta.');
+            alert('⚠️ Por favor, completá todas las respuestas antes de enviar la encuesta.');
             return;
         }
 
