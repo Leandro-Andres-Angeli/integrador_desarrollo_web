@@ -29,7 +29,7 @@ export class TablaResultadosComponent {
 
         setTimeout(() => {
           this.debounce.set(false)
-        }, 800)
+        }, 400)
 
       }
 
@@ -48,12 +48,11 @@ export class TablaResultadosComponent {
   }
 
   addPageNumber() {
-    if (this.debounce()) {
-      return
-    }
-    else {
+    if (!this.debounce()) {
+      setTimeout(() => {
+        this.pageNumber.update((val) => val + 1);
+      }, 300);
 
-      this.pageNumber.update((val) => val + 1);
       this.debounce.set(true)
     }
 
@@ -64,12 +63,12 @@ export class TablaResultadosComponent {
     if (this.pageNumber() < 1) {
       return
     }
-    if (this.debounce()) {
-      return
-    }
-    else {
 
-      this.pageNumber.update((val) => val - 1);
+    if (!this.debounce()) {
+      setTimeout(() => {
+        this.pageNumber.update((val) => val - 1);
+      }, 300)
+
       this.debounce.set(true)
     }
 
