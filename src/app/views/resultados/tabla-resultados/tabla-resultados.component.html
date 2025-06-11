@@ -1,15 +1,18 @@
 <div class="card">
+  
   <div class="flex gap-2">
     @if(prev()){
-    <p-button styleClass="acento" (onClick)="decresePageNumber()"><</p-button>
+    <p-button styleClass="acento"  class="hover:cursor-default"     (onClick)="decresePageNumber()"><</p-button>
     } @if(next()) {
-    <p-button styleClass="acento" (onClick)="addPageNumber()">></p-button>
+    <p-button styleClass="acento"  class="hover:cursor-default"    (onClick)="addPageNumber()">></p-button>
     }
   </div>
   <p-table
     [value]="tablaRespuestas"
     [tableStyle]="{ 'min-width': '50rem' }"
     stripedRows
+    class="transition-opacity ease-initial  "
+    [class]="debounce() ? 'opacity-0' : 'opacity-100'"
   >
     <ng-template #header>
       <tr>
@@ -25,7 +28,7 @@
 
     <ng-template #body let-respuesta let-indice="rowIndex">
       <tr>
-        <td>{{ indice + 1 }}</td>
+        <td>{{ ((pageNumber() - 1) * 4) +  indice  + 1 }}</td>
         <td *ngFor="let p of preguntas()">
           {{ respuesta[p.id] || "-" }}
         </td>

@@ -1,6 +1,6 @@
-import { Component, input, model } from '@angular/core';
+import { Component, effect, input, model } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import {
   PreguntaResultadoDto,
   RespuestaEncuestadoDto,
@@ -10,7 +10,7 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-tabla-resultados',
-  imports: [TableModule, CommonModule, ButtonModule],
+  imports: [TableModule, CommonModule, ButtonModule, JsonPipe],
   standalone: true,
   templateUrl: './tabla-resultados.component.html',
   styleUrl: './tabla-resultados.component.css',
@@ -21,7 +21,19 @@ export class TablaResultadosComponent {
   pageNumber = model<number>(0);
   prev = input.required<boolean>();
   next = input.required<boolean>();
+  debounce = model<boolean>(false)
+  constructor() {
+    effect(() => {
+      if (this.debounce()) {
 
+        setTimeout(() => {
+          this.debounce.set(false)
+        }, 700)
+
+      }
+
+    })
+  }
   get tablaRespuestas(): FilaResultado[] {
     return this.respuestas().map((respuesta) => {
       const fila: FilaResultado = { id: respuesta.id };
@@ -35,10 +47,21 @@ export class TablaResultadosComponent {
   }
 
   addPageNumber() {
+    if (this.debounce()) {
+      return
+    }
     this.pageNumber.update((val) => val + 1);
+    this.debounce.set(true)
   }
   decresePageNumber() {
+    if (this.pageNumber() < 1) {
+      return
+    }
+    if (this.debounce()) {
+      return
+    }
     this.pageNumber.update((val) => val - 1);
+    this.debounce.set(true)
   }
 }
 
