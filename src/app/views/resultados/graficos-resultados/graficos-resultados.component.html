@@ -12,29 +12,34 @@
                   pregunta.tipo === 'ABIERTA' &&
                   pregunta.frecuenciaPalabras.length > 0
                 "
+                class="nube-palabras"
               >
                 <angular-tag-cloud
                   *ngIf="showTagCloud"
                   [data]="pregunta.frecuenciaPalabras"
                   [config]="opcionesNubePalabras"
+                  [width]="containerWidth"
+                  [zoomOnHover]="opcionesZoom"
                   class="center"
                 >
                 </angular-tag-cloud>
               </div>
               <!-- Selección simple -->
-              <div *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'">
-                <div class="flex justify-content-center">
-                  <p-chart
-                    type="doughnut"
-                    [data]="getData(pregunta)"
-                    [options]="opcionesGrafico"
-                  />
-                </div>
+              <div
+                *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_SIMPLE'"
+                class="graficos"
+              >
+                <p-chart
+                  type="doughnut"
+                  [data]="getData(pregunta)"
+                  [options]="opcionesGrafico"
+                />
               </div>
 
               <!-- Selección múltiple -->
               <div
                 *ngIf="pregunta.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE'"
+                class="h-[400px] relative"
               >
                 <p-chart
                   type="bar"
@@ -44,14 +49,12 @@
               </div>
 
               <!-- Verdadero o Falso -->
-              <div *ngIf="pregunta.tipo === 'VERDADERO_FALSO'">
-                <div class="flex justify-content-center">
-                  <p-chart
-                    type="doughnut"
-                    [data]="getDataVF(pregunta)"
-                    [options]="opcionesGrafico"
-                  />
-                </div>
+              <div *ngIf="pregunta.tipo === 'VERDADERO_FALSO'" class="graficos">
+                <p-chart
+                  type="doughnut"
+                  [data]="getDataVF(pregunta)"
+                  [options]="opcionesGrafico"
+                />
               </div>
             </div>
           </p-accordion-content>

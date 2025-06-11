@@ -1,8 +1,15 @@
-.center {
-  display: flex;
-  justify-content: center;
-}
-
 ::ng-deep .p-card .p-card-body {
   padding: 0 !important;
+}
+
+::ng-deep p-chart {
+  margin: 0 auto;
+}
+
+::ng-deep p-tabpanel {
+  display: block !important;
+}
+
+.graficos {
+  display: flex;
 }
