@@ -1,4 +1,4 @@
-<ng-container *ngIf="hayRespuestas">
+<ng-container *ngIf="hayRespuestas()">
   <p-card *ngFor="let pregunta of preguntas()">
     <p-fieldset legend="Pregunta {{ pregunta.numero }}">
       <p-accordion value="0">
