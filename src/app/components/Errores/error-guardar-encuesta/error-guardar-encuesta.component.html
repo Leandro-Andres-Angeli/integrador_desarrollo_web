@@ -12,7 +12,7 @@
       <a
         routerLink="../crearEncuesta"
         pButton
-        class="acento ml-4 px-4"
+        class="acento ml-4 px-2"
         icon="pi pi-angle-left"
         >Regresar</a
       >
@@ -22,13 +22,13 @@
 
 <section class="contenedor">
   <div class="contenido">
-    <p>Error al guardar la encuesta</p>
+    <h2>Ha ocurrido un error al guardar la encuesta</h2>
     <img
-      src="/assets/images/logos/logo-simple-violeta.svg"
+      src="/assets/images/error/error-mi-pana.svg"
       alt="Logo simple"
       class="logo-simple"
     />
-    <h1>Por favor intente nuevamente</h1>
+    <h3>Por favor intente nuevamente, más tarde.</h3>
   </div>
   <div class="boton-regresar">
     <a
@@ -36,15 +36,9 @@
       pButton
       class="p-button acento"
       icon="pi pi-angle-left"
-      >Regresar</a
+      ></a
     >
   </div>
 </section>
 
-<footer class="footer-error">
-  <p class="copyright">
-    © Qüesti | Todos los derechos reservados <br />
-    Desarrollado en<img src="/assets/icons/argentina24.png" alt="IconoAR" />para
-    el 🌎
-  </p>
-</footer>
+<app-footer class="footer-error"></app-footer>

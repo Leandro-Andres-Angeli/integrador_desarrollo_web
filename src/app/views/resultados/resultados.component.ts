@@ -29,6 +29,7 @@ import { EncuestasService } from '../../services/encuestas.service';
 
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
 import { PreguntaResultadoGraficosDto } from '../../interfaces/resultados.graficos.dto';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-resultados',
@@ -50,7 +51,8 @@ import { PreguntaResultadoGraficosDto } from '../../interfaces/resultados.grafic
     TablaResultadosComponent,
     GraficosResultadosComponent,
     ToggleSwitchModule,
-  ],
+    FooterComponent
+],
   standalone: true,
 })
 export class ResultadosComponent implements OnInit {

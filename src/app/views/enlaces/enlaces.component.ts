@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { QRDialogComponent } from '../../components/qrdialog/qrdialog.component';
 import { EnlacesService } from '../../services/enlaces.service';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, Footer } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 interface Enlaces {
   urlParticipacion: string;
@@ -25,7 +26,8 @@ interface Enlaces {
     FormsModule,
     CommonModule,
     QRDialogComponent,
-    ToastModule
+    ToastModule,
+    FooterComponent
   ],
   providers: [MessageService], 
   templateUrl: './enlaces.component.html',
