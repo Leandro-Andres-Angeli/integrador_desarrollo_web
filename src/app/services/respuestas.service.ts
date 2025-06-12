@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { EncuestaDTO } from '../interfaces/encuesta.dto';
 import { CrearRespuestaDTO } from '../interfaces/crear-respuesta.dto';
-import { PreguntaDTO } from '../interfaces/pregunta.dto';
 
 
 
@@ -34,12 +33,14 @@ export class RespuestasService {
 
   private handleError(error: HttpErrorResponse) {
     console.error('Error completo: ', error);
+    
     let errorMessage = 'Ocurrió un error en la solicitud';
 
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      errorMessage = `Código de error: ${error.status}, mensaje: ${error.error.message}`;
+      const mensajeBackend = error?.error?.message || 'Error desconocido';
+      errorMessage = `Código de error: ${error.status}, mensaje: ${mensajeBackend}`;
     }
 
     return throwError(() => new Error(errorMessage));
@@ -52,7 +53,7 @@ export class RespuestasService {
       respuestas,
       { params: new HttpParams().set('codigo', codigoRespuesta) }
     ).pipe(
-      catchError(this.handleError)
+      catchError(this.handleError) 
     );
   }
 
