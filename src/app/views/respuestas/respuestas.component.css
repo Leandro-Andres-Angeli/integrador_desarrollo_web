@@ -54,15 +54,13 @@
 
 .pregunta-respuesta {
   background-color: #fff;
-  padding: 1.5rem;
+  margin: 2rem auto;
+  padding: 1rem;
   border-radius: 1rem;
-  margin-bottom: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   color: #000;
   font-family: montserrat, sans-serif;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  margin-top: 2rem;
+  width: 600px;
 }
 
 .pregunta-respuesta:hover {
@@ -204,8 +202,9 @@ input[type="radio"]:focus {
   }
 
   .pregunta-respuesta {
+    width: 100%;
+    min-width: 0;
     margin: 1rem 0;
-    padding: 1rem;
   }
 
   .texto-pregunta {
