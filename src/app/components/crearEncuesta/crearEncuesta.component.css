@@ -17,7 +17,7 @@
   color: #000;
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
   font-family: montserrat, sans-serif;
 }
 
@@ -111,7 +111,7 @@
   padding: 1.5rem;
   border-radius: 1rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
   color: #000;
   font-family: montserrat, sans-serif;
   margin-left: 2rem;
@@ -248,7 +248,7 @@
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
   font-family: montserrat, sans-serif;
   margin-left: 2rem;
   margin-right: 2rem;
@@ -268,7 +268,7 @@
   padding: 1.5rem;
   border-radius: 1rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
   color: #000;
   font-family: montserrat, sans-serif;
   margin-left: 2rem;
@@ -365,7 +365,7 @@ textarea[pInputTextarea]:focus {
 
 .pregunta-multimedia-uploader .boton-elegir-archivo {
   margin-top: 0.5rem;
-  padding: 0.3rem;
+  padding: 0.5rem;
   align-items: center;
   font-size: 0.5rem;
   font-family: montserrat, sans-serif;
@@ -388,7 +388,7 @@ textarea[pInputTextarea]:focus {
 
 .pregunta-multimedia-archivo-info { 
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   gap: 1rem;
   font-size: 0.9rem;
   color: #495057;
@@ -406,7 +406,6 @@ textarea[pInputTextarea]:focus {
 .pregunta-multimedia-archivo-info .boton-quitar-archivo {
   background: none;
   border: none;
-  color: #dc3545; 
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
@@ -555,7 +554,7 @@ textarea[pInputTextarea]:focus {
     background: none !important;
     background-color: transparent !important;
     box-shadow: none !important;
-    color: #dc3545 !important; /* O el color que prefieras para el ícono/texto */
+    color: #555555 !important; /* O el color que prefieras para el ícono/texto */
     border: none !important;
   }
   
