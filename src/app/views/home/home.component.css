@@ -82,8 +82,6 @@ p.copyright {
   margin: 0;
 }
 
-/* RESPONSIVE */
-/* Pantallas pequeñas */
 @media (max-width: 480px) {
   .navbar-home {
     grid-template-rows: auto auto auto auto;
@@ -159,60 +157,4 @@ p.copyright {
     padding: 0px;
     margin: 0px;
   }
-
-  /* Pantallas medianas */
-  @media (min-width: 481px) and (max-width: 1024px) {
-  .container {
-    max-width: 90%;
-    margin: 0 auto;
-  }
-
-  .welcome {
-    flex-direction: column;
-    align-items: center;
-    margin: 40px 20px;
-  }
-
-  .welcome-text {
-    margin-left: 0;
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  .welcome-image {
-    margin: 0;
-    padding: 1rem;
-  }
-
-  .welcome-image dotlottie-player {
-    width: 80%;
-  }
-}
-
-/* Pantallas grandes */
-@media (min-width: 1367px) {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .welcome {
-    margin: 0 auto;
-    padding: 60px 80px;
-    gap: 40px;
-  }
-
-  .welcome-text h1 {
-    font-size: 4rem;
-  }
-
-  .welcome-text h2 {
-    font-size: 1.5rem;
-  }
-
-  .welcome-image dotlottie-player {
-    width: 100%;
-    max-width: 500px;
-  }
-}
 }
