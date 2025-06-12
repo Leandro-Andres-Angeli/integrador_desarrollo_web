@@ -125,6 +125,7 @@ export class GraficosResultadosComponent {
               return rvf.cantidad;
             }
           ),
+          backgroundColor: ['#D1A2F3', '#BAECEB'],
         },
       ],
     };
