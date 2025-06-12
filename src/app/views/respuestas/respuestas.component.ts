@@ -9,12 +9,14 @@ import { EncuestaDTO } from '../../interfaces/encuesta.dto';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmationService } from 'primeng/api';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 @Component({
     selector: 'app-respuestas',
     imports: [ButtonModule, CommonModule, FormsModule, RadioButtonModule, CheckboxModule, RouterLink],
     templateUrl: './respuestas.component.html',
     styleUrls: ['./respuestas.component.css'],
-
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RespuestasComponent implements OnInit {
     encuesta?: EncuestaDTO;
@@ -178,7 +180,7 @@ export class RespuestasComponent implements OnInit {
 
         // Validación de campos vacíos
         if (this.validarRespuestas()) {
-            alert('⚠️ Por favor, completa todas las respuestas antes de enviar la encuesta.');
+            alert('⚠️ Por favor, completá todas las respuestas antes de enviar la encuesta.');
             return;
         }
 
@@ -209,7 +211,15 @@ export class RespuestasComponent implements OnInit {
         const respuestasIncompletas =
             this.respuestas.respuestasAbiertas.some(r => !r.texto?.trim()) ||
             this.respuestas.respuestasOpciones.some(r => !r.opcion?.id) ||
-            (this.respuestas.respuestasVerdaderoFalso?.some(r => r.valor === undefined) ?? false);
+            (this.respuestas.respuestasVerdaderoFalso?.some(r => r.valor === undefined) ?? false) ||
+            this.encuesta.preguntas
+                .filter(p => p.tipo === 'OPCION_MULTIPLE_SELECCION_MULTIPLE')
+                .some(p => {
+                    const respuestasDePregunta = this.respuestas.respuestasOpciones.filter(
+                        r => r.pregunta.id == p.id
+                    );
+                    return respuestasDePregunta.length === 0;
+                })
 
         return respuestasIncompletas;
     }

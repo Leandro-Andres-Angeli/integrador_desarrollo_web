@@ -71,6 +71,23 @@
   span.w1[_ngcontent-ng-c3650581864] {
     color: #b2aeb2;
   } 
+
+  .p-button-text.p-button-danger,
+  .pregunta-multimedia-archivo-info[_ngcontent-ng-c3559264982] .boton-quitar-archivo[_ngcontent-ng-c3559264982] {
+    color: #fa8e8e;
+  }
+
+  .p-button-text {
+    color: #D1A2F3;
+  }
+
+  .p-button-text:not(:disabled):hover {
+    color: #A663CC;
+  }
+
+  .alerta[_ngcontent-ng-c1189178149] i[_ngcontent-ng-c1189178149] {
+    color: #fbb040;
+}
 }
 
 /* Reset básico */
