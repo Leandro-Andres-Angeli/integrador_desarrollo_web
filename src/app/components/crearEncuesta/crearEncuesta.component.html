@@ -49,6 +49,7 @@
         pButton
         icon="pi pi-pencil"
         class="p-button-rounded p-button-text"
+        style="width: 40px; height: 40px"
         (click)="editarTitulo()"
       ></button>
       </ng-template>
@@ -92,22 +93,45 @@
         </p-select>
       </div>
 
-      <!-- Subida de archivo y Vista previa MOVIDAS AQUÍ ABAJO -->
-      <div class="pregunta-multimedia-container">
-        <label class="multimedia-titulo">Agregar imagen o video (opcional)</label>
-        <div class="pregunta-multimedia-uploader">
-          <input type="file" class="boton-elegir-archivo" accept="image/*,video/*" (change)="onFileSelected($event, i)" #fileUpload/>
-          <div *ngIf="pregunta.get('multimedia')?.value as media" class="pregunta-multimedia-archivo-info">
-            <span class="nombre-archivo">{{ media.nombre || 'Archivo seleccionado' }}</span>
-            <button
-              pButton
-              icon="pi pi-times"
-              class="boton-quitar-archivo p-button-rounded p-button-danger p-button-text"
-              (click)="eliminarMultimedia(pregunta)"
-            ></button>
-          </div>
+      <div class="pregunta-multimedia-uploader">
+        <!-- Ícono que dispara el input oculto -->
+        <button
+          type="button"
+          class="p-button-rounded p-button-text boton-elegir-archivo"
+          (click)="fileUpload.click()"
+          aria-label="Cargar imagen o video"
+          title="Cargar imagen o video"
+        >
+          <i class="pi pi-image"></i>
+        </button>
+        <!-- Input oculto -->
+        <input
+          type="file"
+          accept="image/*,video/*"
+          (change)="onFileSelected($event, i)"
+          #fileUpload
+          style="display: none;"
+        />
+      </div>
+
+      <!-- Solo se muestra si hay multimedia -->
+      <div
+        class="pregunta-multimedia-container"
+        *ngIf="pregunta.get('multimedia')?.value as media"
+      >
+        <!-- Info del archivo seleccionado -->
+        <div class="pregunta-multimedia-archivo-info">
+          <span class="nombre-archivo">{{ media.nombre || '...' }}</span>
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="boton-quitar-archivo p-button-rounded p-button-danger p-button-text"
+            (click)="eliminarMultimedia(pregunta)"
+          ></button>
         </div>
-        <div *ngIf="pregunta.get('multimedia')?.value as media" class="pregunta-multimedia-preview">
+
+        <!-- Vista previa -->
+        <div class="pregunta-multimedia-preview">
           <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Vista previa" />
           <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls></video>
         </div>
@@ -119,7 +143,6 @@
         Campo requerido.
       </div>
       }
-      <br />
 
       <!-- Opciones -->
       <div
@@ -158,6 +181,7 @@
             type="button"
             icon="pi pi-trash"
             class="p-button-rounded p-button-text p-button-danger"
+            style="width: 30px;height: 30pz;;"
             (click)="eliminarOpcion(pregunta, j)"
             [attr.aria-label]="'Eliminar opción ' + (j + 1)"
           ></button>
@@ -179,6 +203,7 @@
           aria-label="Añadir opción"
         ></button>
       </div>
+      <br>
 
       <!-- Verdadero o falso -->
       <div
@@ -210,8 +235,8 @@
 
         </span>
         <div *ngIf="pregunta.get('multimedia')?.value as media" class="mt-2">
-          <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Imagen" style="max-width: 100%; height: auto;" />
-          <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls style="max-width: 100%; height: auto;"></video>
+          <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Imagen" style="max-width: 50%; height: auto;" class="img-preview-center"/>
+          <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls style="max-width: 50%; height: auto;" class="vid-preview-center"></video>
         </div>
         <div class="acciones">
           <p-button
@@ -269,11 +294,12 @@
 
     <!-- Multimedia en vista previa -->
     <div *ngIf="pregunta.get('multimedia')?.value as media" class="mb-3">
-      <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Imagen" style="max-width: 100%; height: auto;" />
-      <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls style="max-width: 100%; height: auto;"></video>
+      <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Imagen" style="max-width: 50%; height: auto;" class="img-preview-center" />
+      <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls style="max-width: 50%; height: auto;" class="vid-preview-center"></video>
     </div>
 
-    <!-- Abierta -->
+    <div class="respuestas-vista-previa">
+       <!-- Abierta -->
     <div *ngIf="pregunta.get('tipo')?.value === 'ABIERTA'">
       <textarea 
         pInputTextarea
@@ -332,6 +358,13 @@
         <label class="ml-2">Falso</label>
       </div>
     </div>
+
+    </div>
+
+
+    
+
+   
   </div>
 
   <div class="text-center mt-6">

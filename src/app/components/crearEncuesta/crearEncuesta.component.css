@@ -62,7 +62,6 @@
 .p-floatlabel {
   width: 100%;
   max-width: 800px;
-  /*border: #000 solid 1px;*/
   border-radius: 8px;
 }
 
@@ -255,6 +254,7 @@
   margin-right: 2rem;
   margin-top: 2rem;
 }
+
 .titulo-preview h2 {
   font-size: 2rem;
   font-weight: 600;
@@ -342,9 +342,9 @@ textarea[pInputTextarea]:focus {
 .pregunta-multimedia-container {
   margin-top: 1.5rem; /* Espacio para separarlo del selector de tipo de pregunta */
   padding: 1rem;
-  background-color: #f8f9fa; /* Un fondo sutil */
-  border-radius: 8px; /* Consistente con otros bordes redondeados */
-  border: 1px solid #dee2e6; /* Un borde suave */
+  background-color: #fff; /* Un fondo sutil */
+  border-radius: 20px; /* Consistente con otros bordes redondeados */
+  border: 1px solid #fff; /* Un borde suave */
   font-family: montserrat, sans-serif; /* Consistente con la fuente general */
 }
 
@@ -362,51 +362,73 @@ textarea[pInputTextarea]:focus {
   gap: 1rem; /* Espacio entre el botón y el nombre del archivo */
 }
 
+
 .pregunta-multimedia-uploader .boton-elegir-archivo {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.3rem;
+  align-items: center;
+  font-size: 0.5rem;
   font-family: montserrat, sans-serif;
   font-weight: 500;
-  color: #333; /* Texto oscuro */
-  background-color: #f0f0f0; /* Fondo gris claro, similar al de la imagen */
-  border: 1px solid #ccc; /* Borde gris */
-  border-radius: 8px; /* Radio consistente */
+  color: #333; 
+  background-color: #fff; 
+  border: 1px solid #fff; 
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s;
 }
 
+
 .pregunta-multimedia-uploader .boton-elegir-archivo:hover {
-  background-color: #e0e0e0; /* Gris más oscuro al pasar el mouse */
-  border-color: #bbb;
+  margin-top: 0.5rem;
+  background-color: #fff; 
+  border-color: #8e7ca8;
+
 }
 
-.pregunta-multimedia-archivo-info { /* Para "Captura de ... 151322.png X" */
+.pregunta-multimedia-archivo-info { 
   display: flex;
-  align-items: center;
-  gap: 0.5rem; /* Espacio entre nombre de archivo y botón de quitar */
+  justify-content: space-between;
+  gap: 1rem;
   font-size: 0.9rem;
-  color: #495057; /* Color de texto para información */
+  color: #495057;
+  width: 100%; 
 }
 
 .pregunta-multimedia-archivo-info .nombre-archivo {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px; /* Ajustar según el espacio disponible */
+  max-width: 250px;
+  flex: 1 1 auto;
 }
 
 .pregunta-multimedia-archivo-info .boton-quitar-archivo {
   background: none;
   border: none;
-  color: #dc3545; /* Rojo para acciones de eliminación */
-  font-size: 1.2rem; /* Para que el 'X' sea visible */
+  color: #dc3545; 
+  font-size: 1.2rem;
   cursor: pointer;
-  padding: 0; /* Para que no tenga padding extra */
-  line-height: 1; /* Para alinear mejor el 'X' */
+  padding: 0;
+  line-height: 1;
+  margin-right: auto;
+  max-width: 20% !important;
 }
 
 .pregunta-multimedia-preview { /* Contenedor para la vista previa de la imagen/video */
   margin-top: 1rem;
+}
+
+.img-preview-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vid-preview-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pregunta-multimedia-preview img,
@@ -437,7 +459,7 @@ textarea[pInputTextarea]:focus {
   .titulo-texto {
     font-size: 1.25rem;
     text-align: center;
-    word-break: break-word;
+    word-break: break-all;
   }
 
   .input-nombre-container input {
@@ -492,7 +514,11 @@ textarea[pInputTextarea]:focus {
     padding-top: 1rem;
   }
 
-  .boton-centro,
+  .boton-centro {
+    width: 100%;
+    margin: 0 14px;
+  }
+
   .boton-eliminar {
     width: 100%;
   }
@@ -516,113 +542,23 @@ textarea[pInputTextarea]:focus {
   .navbar-buttons{
     display: none;
   }
+
   .navbar-buttons-mobile {
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    }
-}
-/* Responsive */
-@media (max-width: 768px) {
-  .encuesta-container,
-  .input-nombre-container
-  .titulo-container,
-  .input-nombre,
-  .pregunta-vista,
-  .input-pregunta-select-container
-  .botones-añadir-eliminar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
   }
 
-  .acciones {
-    flex-direction: column;
-    align-items: stretch;
+  .p-button.p-button-rounded.p-button-text.p-button-danger,
+  .p-button.p-button-rounded.p-button-text.p-button-danger:hover,
+  .p-button.p-button-rounded.p-button-text.p-button-danger:focus {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: #dc3545 !important; /* O el color que prefieras para el ícono/texto */
+    border: none !important;
   }
-} 
-
-/* Responsive 
-@media (max-width: 768px) {
-  .encuesta-container {
-    padding: 1rem;
-    max-width: 100%;
-  }
-
-  .titulo-container {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 1rem;
-    gap: 0.5rem;
-  }
-
-  .input-nombre-container,
-  .p-floatlabel {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  #input-nombre {
-    min-width: 0;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .input-pregunta-select-container {
-    flex-direction: column;
-    align-items: stretch;
-    max-width: 100%;
-    width: 100%;
-    gap: 0.5rem;
-  }
-
-  .pregunta-item {
-    padding: 1rem;
-  }
-
-  .acciones,
-  .botones-añadir-eliminar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .boton-anadir-container,
-  .boton-centro {
-    justify-content: center;
-    width: 100%;
-  }
-
-  .p-dropdown,
-  .dropdown-estilizado,
-  .input-opcion {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-} */
-.preview-img {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  max-width: 300px;
-  max-height: 200px;
-  display: block;
+  
 }
 
-input[type="file"] {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
-}
-
-video {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  max-width: 300px;
-  max-height: 200px;
-  display: block;
-}
-
-.p-button-danger.p-button-text.ml-2 {
-  margin-left: 0.5rem;
-}
 

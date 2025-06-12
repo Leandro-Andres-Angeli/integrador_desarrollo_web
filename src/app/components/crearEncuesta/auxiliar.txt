@@ -109,3 +109,72 @@
  .p-button-primario {
   margin-bottom: 10px;
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* Responsive */
+@media (max-width: 768px) {
+
+  .preview-img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 300px;
+  max-height: 200px;
+  display: block;
+  }
+
+  input[type="file"] {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+
+  video {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 300px;
+    max-height: 200px;
+    display: block;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+  .footer-error {
+    height: 120px;
+    background-position: bottom;
+    background-size: cover;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  p.copyright {
+    font-size: 0.8rem;
+    padding: 0 10px;
+  }
+  p.copyright img {
+    width: 16px;
+    height: auto;
+    vertical-align: middle;
