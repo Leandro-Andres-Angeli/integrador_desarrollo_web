@@ -213,13 +213,10 @@ export class RespuestasComponent implements OnInit {
 
         return respuestasIncompletas;
     }
-    paginateForward() {
-        this.pageNumber.update((prev) => prev + 1)
-    }
-    paginateBackwards() {
-        this.pageNumber.update((prev) => prev - 1)
-    }
-    
+
+
+
+
     salir(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
@@ -235,28 +232,32 @@ export class RespuestasComponent implements OnInit {
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',
             rejectButtonProps: {
-            label: 'Cancelar',
-            outlined: true,
+                label: 'Cancelar',
+                outlined: true,
+
             },
             acceptButtonProps: {
-            label: 'Salir',
+                label: 'Salir',
+
             },
             acceptButtonStyleClass: 'confirm-btn',
             rejectButtonStyleClass: 'reject-btn',
             accept: () => {
-            this.router.navigate(['/']);
+                this.router.navigate(['/']);
+                this.router.navigate(['/']);
             },
             reject: () => {
-            return;
+                return;
+                return;
             },
         });
-}
-// ✅ NUEVOS MÉTODOS PARA MULTIMEDIA
-isImage(url: string): boolean {
-    return /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i.test(url);
-  }
+    }
+    // ✅ NUEVOS MÉTODOS PARA MULTIMEDIA
+    isImage(url: string): boolean {
+        return /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i.test(url);
+    }
 
-  isVideo(url: string): boolean {
-    return /\.(mp4|webm|ogg)$/i.test(url);
-  }
+    isVideo(url: string): boolean {
+        return /\.(mp4|webm|ogg)$/i.test(url);
+    }
 }

@@ -10,7 +10,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
-import { catchError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs';
 import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
@@ -60,14 +60,16 @@ export class ResultadosComponent implements OnInit {
   codigoResultado!: string | null;
   preguntasGraficos: PreguntaResultadoGraficosDto[] = [];
   preguntas: PreguntaResultadoDto[] = [];
-  respuestas: RespuestaEncuestadoDto[] = [];
+  respuestas: Array<RespuestaEncuestadoDto & { idx: number }> = [];
   nombre: string = '';
   error: string | null = null;
   activa!: boolean;
   prev = false;
   next = true;
+  indexes?: number[] = []
   pageNumber = model<number>(1);
-
+  // loading = model<boolean>(false)
+  loading = false
   activeTab = 0;
 
   constructor(
@@ -79,51 +81,87 @@ export class ResultadosComponent implements OnInit {
   ) {
     effect(() => {
       /// *** TABLA ***
+      if (this.pageNumber() < 1) {
+        console.log("here")
+        return
+      }
       this.resultadosService
         .obtenerResultados(this.id, this.codigoResultado!, this.pageNumber())
         .pipe(
+          map((res) => {
+            console.log("here")
+            this.loading = true
+            this.indexes = []
+            return res
+          }),
           catchError((err) => {
             this.error = 'Error al cargar resultados';
+            this.indexes = []
             throw err;
+
           })
         )
         .subscribe({
           next: (res) => {
-            console.log(res);
+
+
             this.prev = res.prev;
             this.next = res.next;
             const { data } = res;
+
             this.preguntas = data.preguntas;
-            this.respuestas = data.respuestas;
+
+            this.respuestas = data.respuestas.map((res, i) => {
+              return { idx: (this.pageNumber() * 4) + (i + 1), ...res }
+            });
+
+            console.log(this.indexes)
             this.respuestas.sort(
               (a: { id: number }, b: { id: number }) => a.id - b.id
             );
           },
           error: (err) => {
             console.error('Error al cargar resultados', err);
+            this.loading = false
+
           },
+          complete: () => {
+            console.log("here")
+            this.loading = false
+
+            this.respuestas.forEach((res, i) => {
+              console.log("here")
+              this.indexes?.push(this.pageNumber() * (i + 1))
+            })
+          }
         });
 
       /// *** GRAFICOS ***
       this.resultadosService
         .obtenerResultadosGraficos(this.id, this.codigoResultado!)
         .pipe(
+
           catchError((err) => {
             this.error = 'Error al cargar resultados gráficos';
+
             throw err;
           })
         )
         .subscribe({
           next: (res) => {
+
             this.nombre = res.nombre;
             this.preguntasGraficos = res.preguntas;
             this.activa = res.activa;
             this.respuestas.sort(
               (a: { id: number }, b: { id: number }) => a.id - b.id
             );
+
           },
+
           error: (err) => {
             console.error('Error al cargar resultados', err);
+
           },
         });
     });
@@ -145,6 +183,9 @@ export class ResultadosComponent implements OnInit {
     this.resultadosService
       .obtenerResultados(this.id, this.codigoResultado!, this.pageNumber())
       .pipe(
+        tap(() => {
+          this.loading = true
+        }),
         catchError((err) => {
           this.error = 'Error al cargar resultados';
           throw err;
@@ -157,7 +198,9 @@ export class ResultadosComponent implements OnInit {
           const { data } = res;
           this.nombre = data.nombre;
           this.preguntas = data.preguntas;
-          this.respuestas = data.respuestas;
+          this.respuestas = data.respuestas.map((res, i) => {
+            return { idx: (this.pageNumber() * 4) + (i + 1), ...res }
+          });
           // this.preguntas.sort(
           //   (a: { numero: number }, b: { numero: number }) =>
           //     a.numero - b.numero
@@ -166,8 +209,12 @@ export class ResultadosComponent implements OnInit {
             (a: { id: number }, b: { id: number }) => a.id - b.id
           );
         },
+        complete: () => {
+          this.loading = false
+        },
         error: (err) => {
           console.error('Error al cargar resultados', err);
+          this.loading = false
         },
       });
   }
@@ -200,13 +247,11 @@ export class ResultadosComponent implements OnInit {
     const nuevoEstado = event.checked;
     this.confirmationService.confirm({
       target: event.originalEvent?.currentTarget as HTMLElement,
-      message: `<div class="confirm-delete-message"> ¿Estás seguro de que querés ${
-        nuevoEstado ? 'activar' : 'desactivar'
-      } esta encuesta? ${
-        nuevoEstado === false
+      message: `<div class="confirm-delete-message"> ¿Estás seguro de que querés ${nuevoEstado ? 'activar' : 'desactivar'
+        } esta encuesta? ${nuevoEstado === false
           ? 'Al desactivar no se recibirán más respuestas.'
           : ''
-      }`,
+        }`,
       header: `${nuevoEstado ? 'Activar' : 'Desactivar'} encuesta`,
       closable: false,
       closeOnEscape: true,

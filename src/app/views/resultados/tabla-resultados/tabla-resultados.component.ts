@@ -10,18 +10,19 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-tabla-resultados',
-  imports: [TableModule, CommonModule, ButtonModule, JsonPipe],
+  imports: [TableModule, CommonModule, ButtonModule],
   standalone: true,
   templateUrl: './tabla-resultados.component.html',
   styleUrl: './tabla-resultados.component.css',
 })
 export class TablaResultadosComponent {
   preguntas = input<PreguntaResultadoDto[]>([]);
-  respuestas = input<RespuestaEncuestadoDto[]>([]);
+  respuestas = input<Array<RespuestaEncuestadoDto & { idx: number }>>([]);
   pageNumber = model<number>(0);
   prev = input.required<boolean>();
   next = input.required<boolean>();
   debounce = model<boolean>(false)
+  indexes = input<Array<number>>()
   constructor() {
     effect(() => {
 
@@ -74,6 +75,7 @@ export class TablaResultadosComponent {
 
 
   }
+
 }
 
 type FilaResultado = {

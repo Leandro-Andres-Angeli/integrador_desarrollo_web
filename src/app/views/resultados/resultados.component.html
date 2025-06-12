@@ -43,6 +43,7 @@
 </div>
 } @else {
 <div class="resultados">
+ 
   <div class="card">
     <div class="flex">
       <h1 *ngIf="nombre">{{ nombre }}</h1>
@@ -69,15 +70,23 @@
         </p-button>
       </p-tablist>
       <p-tabpanels>
+       
+         
+          @if(this.loading === false){
+
         <p-tabpanel [value]="0">
+          
           <app-tabla-resultados
             [preguntas]="preguntas"
             [respuestas]="respuestas"
             [(pageNumber)]="pageNumber"
+            [indexes]="indexes"
             [prev]="prev"
             [next]="next"
           ></app-tabla-resultados>
+        
         </p-tabpanel>
+          }
         <p-tabpanel [value]="1">
           <app-graficos-resultados
             class="full-flex-width"
