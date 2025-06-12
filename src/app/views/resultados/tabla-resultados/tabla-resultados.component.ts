@@ -17,11 +17,12 @@ import { ButtonModule } from 'primeng/button';
 })
 export class TablaResultadosComponent {
   preguntas = input<PreguntaResultadoDto[]>([]);
-  respuestas = input<RespuestaEncuestadoDto[]>([]);
+  respuestas = input<Array<RespuestaEncuestadoDto & { idx: number }>>([]);
   pageNumber = model<number>(0);
   prev = input.required<boolean>();
   next = input.required<boolean>();
   debounce = model<boolean>(false)
+  indexes = input<Array<number>>()
   constructor() {
     effect(() => {
 
@@ -74,6 +75,7 @@ export class TablaResultadosComponent {
 
 
   }
+
 }
 
 type FilaResultado = {
