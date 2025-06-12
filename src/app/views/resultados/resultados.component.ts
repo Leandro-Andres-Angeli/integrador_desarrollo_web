@@ -60,7 +60,7 @@ export class ResultadosComponent implements OnInit {
   codigoResultado!: string | null;
   preguntasGraficos: PreguntaResultadoGraficosDto[] = [];
   preguntas: PreguntaResultadoDto[] = [];
-  respuestas: Array<RespuestaEncuestadoDto & { idx: number }> = [];
+  respuestas: Array<RespuestaEncuestadoDto> = [];
   nombre: string = '';
   error: string | null = null;
   activa!: boolean;
@@ -89,14 +89,14 @@ export class ResultadosComponent implements OnInit {
         .obtenerResultados(this.id, this.codigoResultado!, this.pageNumber())
         .pipe(
           map((res) => {
-            console.log("here")
+
             this.loading = true
-            this.indexes = []
+
             return res
           }),
           catchError((err) => {
             this.error = 'Error al cargar resultados';
-            this.indexes = []
+
             throw err;
 
           })
@@ -198,9 +198,7 @@ export class ResultadosComponent implements OnInit {
           const { data } = res;
           this.nombre = data.nombre;
           this.preguntas = data.preguntas;
-          this.respuestas = data.respuestas.map((res, i) => {
-            return { idx: (this.pageNumber() * 4) + (i + 1), ...res }
-          });
+          this.respuestas = data.respuestas
           // this.preguntas.sort(
           //   (a: { numero: number }, b: { numero: number }) =>
           //     a.numero - b.numero

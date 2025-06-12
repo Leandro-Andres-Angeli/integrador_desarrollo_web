@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class TablaResultadosComponent {
   preguntas = input<PreguntaResultadoDto[]>([]);
-  respuestas = input<Array<RespuestaEncuestadoDto & { idx: number }>>([]);
+  respuestas = input<Array<RespuestaEncuestadoDto>>([]);
   pageNumber = model<number>(0);
   prev = input.required<boolean>();
   next = input.required<boolean>();
