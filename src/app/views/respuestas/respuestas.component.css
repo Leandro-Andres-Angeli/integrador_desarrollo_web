@@ -236,6 +236,57 @@ input[type="radio"]:focus {
     justify-content: center;
   }
 }
+/* 📸 Soporte multimedia para preguntas */
+.media-preview {
+  margin-top: 1rem;
+  text-align: center; /* Centra la imagen o video si no ocupan el 100% */
+}
+
+.media-imagen {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+.media-video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+/* Estilos para la previsualización de multimedia en las respuestas */
+.media-preview {
+  display: flex;
+  justify-content: center; /* Centra el contenido multimedia horizontalmente */
+  margin-bottom: 1rem; /* Espacio debajo del multimedia */
+}
+
+.media-imagen {
+  max-width: 400px; /* Ancho máximo para la imagen */
+  max-height: 300px; /* Altura máxima para la imagen */
+  width: auto;       /* Permite que el ancho se ajuste si la imagen es más pequeña */
+  height: auto;      /* Mantiene la proporción de la imagen */
+  border-radius: 8px; /* Bordes redondeados opcionales */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+}
+
+.media-video {
+  max-width: 400px; /* Ancho máximo para el video */
+  max-height: 300px; /* Altura máxima para el video */
+  width: 100%;       /* Hace que el video ocupe el ancho disponible hasta el max-width */
+  height: auto;      /* Mantiene la proporción del video */
+  border-radius: 8px; /* Bordes redondeados opcionales */
+}
+
+/* Si necesitas estilos específicos para el contenedor de la pregunta */
+.pregunta-respuesta .cabecera-pregunta {
+  /* Puedes añadir más estilos aquí si es necesario */
+  margin-bottom: 0.5rem;
+}
 
 
    

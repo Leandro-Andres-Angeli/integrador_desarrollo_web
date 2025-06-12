@@ -25,6 +25,7 @@ import {
   tiposPreguntaPresentacion,
 } from '../../enums/tipos-pregunta.enum';
 import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-crearEncuesta',
@@ -42,6 +43,7 @@ import { ConfirmationService, MessageService, PrimeIcons } from 'primeng/api';
     RadioButtonModule,
     ToggleSwitchModule,
     FormsModule,
+    
   ],
   providers: [EncuestasService],
   templateUrl: './crearEncuesta.component.html',
@@ -70,7 +72,8 @@ export class CrearEncuestaComponent {
     private encuestasService: EncuestasService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -81,7 +84,6 @@ export class CrearEncuestaComponent {
     });
   }
 
-  // Getters
   get tituloControl(): FormControl {
     return this.encuestaForm.get('nombre') as FormControl;
   }
@@ -94,7 +96,6 @@ export class CrearEncuestaComponent {
     return this.preguntas.controls as FormGroup[];
   }
 
-  // Métodos UI
   editarTitulo(): void {
     this.tituloEditando = true;
   }
@@ -111,12 +112,11 @@ export class CrearEncuestaComponent {
       tipo: [TiposRespuestaEnum.ABIERTA, Validators.required],
       obligatoria: [false],
       editando: [true],
+      multimedia: [''],
     });
-    // pregunta
-    //   .get('opciones')
-    //   ?.setValidators(validateOpciones(pregunta.get('tipo')));
     this.preguntas.push(pregunta);
   }
+
   handleTipoRespuestaChange(pregunta: FormGroup) {
     if (
       pregunta.controls['tipo'].value !==
@@ -126,7 +126,6 @@ export class CrearEncuestaComponent {
     ) {
       pregunta.removeControl('opciones');
     } else {
-      console.log('here');
       pregunta.addControl(
         'opciones',
         this.fb.array(
@@ -181,16 +180,44 @@ export class CrearEncuestaComponent {
     this.modoVistaPrevia = false;
   }
 
-  finalizarEncuesta() {
-    // if (!window.confirm('¿Estás seguro de finalizar y guardar la encuesta?')) {
-    //   return;
-    // }
+  onFileSelected(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
 
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'encuestas_publicas');
+    formData.append('folder', 'encuestas');
+
+    this.http
+      .post<any>('https://api.cloudinary.com/v1_1/dseo6ulep/auto/upload', formData)
+      .subscribe({
+        next: (res) => {
+          const pregunta = this.preguntasFormGroups[index];
+          pregunta.get('multimedia')?.setValue({
+            url: res.secure_url,
+            tipo: res.resource_type,
+          });
+        },
+        error: (err) => {
+          console.error('Error subiendo archivo a Cloudinary', err);
+          alert('No se pudo subir el archivo. Intenta de nuevo.');
+        },
+      });
+  }
+
+  eliminarMultimedia(pregunta: FormGroup) {
+    pregunta.get('multimedia')?.setValue(null);
+  }
+
+  finalizarEncuesta() {
     const titulo = this.tituloControl.value;
     const preguntasData = this.preguntasFormGroups.map((p, i) => ({
       numero: i + 1,
       texto: p.get('texto')?.value,
       tipo: p.get('tipo')?.value,
+      multimedia: p.get('multimedia')?.value,
       opciones:
         p.get('tipo')?.value ===
           TiposRespuestaEnum.OPCION_MULTIPLE_SELECCION_SIMPLE ||
@@ -208,13 +235,6 @@ export class CrearEncuestaComponent {
         nombre: this.tituloControl.value,
         preguntas: preguntasData,
       })
-      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
-      // .pipe(
-      //   map((e) => {
-      //     throw Error('test error');
-      //   })
-      // )
-      //CODIGO PARA FORZAR ERROR Y CHEQUEAR REDIRECCION
       .subscribe({
         next: (res) => {
           console.log('Respuesta backend:', res);
@@ -229,30 +249,12 @@ export class CrearEncuestaComponent {
           alert('Error al guardar la encuesta. Intenta más tarde.');
         },
       });
-    // .subscribe({
-    //   next: (res) => {
-    //     console.log('Respuesta backend:', res);
-    //     this.router.navigate([
-    //       '/enlaces',
-    //       res.id,
-    //       res.codigoRespuesta,
-    //       res.codigoResultados,
-    //       ,
-    //       { state: { test: 1 } },
-    //     ]);
-    //   },
-    //   error: () => {
-    //     alert('Error al guardar la encuesta. Intenta más tarde.');
-    //   },
-    // });
   }
 
   eliminarEncuesta() {
-    // Simplemente reiniciamos el formulario:
     this.encuestaForm.reset();
     this.preguntas.clear();
     this.tituloEditando = true;
-
     console.log('Encuesta eliminada.');
   }
 
@@ -260,18 +262,17 @@ export class CrearEncuestaComponent {
     const encontrado = tiposPreguntaPresentacion.find((t) => t.tipo === tipo);
     return encontrado ? encontrado.presentacion : tipo;
   }
+
   confirmClearEncuesta(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `<div class="confirm-delete-message"> ¿Estás seguro de que querés eliminar esta encuesta? <br/>  Al eliminar la encuesta perderás todo lo que hayas hecho hasta ahora. </div>`,
-
       header: 'Eliminar encuesta',
       closable: false,
       closeOnEscape: true,
       icon: 'pi pi-exclamation-triangle',
       rejectButtonProps: {
         label: 'Cancelar',
-
         outlined: true,
       },
       acceptButtonProps: {
@@ -288,6 +289,7 @@ export class CrearEncuestaComponent {
       },
     });
   }
+
   confirmSaveEncuesta() {
     this.confirmationService.confirm({
       message: `<div class="confirm-save-encuesta"> 
@@ -295,14 +297,11 @@ export class CrearEncuestaComponent {
       <br/>
       <strong> RECUERDA GUARDAR LOS LINKS</strong> para no perder tu acceso a la encuesta.
       </div>`,
-
       header: 'Finalizar encuesta',
       closable: false,
       closeOnEscape: true,
-
       rejectButtonProps: {
         label: 'Cancelar',
-
         outlined: true,
       },
       acceptButtonProps: {

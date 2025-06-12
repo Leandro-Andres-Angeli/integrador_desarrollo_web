@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { CrearEncuestaComponent } from './components/crearEncuesta/crearEncuesta.component';
 import { HomeComponent } from './views/home/home.component';
+import { CrearEncuestaComponent } from './components/crearEncuesta/crearEncuesta.component';
 import { Error404Component } from './components/Errores/error404/error404.component';
 import { AgradecimientoComponent } from './components/agradecimientoEncuestado/agradecimiento.component';
 import { ResultadosComponent } from './views/resultados/resultados.component';
@@ -8,6 +8,7 @@ import { ErrorGuardarEncuestaComponent } from './components/Errores/error-guarda
 import { EnlacesComponent } from './views/enlaces/enlaces.component';
 import { RespuestasComponent } from './views/respuestas/respuestas.component';
 import { AgradecimientoEncuestadorComponent } from './components/agradecimientoEncuestador/agradecimientoEncuestador.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -18,6 +19,7 @@ export const routes: Routes = [
     component: CrearEncuestaComponent,
   },
   {
+
     path: 'error-guardar-encuesta',
     component: ErrorGuardarEncuestaComponent,
   },
@@ -50,6 +52,7 @@ export const routes: Routes = [
     component: RespuestasComponent,
   },
   {
+
     path: '**',
     redirectTo: '',
   },

@@ -202,7 +202,7 @@ export class EnlacesComponent implements OnInit {
       outlined: true,
     },
     acceptButtonProps: {
-      label: 'Crear encuesta',
+      label: '+ Crear encuesta',
     },
     acceptButtonStyleClass: 'confirm-btn',
     rejectButtonStyleClass: 'reject-btn',

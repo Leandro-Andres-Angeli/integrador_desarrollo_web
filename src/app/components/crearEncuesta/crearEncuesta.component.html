@@ -49,7 +49,6 @@
         pButton
         icon="pi pi-pencil"
         class="p-button-rounded p-button-text"
-        style="width:30px; min-width:30px; height:30px; min-height:30px;"
         (click)="editarTitulo()"
       ></button>
       </ng-template>
@@ -80,6 +79,7 @@
           placeholder="Escribir pregunta..."
           class="input-pregunta"
         />
+
         <p-select
           [options]="tiposRespuesta"
           (onChange)="handleTipoRespuestaChange(pregunta)"
@@ -91,6 +91,28 @@
         >
         </p-select>
       </div>
+
+      <!-- Subida de archivo y Vista previa MOVIDAS AQUÍ ABAJO -->
+      <div class="pregunta-multimedia-container">
+        <label class="multimedia-titulo">Agregar imagen o video (opcional)</label>
+        <div class="pregunta-multimedia-uploader">
+          <input type="file" class="boton-elegir-archivo" accept="image/*,video/*" (change)="onFileSelected($event, i)" #fileUpload/>
+          <div *ngIf="pregunta.get('multimedia')?.value as media" class="pregunta-multimedia-archivo-info">
+            <span class="nombre-archivo">{{ media.nombre || 'Archivo seleccionado' }}</span>
+            <button
+              pButton
+              icon="pi pi-times"
+              class="boton-quitar-archivo p-button-rounded p-button-danger p-button-text"
+              (click)="eliminarMultimedia(pregunta)"
+            ></button>
+          </div>
+        </div>
+        <div *ngIf="pregunta.get('multimedia')?.value as media" class="pregunta-multimedia-preview">
+          <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Vista previa" />
+          <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls></video>
+        </div>
+      </div>
+
       @if( pregunta.controls["texto"].invalid){
       <div id="nombre-text-helper" class="text-helper">
         <i class="pi pi-exclamation-circle"></i>
@@ -184,10 +206,13 @@
     <ng-template #preguntaVista>
       <div class="pregunta-vista">
         <span>
-          {{ pregunta.get("texto")?.value }} ({{
-            getPresentacionTipo(pregunta.get("tipo")?.value)
-          }})
+          {{ pregunta.get("texto")?.value }} ({{ getPresentacionTipo(pregunta.get("tipo")?.value) }})
+
         </span>
+        <div *ngIf="pregunta.get('multimedia')?.value as media" class="mt-2">
+          <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Imagen" style="max-width: 100%; height: auto;" />
+          <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls style="max-width: 100%; height: auto;"></video>
+        </div>
         <div class="acciones">
           <p-button
             label="Editar"
@@ -240,6 +265,12 @@
     <div class="cabecera-pregunta">
       <span class="numero-pregunta">Pregunta {{ i + 1 }}</span>
       <h4 class="texto-pregunta">{{ pregunta.get('texto')?.value }}</h4>
+    </div>
+
+    <!-- Multimedia en vista previa -->
+    <div *ngIf="pregunta.get('multimedia')?.value as media" class="mb-3">
+      <img *ngIf="media.tipo?.startsWith('image')" [src]="media.url" alt="Imagen" style="max-width: 100%; height: auto;" />
+      <video *ngIf="media.tipo?.startsWith('video')" [src]="media.url" controls style="max-width: 100%; height: auto;"></video>
     </div>
 
     <!-- Abierta -->

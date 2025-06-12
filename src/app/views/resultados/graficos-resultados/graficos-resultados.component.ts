@@ -46,6 +46,7 @@ export class GraficosResultadosComponent {
 
   opcionesGrafico: any;
   opcionesNubePalabras: CloudOptions = {
+    width: 600,
     height: 200,
     overflow: false,
     realignOnResize: true,
@@ -124,7 +125,6 @@ export class GraficosResultadosComponent {
               return rvf.cantidad;
             }
           ),
-          backgroundColor: ['#D1A2F3', '#BAECEB']
         },
       ],
     };

@@ -178,7 +178,7 @@ export class RespuestasComponent implements OnInit {
 
         // Validación de campos vacíos
         if (this.validarRespuestas()) {
-            alert('⚠️ Por favor, completá todas las respuestas antes de enviar la encuesta.');
+            alert('⚠️ Por favor, completa todas las respuestas antes de enviar la encuesta.');
             return;
         }
 
@@ -251,4 +251,12 @@ export class RespuestasComponent implements OnInit {
             },
         });
 }
+// ✅ NUEVOS MÉTODOS PARA MULTIMEDIA
+isImage(url: string): boolean {
+    return /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i.test(url);
+  }
+
+  isVideo(url: string): boolean {
+    return /\.(mp4|webm|ogg)$/i.test(url);
+  }
 }
