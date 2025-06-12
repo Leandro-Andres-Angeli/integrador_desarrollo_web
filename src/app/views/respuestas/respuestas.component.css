@@ -180,6 +180,9 @@ input[type="radio"]:focus {
 }
 
 @media (max-width: 480px) {
+  .navbar {
+    height: 64px;
+  }
   .navbar-buttons {
     display: none;
   }
